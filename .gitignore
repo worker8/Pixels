@@ -28,3 +28,6 @@ crashlytics.properties
 
 # integration tests
 artifacts
+
+
+secret.properties

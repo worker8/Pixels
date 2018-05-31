@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: '../utils.gradle'
 
 android {
     compileSdkVersion 27
@@ -17,16 +18,36 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "IMGUR_API_CLIENT_ID", "\"" + getSecretValue("IMGUR_API_CLIENT_ID") + "\""
+            variant.buildConfigField "String", "REDDIT_API_CLIENT_ID", "\"" + getSecretValue("REDDIT_API_CLIENT_ID") + "\""
+        }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
+    implementation "com.android.support.constraint:constraint-layout:1.1.0"
+    implementation "android.arch.paging:runtime:$pagingVersion"
+    implementation "android.arch.paging:rxjava2:$pagingRxVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "com.github.worker8:JRAW-Android:7a321fc444"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "com.facebook.stetho:stetho:$stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
+
+    //implementation "com.github.mattbdean:JRAW-Android:$jrawAndroidVersion"
+//    implementation "net.dean.jraw:JRAW:$jrawVersion"
+    //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

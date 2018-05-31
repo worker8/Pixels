@@ -5,6 +5,17 @@ buildscript {
         kotlin_version = '1.2.30'
         rxAndroidVersion = '2.0.2'
         rxJavaVersion = '2.1.13'
+        jrawAndroidVersion = 'v1.0.0'
+        jrawVersion = 'v1.0.0'
+        pagingVersion = '1.0.0'
+        pagingRxVersion = '1.0.0-rc1'
+        supportVersion = '27.1.0'
+        retrofitVersion = '2.4.0'
+        glideVersion = '4.7.1'
+        stethoVersion = '1.5.0'
+        picassoVersion = '2.71828'
+        lifecycleVersion ='1.1.1'
+        //ankoVersion = '0.10.5'
     }
     repositories {
         google()
@@ -23,6 +34,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
