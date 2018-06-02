@@ -44,6 +44,7 @@ dependencies {
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
     implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
+    implementation "com.github.worker8:HeaderFooterAdapter:$headerFooterAdapterVersion"
 
     //implementation "com.github.mattbdean:JRAW-Android:$jrawAndroidVersion"
 //    implementation "net.dean.jraw:JRAW:$jrawVersion"

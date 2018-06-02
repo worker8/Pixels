@@ -14,7 +14,8 @@ buildscript {
         glideVersion = '4.7.1'
         stethoVersion = '1.5.0'
         picassoVersion = '2.71828'
-        lifecycleVersion ='1.1.1'
+        lifecycleVersion = '1.1.1'
+        headerFooterAdapterVersion = '0.0.3'
         //ankoVersion = '0.10.5'
     }
     repositories {

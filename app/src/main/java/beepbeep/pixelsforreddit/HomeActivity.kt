@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import beepbeep.pixelsforreddit.common.Status
 import beepbeep.pixelsforreddit.extension.addTo
-import beepbeep.pixelsforreddit.extension.visibility
 import beepbeep.pixelsforreddit.home.HomeAdapter
 import beepbeep.pixelsforreddit.home.HomeRepo
 import beepbeep.pixelsforreddit.home.HomeViewModel
@@ -37,9 +36,14 @@ class HomeActivity : AppCompatActivity() {
             networkState
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
-                homeProgressBar.visibility = (it.status == Status.LOADING).visibility()
-                homeList.visibility = (it.status == Status.SUCCESS).visibility()
-            }.addTo(disposableBag)
+//                        homeProgressBar.visibility = (it.status == Status.LOADING).visibility()
+//                        homeList.visibility = (it.status == Status.SUCCESS).visibility()
+                        if (it.status == Status.LOADING) {
+                            adapter.showFooter()
+                        } else {
+                            adapter.hideFooter()
+                        }
+                    }.addTo(disposableBag)
         }
     }
 
