@@ -36,8 +36,6 @@ class HomeActivity : AppCompatActivity() {
             networkState
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
-//                        homeProgressBar.visibility = (it.status == Status.LOADING).visibility()
-//                        homeList.visibility = (it.status == Status.SUCCESS).visibility()
                         if (it.status == Status.LOADING) {
                             adapter.showFooter()
                         } else {

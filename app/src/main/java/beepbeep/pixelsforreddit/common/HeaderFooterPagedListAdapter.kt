@@ -44,36 +44,38 @@ abstract class HeaderFooterPagedListAdapter<T>(diffCallback: DiffUtil.ItemCallba
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (hasHeader && hasFooter) {
-            if (viewType == ViewType.HEADER) {
+        when {
+            hasHeader && hasFooter -> return when (viewType) {
+                ViewType.HEADER -> {
+                    onCreateHeaderViewHolder(parent)
+                            ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
+                }
+                ViewType.FOOTER -> {
+                    val footer = onCreateFooterViewHolder(parent)
+                    footer
+                            ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
+                }
+                else -> onCreateRealViewHolder(parent, viewType)
+            }
+            hasHeader && !hasFooter -> {
                 val header = onCreateHeaderViewHolder(parent)
-                return header
-                        ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
-            } else if (viewType == ViewType.FOOTER) {
+                return if (viewType == ViewType.HEADER) {
+                    header
+                            ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
+                } else {
+                    onCreateRealViewHolder(parent, viewType)
+                }
+            }
+            !hasHeader && hasFooter -> {
                 val footer = onCreateFooterViewHolder(parent)
-                return footer
-                        ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
-            } else {
-                return onCreateRealViewHolder(parent, viewType)
+                return if (viewType == ViewType.FOOTER) {
+                    footer
+                            ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
+                } else {
+                    onCreateRealViewHolder(parent, viewType)
+                }
             }
-        } else if (hasHeader && !hasFooter) {
-            val header = onCreateHeaderViewHolder(parent)
-            return if (viewType == ViewType.HEADER) {
-                header
-                        ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
-            } else {
-                onCreateRealViewHolder(parent, viewType)
-            }
-        } else if (!hasHeader && hasFooter) {
-            val footer = onCreateFooterViewHolder(parent)
-            return if (viewType == ViewType.FOOTER) {
-                footer
-                        ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
-            } else {
-                onCreateRealViewHolder(parent, viewType)
-            }
-        } else {
-            return onCreateRealViewHolder(parent, viewType)
+            else -> return onCreateRealViewHolder(parent, viewType)
         }
     }
 
@@ -175,24 +177,26 @@ abstract class HeaderFooterPagedListAdapter<T>(diffCallback: DiffUtil.ItemCallba
 
     abstract fun onBindRealViewHolder(holder: RecyclerView.ViewHolder, position: Int)
 
-    /**********
-     * Header
+    /**
+     * override this method to return the Header ViewHolder
      */
-    open fun onCreateHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? {
-        return null
-    }
+    open fun onCreateHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? = null
 
+    /**
+     * override this method to bind the Header ViewHolder
+     */
     open fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder) {
 
     }
 
-    /**********
-     * Footer
+    /**
+     * override this method to return the Footer ViewHolder
      */
-    open fun onCreateFooterViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? {
-        return null
-    }
+    open fun onCreateFooterViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? = null
 
+    /**
+     * override this method to bind the Footer ViewHolder
+     */
     open fun onBindFooterViewHolder(holder: RecyclerView.ViewHolder) {
 
     }
