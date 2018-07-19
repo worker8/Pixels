@@ -5,10 +5,10 @@ import android.arch.paging.PagedList
 import beepbeep.pixelsforreddit.extension.addTo
 import beepbeep.pixelsforreddit.imgur_api.model.GalleryImage
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.BehaviorSubject
 
 class HomeViewModel(val homeRepo: HomeRepo) : ViewModel(), LifecycleObserver {
-    var pagedList: PublishSubject<PagedList<GalleryImage>> = PublishSubject.create()
+    var pagedList: BehaviorSubject<PagedList<GalleryImage>> = BehaviorSubject.create()
     val networkState = homeRepo.getNetworkState()
 
     private val disposableBag = CompositeDisposable()
