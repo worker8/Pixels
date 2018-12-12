@@ -1,5 +1,6 @@
 .gradle/
 local.properties
+api_keys.properties
 
 */build/
 secret.gradle

@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../utils.gradle'
+//apply from: '../utils.gradle'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion Versions.AndroidConfigs.sdkVersion
     defaultConfig {
         applicationId "beepbeep.pixelsforreddit"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion Versions.AndroidConfigs.minSdkVersion
+        targetSdkVersion Versions.AndroidConfigs.sdkVersion
+        versionCode Versions.AndroidConfigs.versionCode
+        versionName Versions.AndroidConfigs.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,38 +19,44 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         applicationVariants.all { variant ->
-            variant.buildConfigField "String", "IMGUR_API_CLIENT_ID", "\"" + getSecretValue("IMGUR_API_CLIENT_ID") + "\""
-            variant.buildConfigField "String", "REDDIT_API_CLIENT_ID", "\"" + getSecretValue("REDDIT_API_CLIENT_ID") + "\""
+            variant.buildConfigField "String", "IMGUR_API_CLIENT_ID", "\"" + Secrets.imgurApiKey + "\""
+            variant.buildConfigField "String", "REDDIT_API_CLIENT_ID", "\"" + Secrets.redditApiKey + "\""
         }
+    }
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-v4:$Versions.support"
+        resolutionStrategy.force "com.android.support:animated-vector-drawable:$Versions.support"
+        resolutionStrategy.force "com.android.support:support-compat:$Versions.support"
+        resolutionStrategy.force "com.android.support:support-media-compat:$Versions.support"
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "com.android.support:recyclerview-v7:$supportVersion"
-    implementation "com.android.support.constraint:constraint-layout:1.1.0"
-    implementation "android.arch.paging:runtime:$pagingVersion"
-    implementation "android.arch.paging:rxjava2:$pagingRxVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Versions.Tools.kotlin"
+    implementation "com.android.support:appcompat-v7:$Versions.support"
+    implementation "com.android.support:recyclerview-v7:$Versions.support"
+    implementation "com.android.support.constraint:constraint-layout:$Versions.constraintLayout"
+    implementation "android.arch.paging:runtime:$Versions.paging"
+    implementation "android.arch.paging:rxjava2:$Versions.pagingRx"
+    implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
     implementation "com.github.worker8:JRAW-Android:7a321fc444"
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    implementation "com.facebook.stetho:stetho:$stethoVersion"
-    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
-    implementation "com.squareup.picasso:picasso:$picassoVersion"
-    implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
-    implementation "com.github.worker8:HeaderFooterAdapter:$headerFooterAdapterVersion"
+    implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
+    implementation "com.github.bumptech.glide:glide:$Versions.glide"
+    implementation "com.facebook.stetho:stetho:$Versions.stetho"
+    implementation "com.facebook.stetho:stetho-okhttp3:$Versions.stetho"
+    implementation "com.squareup.picasso:picasso:$Versions.picasso"
+    implementation "android.arch.lifecycle:extensions:$Versions.lifecycle"
+    implementation "com.github.worker8:HeaderFooterAdapter:$Versions.headerFooterAdapter"
 
-    //implementation "com.github.mattbdean:JRAW-Android:$jrawAndroidVersion"
+    //implementation "com.github.mattbdean:JRAW-Android:$Versions.jrawAndroid"
 //    implementation "net.dean.jraw:JRAW:$jrawVersion"
     //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "junit:junit:$Versions.junit"
+    androidTestImplementation "com.android.support.test:runner:$Versions.testRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$Versions.espressoCore"
 }

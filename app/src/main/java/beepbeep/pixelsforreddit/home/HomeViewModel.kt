@@ -28,7 +28,7 @@ class HomeViewModel(val homeRepo: HomeRepo) : ViewModel(), LifecycleObserver {
 }
 
 class HomeViewModelFactory(val homeRepo: HomeRepo) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(homeRepo) as T
     }
 }
