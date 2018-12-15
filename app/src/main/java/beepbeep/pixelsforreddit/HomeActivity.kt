@@ -17,13 +17,14 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
     private val adapter = HomeAdapter()
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by lazy {
+        ViewModelProviders.of(this, HomeViewModelFactory(HomeRepo())).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
+    }
     private val disposableBag = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        viewModel = ViewModelProviders.of(this, HomeViewModelFactory(HomeRepo())).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
         lifecycle.addObserver(viewModel)
         setupView()
 
