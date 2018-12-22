@@ -5,4 +5,4 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.FragmentActivity
 
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel() =
-        ViewModelProviders.of(this).get(T::class.java)
+    ViewModelProviders.of(this).get(T::class.java)

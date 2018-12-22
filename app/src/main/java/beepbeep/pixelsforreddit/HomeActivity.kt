@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import beepbeep.pixelsforreddit.extension.addTo
-import beepbeep.pixelsforreddit.home.*
+import beepbeep.pixelsforreddit.home.HomeAdapter
+import beepbeep.pixelsforreddit.home.HomeRepo
+import beepbeep.pixelsforreddit.home.HomeViewModel
+import beepbeep.pixelsforreddit.home.HomeViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_home.*
@@ -24,10 +27,10 @@ class HomeActivity : AppCompatActivity() {
         setupView()
         viewModel.apply {
             pagedList
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        adapter.submitList(it.value.valueList)
-                    }.addTo(disposableBag)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    adapter.submitList(it.value.valueList)
+                }.addTo(disposableBag)
         }
     }
 

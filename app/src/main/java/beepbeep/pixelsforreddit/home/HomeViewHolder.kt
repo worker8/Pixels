@@ -19,13 +19,13 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             context?.also { _context ->
 
                 val cropOptions = RequestOptions()
-                        .fitCenter()
-                        .placeholder(ColorDrawable(0xaaAAaa))
+                    .fitCenter()
+                    .placeholder(ColorDrawable(0xaaAAaa))
                 Log.d("ddw", "redditLink.url: ${redditLink.value.url}")
                 Glide.with(_context)
-                        .load(redditLink.value.url)
-                        .apply(cropOptions)
-                        .into(homeItemImage)
+                    .load(redditLink.value.url)
+                    .apply(cropOptions)
+                    .into(homeItemImage)
             }
 
             homeItemTitle.text = redditLink.value.title
@@ -34,8 +34,8 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     companion object {
         fun create(parent: ViewGroup) =
-                LayoutInflater.from(parent.context)
-                        .inflate(R.layout.home_item, parent, false)
-                        .let { HomeViewHolder(it) }
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.home_item, parent, false)
+                .let { HomeViewHolder(it) }
     }
 }

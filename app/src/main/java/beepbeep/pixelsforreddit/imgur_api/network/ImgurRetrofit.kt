@@ -6,8 +6,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val retrofit = Retrofit.Builder()
-        .baseUrl(IMGUR_API_BASE_URL)
-        .client(imgurOkHttpClient)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    .baseUrl(IMGUR_API_BASE_URL)
+    .client(imgurOkHttpClient)
+    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()

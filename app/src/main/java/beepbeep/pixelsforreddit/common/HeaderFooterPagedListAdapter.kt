@@ -48,12 +48,12 @@ abstract class HeaderFooterPagedListAdapter<T>(diffCallback: DiffUtil.ItemCallba
             hasHeader && hasFooter -> return when (viewType) {
                 ViewType.HEADER -> {
                     onCreateHeaderViewHolder(parent)
-                            ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
+                        ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
                 }
                 ViewType.FOOTER -> {
                     val footer = onCreateFooterViewHolder(parent)
                     footer
-                            ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
+                        ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
                 }
                 else -> onCreateRealViewHolder(parent, viewType)
             }
@@ -61,7 +61,7 @@ abstract class HeaderFooterPagedListAdapter<T>(diffCallback: DiffUtil.ItemCallba
                 val header = onCreateHeaderViewHolder(parent)
                 return if (viewType == ViewType.HEADER) {
                     header
-                            ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
+                        ?: throw IllegalStateException("onCreateHeaderViewHolder() is returning null, it must be overridden and cannot return null")
                 } else {
                     onCreateRealViewHolder(parent, viewType)
                 }
@@ -70,7 +70,7 @@ abstract class HeaderFooterPagedListAdapter<T>(diffCallback: DiffUtil.ItemCallba
                 val footer = onCreateFooterViewHolder(parent)
                 return if (viewType == ViewType.FOOTER) {
                     footer
-                            ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
+                        ?: throw IllegalStateException("onCreateFooterViewHolder() is returning null, it must be overridden and cannot return null")
                 } else {
                     onCreateRealViewHolder(parent, viewType)
                 }

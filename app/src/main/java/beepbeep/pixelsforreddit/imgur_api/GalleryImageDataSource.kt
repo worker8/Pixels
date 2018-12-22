@@ -18,33 +18,33 @@ class GalleryImageDataSource(val galleryService: GalleryService) : PageKeyedData
         val firstPage = 0
         networkState.onNext(NetworkState.LOADING)
         galleryService.getGallery(firstPage)
-                .map {
-                    it.data.removeAll(it.data.takeLast(it.data.size - 10))
-                    it
-                }
-                .delay(2, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .subscribe {
-                    networkState.onNext(NetworkState.SUCCESS)
-                    callback.onResult(it.data, firstPage - 1, firstPage + 1)
-                }
-                .addTo(disposableBag)
+            .map {
+                it.data.removeAll(it.data.takeLast(it.data.size - 10))
+                it
+            }
+            .delay(2, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .subscribe {
+                networkState.onNext(NetworkState.SUCCESS)
+                callback.onResult(it.data, firstPage - 1, firstPage + 1)
+            }
+            .addTo(disposableBag)
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, GalleryImage>) {
         networkState.onNext(NetworkState.LOADING)
         galleryService.getGallery(params.key)
-                .map {
-                    it.data.removeAll(it.data.takeLast(it.data.size - 10))
-                    it
-                }
-                .delay(2, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .subscribe {
-                    networkState.onNext(NetworkState.SUCCESS)
-                    callback.onResult(it.data, params.key + 1)
-                }
-                .addTo(disposableBag)
+            .map {
+                it.data.removeAll(it.data.takeLast(it.data.size - 10))
+                it
+            }
+            .delay(2, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.io())
+            .subscribe {
+                networkState.onNext(NetworkState.SUCCESS)
+                callback.onResult(it.data, params.key + 1)
+            }
+            .addTo(disposableBag)
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, GalleryImage>) {

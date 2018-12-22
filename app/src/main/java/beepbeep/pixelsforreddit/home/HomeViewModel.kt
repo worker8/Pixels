@@ -7,45 +7,28 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
 class HomeViewModel(val repo: HomeRepo) : ViewModel(), LifecycleObserver {
-    var pagedList: BehaviorSubject<Listing> = BehaviorSubject.create()
-    //val networkState = homeRepo.getNetworkState()
+    var pagedList: BehaviorSubject<Listing> = BehaviorSubject.create() //val networkState = homeRepo.getNetworkState()
     private val disposableBag = CompositeDisposable()
-
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-//        repo.getUserlessPaginator()
-//                .map { paginator -> repo.getSubmissions() }
-//                .subscribeOn(repo.getBackgroundThread())
-//                .observeOn(repo.getMainThread())
-//                .map { listing ->
-//                    listing.filter { submission -> submission.url.isImageUrl() && !submission.isNsfw }
-//                }
-//                .subscribe { listing ->
-//                    pagedList.onNext(listing)
-//                    listing.forEach {
-//                        Log.d("ddw", "[filtered] ${it.url}")
-//                    }
-//                }
-//                .addTo(disposableBag)
         repo.getPosts()
-                .doOnNext { (listing, fuelError) ->
-                    fuelError?.printStackTrace()
+            .doOnNext { (listing, fuelError) ->
+                fuelError?.printStackTrace()
+            }
+            .subscribeOn(repo.getBackgroundThread())
+            .observeOn(repo.getMainThread())
+            .subscribe { (listing, fuelError) ->
+                listing?.let {
+                    pagedList.onNext(it)
                 }
-                .subscribeOn(repo.getBackgroundThread())
-                .observeOn(repo.getMainThread())
-                .subscribe { (listing, fuelError) ->
-                    listing?.let {
-                        pagedList.onNext(it)
-                    }
-                }
-                .addTo(disposableBag)
+            }
+            .addTo(disposableBag)
 
     }
 
     override fun onCleared() {
         super.onCleared()
-//        homeRepo.dispose()
         disposableBag.dispose()
     }
 }
