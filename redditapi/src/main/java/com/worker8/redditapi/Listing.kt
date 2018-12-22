@@ -10,6 +10,6 @@ data class Listing(
         val kind: String
 ){
     class Deserializer : ResponseDeserializable<Listing> {
-        override fun deserialize(reader: Reader) = RedditApi2.gson.fromJson(reader, Listing::class.java)
+        override fun deserialize(reader: Reader) = RedditApi.gson.fromJson(reader, Listing::class.java)
     }
 }

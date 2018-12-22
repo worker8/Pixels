@@ -2,7 +2,7 @@ package com.example.redditapi
 
 import android.support.test.runner.AndroidJUnit4
 import android.util.Log
-import com.worker8.redditapi.RedditApi2
+import com.worker8.redditapi.RedditApi
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 class RedditApi2Test {
     @Test
     fun testJraw() {
-        val redditApi2 = RedditApi2()
+        val redditApi2 = RedditApi()
         Log.d("ddw","HELLOW!!")
         System.out.println("asdasdsadsadasdsaadsasadsadAAAA")
 

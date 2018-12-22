@@ -6,7 +6,7 @@ import com.worker8.redditapi.Listing
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
-class HomeViewModel(val repo: HomeRepo2) : ViewModel(), LifecycleObserver {
+class HomeViewModel(val repo: HomeRepo) : ViewModel(), LifecycleObserver {
     var pagedList: BehaviorSubject<Listing> = BehaviorSubject.create()
     //val networkState = homeRepo.getNetworkState()
     private val disposableBag = CompositeDisposable()
@@ -51,7 +51,7 @@ class HomeViewModel(val repo: HomeRepo2) : ViewModel(), LifecycleObserver {
 }
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory(val homeRepo: HomeRepo2) : ViewModelProvider.NewInstanceFactory() {
+class HomeViewModelFactory(val homeRepo: HomeRepo) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(homeRepo) as T
     }

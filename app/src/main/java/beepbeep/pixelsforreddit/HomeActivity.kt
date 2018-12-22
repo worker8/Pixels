@@ -4,19 +4,16 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
-import android.util.Log
 import beepbeep.pixelsforreddit.extension.addTo
 import beepbeep.pixelsforreddit.home.*
-import com.worker8.redditapi.RedditApi2
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
     private val adapter = HomeAdapter()
     private val viewModel: HomeViewModel by lazy {
-        ViewModelProviders.of(this, HomeViewModelFactory(HomeRepo2())).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
+        ViewModelProviders.of(this, HomeViewModelFactory(HomeRepo())).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
     }
     private val disposableBag = CompositeDisposable()
 

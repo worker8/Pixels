@@ -8,7 +8,7 @@ import org.junit.Test
 class RedditApi2Test {
     @Test
     fun testJraw() {
-        val redditApi2 = RedditApi2()
+        val redditApi2 = RedditApi()
         redditApi2.getPosts()
                 .subscribe { (response, fuelError) ->
                     response?.let {

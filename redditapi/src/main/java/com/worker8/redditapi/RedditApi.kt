@@ -7,7 +7,7 @@ import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import io.reactivex.Observable
 
-class RedditApi2(val subreddit: String = "pics") {
+class RedditApi(val subreddit: String = "pics") {
     val REDDIT_API_BASE = "https://www.reddit.com/r/"
 
     fun getPosts(): Observable<Result<Listing, FuelError>> =

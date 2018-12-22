@@ -13,7 +13,7 @@ import com.worker8.redditapi.RedditLink
 import kotlinx.android.synthetic.main.home_item.view.*
 
 
-class HomeViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(redditLink: RedditLink) {
         itemView.apply {
             context?.also { _context ->
@@ -36,6 +36,6 @@ class HomeViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun create(parent: ViewGroup) =
                 LayoutInflater.from(parent.context)
                         .inflate(R.layout.home_item, parent, false)
-                        .let { HomeViewHolder2(it) }
+                        .let { HomeViewHolder(it) }
     }
 }
