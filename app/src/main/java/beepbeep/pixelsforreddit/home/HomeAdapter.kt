@@ -3,10 +3,8 @@ package beepbeep.pixelsforreddit.home
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
-import android.system.Os.bind
 import android.view.ViewGroup
 import com.worker8.redditapi.RedditLink
-import net.dean.jraw.models.Submission
 
 class HomeAdapter : ListAdapter<RedditLink, RecyclerView.ViewHolder>(POST_COMPARATOR) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

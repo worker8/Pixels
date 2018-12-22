@@ -25,33 +25,12 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         lifecycle.addObserver(viewModel)
         setupView()
-//                RedditApi2().getPosts()
-//                        .subscribeOn(Schedulers.io())
-//                        .subscribe { (response, fuelError) ->
-//                            response?.let { _listing ->
-//                                _listing.value.children.forEach { _child ->
-//                                    Log.d("ccw", "${_child.data.title}")
-//                                }
-//
-//                                //System.out.println(it)
-//                            }
-//                            fuelError?.printStackTrace()
-//                        }
         viewModel.apply {
             pagedList
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
                         adapter.submitList(it.value.valueList)
                     }.addTo(disposableBag)
-//            networkState
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe {
-//                        if (it.status == Status.LOADING) {
-//                            adapter.showFooter()
-//                        } else {
-//                            adapter.hideFooter()
-//                        }
-//                    }.addTo(disposableBag)
         }
     }
 

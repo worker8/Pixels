@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.worker8.redditapi.RedditLink
 import kotlinx.android.synthetic.main.home_item.view.*
-import net.dean.jraw.models.Submission
 
 
 class HomeViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {

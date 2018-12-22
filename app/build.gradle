@@ -43,7 +43,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
 
-    //implementation "com.github.worker8:JRAW-Android:v1.1.0"
     implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
@@ -56,10 +55,6 @@ dependencies {
     implementation project(':redditapi')
     implementation "com.github.kittinunf.fuel:fuel-android:$Versions.fuel"
     implementation "com.github.kittinunf.fuel:fuel-rxjava:$Versions.fuel"
-    implementation "net.dean.jraw:JRAW:$Versions.jraw"
-    //implementation "com.github.mattbdean:JRAW-Android:$Versions.jrawAndroid"
-
-    //    implementation "net.dean.jraw:JRAW:$jrawVersion"
 
     //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
     testImplementation "junit:junit:$Versions.junit"
