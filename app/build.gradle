@@ -1,6 +1,7 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
 //apply from: '../utils.gradle'
 
 android {
@@ -32,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Versions.Tools.kotlin"
     implementation "com.android.support:appcompat-v7:$Versions.support"
     implementation "com.android.support:recyclerview-v7:$Versions.support"
@@ -41,7 +42,8 @@ dependencies {
     implementation "android.arch.paging:rxjava2:$Versions.pagingRx"
     implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
-    implementation "com.github.worker8:JRAW-Android:7a321fc444"
+
+    //implementation "com.github.worker8:JRAW-Android:v1.1.0"
     implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
@@ -51,12 +53,17 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$Versions.picasso"
     implementation "android.arch.lifecycle:extensions:$Versions.lifecycle"
     implementation "com.github.worker8:HeaderFooterAdapter:$Versions.headerFooterAdapter"
-
+    implementation project(':redditapi')
+    implementation "com.github.kittinunf.fuel:fuel-android:$Versions.fuel"
+    implementation "com.github.kittinunf.fuel:fuel-rxjava:$Versions.fuel"
+    implementation "net.dean.jraw:JRAW:$Versions.jraw"
     //implementation "com.github.mattbdean:JRAW-Android:$Versions.jrawAndroid"
-//    implementation "net.dean.jraw:JRAW:$jrawVersion"
-    //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
 
+    //    implementation "net.dean.jraw:JRAW:$jrawVersion"
+
+    //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
     testImplementation "junit:junit:$Versions.junit"
     androidTestImplementation "com.android.support.test:runner:$Versions.testRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$Versions.espressoCore"
+
 }

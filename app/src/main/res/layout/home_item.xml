@@ -12,12 +12,11 @@
         android:id="@+id/homeItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:paddingBottom="15dp"
+        android:fontFamily="sans-serif-condensed"
         android:paddingStart="15dp"
         android:paddingTop="20dp"
+        android:paddingBottom="15dp"
         android:textSize="18sp"
-        android:textStyle="bold"
         tools:text="This is a title" />
 
     <ImageView
@@ -29,5 +28,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeItemTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/homeItemTitle"
+        tools:src="@tools:sample/backgrounds/scenic" />
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,3 @@
+<resources>
+    <attr name="subtleBackground" format="reference|color" />
+</resources>

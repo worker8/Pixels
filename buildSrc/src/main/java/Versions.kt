@@ -3,7 +3,8 @@ object Versions {
     val AndroidConfigs = AndroidConfig()
 
     //    val jrawAndroid = "v1.0.0"
-//    val jraw = "v1.0.0"
+//    val jraw = "1.0.0"
+    val jraw = "0.9.0"
     val paging = "1.0.0"
     val pagingRx = "1.0.0-rc1"
     val glide = "4.7.1"
@@ -21,7 +22,9 @@ object Versions {
     val testRunner = "1.0.2"
     val espressoCore = "3.0.2"
     val stetho = "1.5.0"
-
+    val cyanea = "1.0.1"
+    val result = "2.0.0"
+    val fuel = "1.15.1"
 }
 
 class Tool {

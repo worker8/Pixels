@@ -1,33 +1,57 @@
 package beepbeep.pixelsforreddit.home
 
 import android.arch.lifecycle.*
-import android.arch.paging.PagedList
 import beepbeep.pixelsforreddit.extension.addTo
-import beepbeep.pixelsforreddit.imgur_api.model.GalleryImage
+import com.worker8.redditapi.Listing
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 
-class HomeViewModel(val homeRepo: HomeRepo) : ViewModel(), LifecycleObserver {
-    var pagedList: BehaviorSubject<PagedList<GalleryImage>> = BehaviorSubject.create()
-    val networkState = homeRepo.getNetworkState()
-
+class HomeViewModel(val repo: HomeRepo2) : ViewModel(), LifecycleObserver {
+    var pagedList: BehaviorSubject<Listing> = BehaviorSubject.create()
+    //val networkState = homeRepo.getNetworkState()
     private val disposableBag = CompositeDisposable()
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        homeRepo.getDataSource()
-                .subscribe { pagedList.onNext(it) }
+//        repo.getUserlessPaginator()
+//                .map { paginator -> repo.getSubmissions() }
+//                .subscribeOn(repo.getBackgroundThread())
+//                .observeOn(repo.getMainThread())
+//                .map { listing ->
+//                    listing.filter { submission -> submission.url.isImageUrl() && !submission.isNsfw }
+//                }
+//                .subscribe { listing ->
+//                    pagedList.onNext(listing)
+//                    listing.forEach {
+//                        Log.d("ddw", "[filtered] ${it.url}")
+//                    }
+//                }
+//                .addTo(disposableBag)
+        repo.getPosts()
+                .doOnNext { (listing, fuelError) ->
+                    fuelError?.printStackTrace()
+                }
+                .subscribeOn(repo.getBackgroundThread())
+                .observeOn(repo.getMainThread())
+                .subscribe { (listing, fuelError) ->
+                    listing?.let {
+                        pagedList.onNext(it)
+                    }
+                }
                 .addTo(disposableBag)
+
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() {
+    override fun onCleared() {
+        super.onCleared()
+//        homeRepo.dispose()
         disposableBag.dispose()
     }
-
 }
 
-class HomeViewModelFactory(val homeRepo: HomeRepo) : ViewModelProvider.NewInstanceFactory() {
+@Suppress("UNCHECKED_CAST")
+class HomeViewModelFactory(val homeRepo: HomeRepo2) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(homeRepo) as T
     }
