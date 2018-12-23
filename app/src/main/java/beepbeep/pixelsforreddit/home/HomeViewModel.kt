@@ -1,6 +1,7 @@
 package beepbeep.pixelsforreddit.home
 
 import android.arch.lifecycle.*
+import android.util.Log
 import beepbeep.pixelsforreddit.extension.addTo
 import com.worker8.redditapi.Listing
 import io.reactivex.Observable
@@ -21,16 +22,19 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
         input.apply {
             Observable.fromCallable { isConnectedToInternet() }
                 .filter { it }
+                .doOnNext { viewAction.showLoadingProgressBar(true) }
                 .flatMap { repo.getPosts() }
                 .doOnNext { (listing, fuelError) ->
-                    fuelError?.printStackTrace()
+                    Log.d("ddw", "$fuelError")
+                    fuelError?.let {
+                        it.printStackTrace()
+                        viewAction.showLoadingProgressBar(false)
+                    }
                 }
                 .subscribeOn(repo.getBackgroundThread())
                 .observeOn(repo.getMainThread())
                 .subscribe { (listing, fuelError) ->
-                    listing?.let {
-
-                    }
+                    viewAction.showLoadingProgressBar(false)
                     listing?.let {
                         pagedList.onNext(it)
                     }

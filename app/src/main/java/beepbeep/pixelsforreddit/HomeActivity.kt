@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import beepbeep.pixelsforreddit.extension.addTo
 import beepbeep.pixelsforreddit.extension.isConnectedToInternet
+import beepbeep.pixelsforreddit.extension.visibility
 import beepbeep.pixelsforreddit.home.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,6 +24,10 @@ class HomeActivity : AppCompatActivity() {
 
     }
     private val viewAction = object : HomeContract.ViewAction {
+        override fun showLoadingProgressBar(isLoading: Boolean) {
+            homeProgressBar.visibility = isLoading.visibility()
+        }
+
         override fun showNoNetworkError() {
             Snackbar.make(this@HomeActivity.window.decorView, R.string.no_network, Snackbar.LENGTH_SHORT).show()
         }

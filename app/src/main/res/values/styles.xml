@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">#283593</item>
         <item name="android:background">@color/md_blue_grey_50</item>
+        <item name="android:windowBackground">@color/md_white_1000</item>
         <item name="subtleBackground">@color/md_blue_grey_100</item>
     </style>
 

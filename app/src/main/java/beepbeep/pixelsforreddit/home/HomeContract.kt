@@ -7,5 +7,6 @@ class HomeContract {
 
     interface ViewAction {
         fun showNoNetworkError()
+        fun showLoadingProgressBar(isLoading:Boolean)
     }
 }
