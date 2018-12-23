@@ -2,13 +2,12 @@ package beepbeep.pixelsforreddit
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import beepbeep.pixelsforreddit.extension.addTo
-import beepbeep.pixelsforreddit.home.HomeAdapter
-import beepbeep.pixelsforreddit.home.HomeRepo
-import beepbeep.pixelsforreddit.home.HomeViewModel
-import beepbeep.pixelsforreddit.home.HomeViewModelFactory
+import beepbeep.pixelsforreddit.extension.isConnectedToInternet
+import beepbeep.pixelsforreddit.home.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_home.*
@@ -16,9 +15,18 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
     private val adapter = HomeAdapter()
     private val viewModel: HomeViewModel by lazy {
-        ViewModelProviders.of(this, HomeViewModelFactory(HomeRepo())).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
+        ViewModelProviders.of(this, HomeViewModelFactory(input, HomeRepo(), viewAction)).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
     }
     private val disposableBag = CompositeDisposable()
+    private val input = object : HomeContract.Input {
+        override fun isConnectedToInternet() = this@HomeActivity.isConnectedToInternet()
+
+    }
+    private val viewAction = object : HomeContract.ViewAction {
+        override fun showNoNetworkError() {
+            Snackbar.make(this@HomeActivity.window.decorView, R.string.no_network, Snackbar.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
             pagedList
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    adapter.submitList(it.value.valueList)
+                    adapter.submitList(it.value.getRedditImageLinks())
                 }.addTo(disposableBag)
         }
     }

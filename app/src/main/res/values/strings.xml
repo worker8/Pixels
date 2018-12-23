@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">pixelsforreddit</string>
+    <string name="app_name">Pix for Reddit</string>
+    <string name="no_network">No internet connection</string>
 </resources>

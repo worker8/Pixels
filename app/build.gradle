@@ -42,7 +42,7 @@ dependencies {
     implementation "android.arch.paging:rxjava2:$Versions.pagingRx"
     implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
-
+    implementation "com.android.support:design:$Versions.support"
     implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
