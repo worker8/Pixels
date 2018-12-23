@@ -24,6 +24,10 @@ class HomeActivity : AppCompatActivity() {
 
     }
     private val viewAction = object : HomeContract.ViewAction {
+        override fun showBottomLoadingProgresBar(isLoading: Boolean) {
+            homeBottomProgressBar.visibility = isLoading.visibility()
+        }
+
         override fun showLoadingProgressBar(isLoading: Boolean) {
             homeProgressBar.visibility = isLoading.visibility()
         }
