@@ -48,6 +48,7 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
     implementation "com.github.bumptech.glide:glide:$Versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$Versions.glide"
     implementation "com.facebook.stetho:stetho:$Versions.stetho"
     implementation "com.facebook.stetho:stetho-okhttp3:$Versions.stetho"
     implementation "com.squareup.picasso:picasso:$Versions.picasso"

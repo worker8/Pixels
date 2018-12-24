@@ -14,6 +14,5 @@ class PixelApplication : Application() {
 
     companion object {
         private var _applicationContext: Context? = null
-        val applicationContext by lazy { _applicationContext!! }
     }
 }

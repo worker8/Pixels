@@ -7,7 +7,7 @@ object Versions {
     val jraw = "0.9.0"
     val paging = "1.0.0"
     val pagingRx = "1.0.0-rc1"
-    val glide = "4.7.1"
+    val glide = "4.8.0"
     val lifecycle = "1.1.1"
     val headerFooterAdapter = "0.0.3"
     val rxJava = "2.1.13"

@@ -1,6 +1,7 @@
 package beepbeep.pixelsforreddit
 
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -33,7 +34,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
         override fun showNoNetworkError() {
-            Snackbar.make(this@HomeActivity.window.decorView, R.string.no_network, Snackbar.LENGTH_SHORT).show()
+            val snackbar = Snackbar.make(homeRootView, R.string.no_network, Snackbar.LENGTH_SHORT)
+            //snackbar.view.setBackgroundColor(Color.BLACK)
+            snackbar.show()
         }
     }
 
