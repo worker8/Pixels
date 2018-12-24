@@ -15,5 +15,5 @@ class HomeContract {
         fun showBottomLoadingProgresBar(isLoading: Boolean)
     }
 
-    data class Output(val redditPosts: Listing = Listing())
+    data class ScreenState(val redditPosts: Listing = Listing())
 }

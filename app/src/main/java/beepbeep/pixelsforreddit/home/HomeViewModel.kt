@@ -3,6 +3,7 @@ package beepbeep.pixelsforreddit.home
 import android.arch.lifecycle.*
 import android.util.Log
 import beepbeep.pixelsforreddit.extension.addTo
+import beepbeep.pixelsforreddit.extension.nonNullValue
 import com.worker8.redditapi.Listing
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +11,16 @@ import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
 class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewAction: HomeContract.ViewAction) : ViewModel(), LifecycleObserver {
-    var pagedList: BehaviorSubject<Listing> = BehaviorSubject.create() //val networkState = homeRepo.getNetworkState()
+    private val screenStateSubject = BehaviorSubject.createDefault<HomeContract.ScreenState>(HomeContract.ScreenState())
+    var screenState = screenStateSubject.hide().observeOn(repo.getMainThread())
+
+    private val currentScreenState
+        get() = screenStateSubject.nonNullValue
+
+    private fun dispatch(newScreenState: HomeContract.ScreenState) {
+        screenStateSubject.onNext(newScreenState)
+    }
+
     private val disposableBag = CompositeDisposable()
 
     private fun setupNoNetwork() {
@@ -37,7 +47,7 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
                 .subscribe { (listing, fuelError) ->
                     viewAction.showLoadingProgressBar(false)
                     listing?.let {
-                        pagedList.onNext(it)
+                        dispatch(currentScreenState.copy(redditPosts = it))
                     }
                 }
                 .addTo(disposableBag)

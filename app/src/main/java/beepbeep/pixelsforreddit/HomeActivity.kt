@@ -43,13 +43,11 @@ class HomeActivity : AppCompatActivity() {
         lifecycle.addObserver(viewModel)
         setupView()
 
-        viewModel.apply {
-            pagedList
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    adapter.submitList(it.value.getRedditImageLinks())
-                }.addTo(disposableBag)
-        }
+        viewModel.screenState
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { adapter.submitList(it.redditPosts.value.getRedditImageLinks()) }
+            .addTo(disposableBag)
+
     }
 
     override fun onDestroy() {
