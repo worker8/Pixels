@@ -38,44 +38,39 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
                 .observeOn(repo.getMainThread())
                 .filter { isConnectedToInternet() }
                 .filter { !isLoading }
-                .doOnNext { viewAction.showLoadingProgressBar(true) }
+                .doOnNext {
+                    if (currentScreenState.redditLinks.isEmpty()) {
+                        viewAction.showLoadingProgressBar(true)
+                    } else {
+                        viewAction.showBottomLoadingProgresBar(true)
+                    }
+                }
                 .doOnNext { isLoading = true }
-
                 .observeOn(repo.getBackgroundThread())
                 .flatMap { repo.getMorePosts() }
-
                 .observeOn(repo.getMainThread())
                 .doOnNext { (listing, fuelError) ->
                     Log.d("ddw", "$fuelError")
                     fuelError?.let {
                         it.printStackTrace()
                         viewAction.showLoadingProgressBar(false)
-
+                        viewAction.showBottomLoadingProgresBar(false)
                     }
                     isLoading = false
                 }
                 .observeOn(repo.getMainThread())
                 .subscribe({ (listing, fuelError) ->
                     viewAction.showLoadingProgressBar(false)
+                    viewAction.showBottomLoadingProgresBar(false)
                     listing?.let {
                         dispatch(currentScreenState.copy(redditLinks = currentScreenState.redditLinks + it.value.getRedditImageLinks()))
                     }
                 }, {
                     isLoading = false
                     viewAction.showLoadingProgressBar(false)
+                    viewAction.showBottomLoadingProgresBar(false)
                 })
                 .addTo(disposableBag)
-//
-//            loadMore
-//                .doOnNext { Log.d("ddw", "scrollevent - bottom...") }
-//                .filter { !isLoading }
-//                .doOnNext { isLoading = true }
-//                .doOnNext { Log.d("ddw", "scrollevent - loading...") }
-//                .delay(3000, TimeUnit.MILLISECONDS)
-//                .observeOn(repo.getMainThread())
-//                .doOnNext { Log.d("ddw", "scrollevent - done!") }
-//                .subscribe { isLoading = false }
-//                .addTo(disposableBag)
 
             initialLoadTrigger.onNext(Unit)
         }
