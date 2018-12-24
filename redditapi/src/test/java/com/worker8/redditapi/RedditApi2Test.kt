@@ -9,7 +9,7 @@ class RedditApi2Test {
     @Test
     fun testJraw() {
         val redditApi2 = RedditApi()
-        redditApi2.getPosts()
+        redditApi2.getMorePosts()
                 .subscribe { (response, fuelError) ->
                     response?.let {
                         Log.d("ddw","$it")

@@ -45,7 +45,7 @@ class HomeActivity : AppCompatActivity() {
 
         viewModel.screenState
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { adapter.submitList(it.redditPosts.value.getRedditImageLinks()) }
+            .subscribe { adapter.submitList(it.redditLinks) }
             .addTo(disposableBag)
 
     }

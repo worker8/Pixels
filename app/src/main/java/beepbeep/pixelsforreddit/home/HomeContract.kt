@@ -1,6 +1,7 @@
 package beepbeep.pixelsforreddit.home
 
 import com.worker8.redditapi.Listing
+import com.worker8.redditapi.RedditLink
 import io.reactivex.Observable
 
 class HomeContract {
@@ -15,5 +16,5 @@ class HomeContract {
         fun showBottomLoadingProgresBar(isLoading: Boolean)
     }
 
-    data class ScreenState(val redditPosts: Listing = Listing())
+    data class ScreenState(val redditLinks: List<RedditLink> = listOf())
 }

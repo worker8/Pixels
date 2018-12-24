@@ -4,11 +4,10 @@ import android.arch.lifecycle.*
 import android.util.Log
 import beepbeep.pixelsforreddit.extension.addTo
 import beepbeep.pixelsforreddit.extension.nonNullValue
-import com.worker8.redditapi.Listing
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
+import io.reactivex.subjects.PublishSubject
 
 class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewAction: HomeContract.ViewAction) : ViewModel(), LifecycleObserver {
     private val screenStateSubject = BehaviorSubject.createDefault<HomeContract.ScreenState>(HomeContract.ScreenState())
@@ -21,6 +20,8 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
         screenStateSubject.onNext(newScreenState)
     }
 
+    var isLoading = false
+
     private val disposableBag = CompositeDisposable()
 
     private fun setupNoNetwork() {
@@ -29,43 +30,56 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
         }
     }
 
+    private val initialLoadTrigger: PublishSubject<Unit> = PublishSubject.create()
+
     private fun setupGetNewPosts() {
         input.apply {
-            Observable.fromCallable { isConnectedToInternet() }
-                .filter { it }
+            Observable.merge(initialLoadTrigger, loadMore)
+                .observeOn(repo.getMainThread())
+                .filter { isConnectedToInternet() }
+                .filter { !isLoading }
                 .doOnNext { viewAction.showLoadingProgressBar(true) }
-                .flatMap { repo.getPosts() }
+                .doOnNext { isLoading = true }
+
+                .observeOn(repo.getBackgroundThread())
+                .flatMap { repo.getMorePosts() }
+
+                .observeOn(repo.getMainThread())
                 .doOnNext { (listing, fuelError) ->
                     Log.d("ddw", "$fuelError")
                     fuelError?.let {
                         it.printStackTrace()
                         viewAction.showLoadingProgressBar(false)
+
                     }
+                    isLoading = false
                 }
-                .subscribeOn(repo.getBackgroundThread())
                 .observeOn(repo.getMainThread())
-                .subscribe { (listing, fuelError) ->
+                .subscribe({ (listing, fuelError) ->
                     viewAction.showLoadingProgressBar(false)
                     listing?.let {
-                        dispatch(currentScreenState.copy(redditPosts = it))
+                        dispatch(currentScreenState.copy(redditLinks = currentScreenState.redditLinks + it.value.getRedditImageLinks()))
                     }
-                }
+                }, {
+                    isLoading = false
+                    viewAction.showLoadingProgressBar(false)
+                })
                 .addTo(disposableBag)
+//
+//            loadMore
+//                .doOnNext { Log.d("ddw", "scrollevent - bottom...") }
+//                .filter { !isLoading }
+//                .doOnNext { isLoading = true }
+//                .doOnNext { Log.d("ddw", "scrollevent - loading...") }
+//                .delay(3000, TimeUnit.MILLISECONDS)
+//                .observeOn(repo.getMainThread())
+//                .doOnNext { Log.d("ddw", "scrollevent - done!") }
+//                .subscribe { isLoading = false }
+//                .addTo(disposableBag)
 
-            loadMore
-                .doOnNext { Log.d("ddw", "scrollevent - bottom...") }
-                .filter { !isLoading }
-                .doOnNext { isLoading = true }
-                .doOnNext { Log.d("ddw", "scrollevent - loading...") }
-                .delay(3000, TimeUnit.MILLISECONDS)
-                .observeOn(repo.getMainThread())
-                .doOnNext { Log.d("ddw", "scrollevent - done!") }
-                .subscribe { isLoading = false }
-                .addTo(disposableBag)
+            initialLoadTrigger.onNext(Unit)
         }
     }
-
-    var isLoading = false
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {

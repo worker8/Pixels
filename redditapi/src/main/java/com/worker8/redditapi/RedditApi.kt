@@ -9,12 +9,15 @@ import io.reactivex.Observable
 
 class RedditApi(val subreddit: String = "pics") {
     val REDDIT_API_BASE = "https://www.reddit.com/r/"
-
-    fun getPosts(): Observable<Result<Listing, FuelError>> =
-            "$REDDIT_API_BASE$subreddit.json"
-                    .httpGet()
-                    .rx_object(Listing.Deserializer())
-                    .toObservable()
+    var after = ""
+    fun getMorePosts(): Observable<Result<Listing, FuelError>> =
+        "$REDDIT_API_BASE$subreddit.json?after=$after"
+            .httpGet()
+            .rx_object(Listing.Deserializer())
+            .toObservable()
+            .doOnNext { (listing, fuelError) ->
+                listing?.value?.after?.also { after = it }
+            }
 
     companion object {
         val gson = GsonBuilder().create()

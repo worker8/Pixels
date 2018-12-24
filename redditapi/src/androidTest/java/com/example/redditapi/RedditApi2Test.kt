@@ -16,7 +16,7 @@ class RedditApi2Test {
         Log.d("ddw","HELLOW!!")
         System.out.println("asdasdsadsadasdsaadsasadsadAAAA")
 
-        redditApi2.getPosts()
+        redditApi2.getMorePosts()
                 .subscribe { (response, fuelError) ->
                     response?.let {
                         Log.d("ddw","$it")

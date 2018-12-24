@@ -6,7 +6,7 @@ import io.reactivex.schedulers.Schedulers
 
 class HomeRepo(subreddit: String = "pics") {
     val redditApi = RedditApi()
-    fun getPosts() = redditApi.getPosts()
+    fun getMorePosts() = redditApi.getMorePosts()
     fun getMainThread() = AndroidSchedulers.mainThread()
     fun getBackgroundThread() = Schedulers.io()
 }
