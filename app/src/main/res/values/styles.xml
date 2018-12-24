@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">#283593</item>
+        <item name="colorPrimary">@color/md_blue_700</item>
+        <item name="colorPrimaryDark">@color/md_blue_900</item>
+        <item name="colorAccent">@color/md_cyan_600</item>
         <item name="android:background">@color/md_blue_grey_50</item>
         <item name="android:windowBackground">@color/md_white_1000</item>
         <item name="subtleBackground">@color/md_blue_grey_100</item>
