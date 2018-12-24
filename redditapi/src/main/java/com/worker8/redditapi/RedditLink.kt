@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class RedditLink(
         @SerializedName("data")
-        val value: RedditLinkData,
-        val kind: String
+        val value: RedditLinkData = RedditLinkData(),
+        val kind: String = ""
 )
