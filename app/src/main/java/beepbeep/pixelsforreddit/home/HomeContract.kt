@@ -1,7 +1,10 @@
 package beepbeep.pixelsforreddit.home
 
+import io.reactivex.Observable
+
 class HomeContract {
     interface Input {
+        val loadMore: Observable<Unit>
         fun isConnectedToInternet(): Boolean
     }
 
