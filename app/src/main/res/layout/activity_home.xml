@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_grey_300"
     tools:context=".HomeActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/homeToolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="56dp"
-            android:adjustViewBounds="true"
-            android:backgroundTint="@android:color/transparent"
-            android:src="@drawable/logo" />
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/homeList"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/homeCoordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:scrollbars="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/homeToolbar" />
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/homeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="@dimen/action_bar_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="30dp"
+                    android:adjustViewBounds="true"
+                    android:backgroundTint="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/homeList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/homeToolbar"
+            tools:listitem="@layout/home_item" />
+    </android.support.design.widget.CoordinatorLayout>
 
     <ProgressBar
         android:id="@+id/homeProgressBar"
@@ -43,7 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/homeToolbar" />
+        app:layout_constraintTop_toTopOf="@id/homeCoordinatorLayout" />
 
     <ProgressBar
         android:id="@+id/homeBottomProgressBar"
@@ -56,10 +73,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@drawable/toolbar_drop_shadow"
-        app:layout_constraintTop_toBottomOf="@id/homeToolbar" />
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="5dp"-->
+    <!--android:layout_marginTop="?attr/actionBarSize"-->
+    <!--android:background="@drawable/toolbar_drop_shadow"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 </android.support.constraint.ConstraintLayout>
+
