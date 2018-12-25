@@ -1,15 +1,16 @@
 package beepbeep.pixelsforreddit
 
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
+import beepbeep.pixelsforreddit.common.SnackbarOnlyOne
 import beepbeep.pixelsforreddit.extension.*
 import beepbeep.pixelsforreddit.home.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -18,13 +19,18 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this, HomeViewModelFactory(input, HomeRepo(), viewAction)).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
     }
+    private val noNetworkSnackbar = SnackbarOnlyOne()
     private val disposableBag = CompositeDisposable()
+    private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
     private val input = object : HomeContract.Input {
+        override val retry = retrySubject.hide()
         override val loadMore by lazy { homeList.onBottomDetectedObservable }
         override fun isConnectedToInternet() = this@HomeActivity.isConnectedToInternet()
     }
 
     private val viewAction = object : HomeContract.ViewAction {
+        override fun dismissNoNetworkErrorSnackbar() = noNetworkSnackbar.dismiss()
+
         override fun showBottomLoadingProgresBar(isLoading: Boolean) {
             homeBottomProgressBar.visibility = isLoading.visibility()
         }
@@ -33,10 +39,16 @@ class HomeActivity : AppCompatActivity() {
             homeProgressBar.visibility = isLoading.visibility()
         }
 
-        override fun showNoNetworkError() {
-            val snackbar = Snackbar.make(homeRootView, R.string.no_network, Snackbar.LENGTH_SHORT)
-            //snackbar.view.setBackgroundColor(Color.BLACK)
-            snackbar.show()
+        override fun showNoNetworkErrorSnackbar() {
+            noNetworkSnackbar.show(
+                view = homeRootView,
+                resId = R.string.no_network,
+                duration = Snackbar.LENGTH_INDEFINITE,
+                actionResId = R.string.retry,
+                actionCallback = {
+                    retrySubject.onNext(Unit)
+                }
+            )
         }
     }
 

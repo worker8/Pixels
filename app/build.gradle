@@ -60,6 +60,7 @@ dependencies {
 
     //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
     testImplementation "junit:junit:$Versions.junit"
+    testImplementation "io.mockk:mockk:$Versions.mockk"
     androidTestImplementation "com.android.support.test:runner:$Versions.testRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$Versions.espressoCore"
 

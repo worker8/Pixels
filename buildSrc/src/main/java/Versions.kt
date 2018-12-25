@@ -25,6 +25,7 @@ object Versions {
     val cyanea = "1.0.1"
     val result = "2.0.0"
     val fuel = "1.15.1"
+    val mockk = "1.8.13.kotlin13"
 }
 
 class Tool {
