@@ -59,10 +59,10 @@ class HomeViewModelTest {
     fun testGetPostSuccessfully() {
         // setup
         every { input.isConnectedToInternet() } returns true
+        val screenStateTestObserver = viewModel.screenState.test()
 
         // act
         viewModel.onCreate()
-        val screenStateTestObserver = viewModel.screenState.test()
 
         // assert: showing loading progress bar in the middle
         verify(exactly = 0) { viewAction.showNoNetworkErrorSnackbar() }
@@ -85,6 +85,25 @@ class HomeViewModelTest {
         screenStateTestObserver.assertValueAt(1) {
             it.redditLinks[0].value.url == "asdf"
         }
+    }
+
+    @Test
+    fun testError() {
+        // setup
+        every { input.isConnectedToInternet() } returns true
+        val screenStateTestObserver = viewModel.screenState.test()
+
+        // act
+        viewModel.onCreate()
+
+        val redditLinks: List<RedditLink> = listOf(RedditLink(value = RedditLinkData(url = "asdf")))
+        val fakeResult = makeFakeResult(redditLinks)
+
+        val throwable = mockk<Throwable>()
+        getMorePostsSubject.onError(throwable)
+
+        verify(exactly = 1) { viewAction.showLoadingProgressBar(false) }
+        verify(exactly = 1) { viewAction.showBottomLoadingProgresBar(false) }
     }
 
     fun makeFakeResult(redditLinks: List<RedditLink>): Result<Listing, FuelError> {
