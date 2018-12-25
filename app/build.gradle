@@ -20,10 +20,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        applicationVariants.all { variant ->
-            variant.buildConfigField "String", "IMGUR_API_CLIENT_ID", "\"" + Secrets.imgurApiKey + "\""
-            variant.buildConfigField "String", "REDDIT_API_CLIENT_ID", "\"" + Secrets.redditApiKey + "\""
-        }
     }
     configurations.all {
         resolutionStrategy.force "com.android.support:support-v4:$Versions.support"
