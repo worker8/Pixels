@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import beepbeep.pixelsforreddit.R
+import beepbeep.pixelsforreddit.extension.toRelativeTimeString
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.worker8.redditapi.RedditLink
@@ -23,7 +24,12 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     .apply(cropOptions)
                     .into(homeItemImage)
             }
-            homeItemTitle.text = redditLink.value.title
+            redditLink.value.apply {
+                homeItemTitle.text = title
+                homeItemUsername.text = author
+                homeItemDateTime.text = created.toRelativeTimeString()
+            }
+
         }
     }
 

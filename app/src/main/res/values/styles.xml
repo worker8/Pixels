@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/md_cyan_600</item>
         <item name="subtleBackground">@color/md_blue_grey_100</item>
         <item name="android:navigationBarColor">@color/md_black_1000</item>
+        <item name="android:textColor">@color/md_grey_800</item>
     </style>
 
 </resources>
