@@ -103,7 +103,7 @@ class HomeViewModelTest {
         getMorePostsSubject.onError(throwable)
 
         verify(exactly = 1) { viewAction.showLoadingProgressBar(false) }
-        verify(exactly = 1) { viewAction.showBottomLoadingProgresBar(false) }
+        verify(exactly = 1) { viewAction.showBottomLoadingProgresBar(true) }
     }
 
     fun makeFakeResult(redditLinks: List<RedditLink>): Result<Listing, FuelError> {
