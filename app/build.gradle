@@ -29,6 +29,7 @@ android {
         resolutionStrategy.force "com.android.support:support-core-ui:$Versions.support"
         resolutionStrategy.force "com.android.support:support-core-utils:$Versions.support"
         resolutionStrategy.force "com.android.support:support-fragment:$Versions.support"
+        resolutionStrategy.force "com.android.support:exifinterface:$Versions.support"
     }
     lintOptions {
         xmlReport true
