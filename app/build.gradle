@@ -26,6 +26,13 @@ android {
         resolutionStrategy.force "com.android.support:animated-vector-drawable:$Versions.support"
         resolutionStrategy.force "com.android.support:support-compat:$Versions.support"
         resolutionStrategy.force "com.android.support:support-media-compat:$Versions.support"
+        resolutionStrategy.force "com.android.support:support-core-ui:$Versions.support"
+        resolutionStrategy.force "com.android.support:support-core-utils:$Versions.support"
+        resolutionStrategy.force "com.android.support:support-fragment:$Versions.support"
+        resolutionStrategy.force "com.android.support:exifinterface:$Versions.support"
+    }
+    lintOptions {
+        xmlReport true
     }
 }
 

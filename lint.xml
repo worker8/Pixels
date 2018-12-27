@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- https://developer.android.com/studio/write/lint -->
+<lint>
+    <issue id="GradleDependency" severity="ignore" />
+    <issue id="ContentDescription" severity="ignore" />
+    <!--TODO: Reenable this for App Indexing-->
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <!--TODO: Reenable this when most of the icons are used-->
+    <issue id="UnusedResources" severity="ignore" >
+        <ignore path="res/values/material_colors.xml" />
+    </issue>
+</lint>

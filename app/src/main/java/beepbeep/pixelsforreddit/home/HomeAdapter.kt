@@ -17,11 +17,11 @@ class HomeAdapter : ListAdapter<RedditLink, RecyclerView.ViewHolder>(POST_COMPAR
 
     companion object {
         val POST_COMPARATOR = object : DiffUtil.ItemCallback<RedditLink>() {
-            override fun areItemsTheSame(oldItem: RedditLink?, newItem: RedditLink?): Boolean {
+            override fun areItemsTheSame(oldItem: RedditLink, newItem: RedditLink): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: RedditLink?, newItem: RedditLink?): Boolean {
+            override fun areContentsTheSame(oldItem: RedditLink, newItem: RedditLink): Boolean {
                 return oldItem == newItem
             }
         }

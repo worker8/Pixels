@@ -12,22 +12,47 @@
         android:id="@+id/homeItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="10dp"
         android:paddingStart="15dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="15dp"
+        android:paddingEnd="15dp"
         android:textSize="18sp"
-        tools:text="This is a title" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="This is a pretty awesome rice field!" />
+
+    <TextView
+        android:id="@+id/homeItemUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="?colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeItemTitle"
+        tools:text="@tools:sample/full_names" />
+
+    <TextView
+        android:id="@+id/homeItemDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:alpha="0.7"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/homeItemUsername"
+        app:layout_constraintStart_toEndOf="@id/homeItemUsername"
+        app:layout_constraintTop_toTopOf="@id/homeItemUsername"
+        tools:text="16 hours ago" />
 
     <ImageView
         android:id="@+id/homeItemImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeItemTitle"
+        app:layout_constraintTop_toBottomOf="@+id/homeItemUsername"
         tools:src="@tools:sample/backgrounds/scenic" />
 </android.support.constraint.ConstraintLayout>
