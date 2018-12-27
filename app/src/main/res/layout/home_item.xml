@@ -16,7 +16,6 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:textSize="18sp"
-        android:text="HARDCODE TEXT"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="This is a pretty awesome rice field!" />
 
