@@ -30,6 +30,9 @@ android {
         resolutionStrategy.force "com.android.support:support-core-utils:$Versions.support"
         resolutionStrategy.force "com.android.support:support-fragment:$Versions.support"
     }
+    lintOptions {
+        xmlReport true
+    }
 }
 
 dependencies {
