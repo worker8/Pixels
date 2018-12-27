@@ -5,7 +5,7 @@ source "https://rubygems.org"
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # gem "rails"
-gem "danger", "5.7.0"
+gem "danger", "5.11.0"
 gem "danger-android_lint"
 #gem "pry"
 #gem "pry-byebug"
