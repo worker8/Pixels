@@ -8,7 +8,7 @@ import io.reactivex.subjects.PublishSubject
 private val RecyclerView.onBottomDetectedSubject: PublishSubject<Unit> by lazy { PublishSubject.create<Unit>() }
 
 private fun RecyclerView.makeBottomDetectionScrollListener() = object : RecyclerView.OnScrollListener() {
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         (layoutManager as LinearLayoutManager).apply {
             if (findLastVisibleItemPosition() + childCount >= itemCount) {
                 onBottomDetectedSubject.onNext(Unit)

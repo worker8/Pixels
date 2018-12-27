@@ -15,7 +15,7 @@ object Versions {
     val rxBinding = "3.0.0-alpha1"
     val retrofit = "2.4.0"
     val jrawAndroid = "v1.0.0"
-    val support = "27.1.0"
+    val support = "28.0.0"
     val picasso = "2.71828"
     val constraintLayout = "1.1.3"
     val junit = "4.12"
@@ -34,7 +34,7 @@ class Tool {
 }
 
 class AndroidConfig {
-    val sdkVersion = 27 // target & compile sdk
+    val sdkVersion = 28 // target & compile sdk
     val minSdkVersion = 21
     val targetSdkVersion = 28
     val versionCode = 1
