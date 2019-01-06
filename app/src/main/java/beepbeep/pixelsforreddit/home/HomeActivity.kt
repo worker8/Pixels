@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private val noNetworkSnackbar = SnackbarOnlyOne()
     private val disposableBag = CompositeDisposable()
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
-
+    private val navDrawerView: NavigationDrawerView by lazy { NavigationDrawerView(homeDrawerLayout) }
     private val input = object : HomeContract.Input {
         override val randomSubredditSelected by lazy { navDrawerView.randomSubredditSelected }
         override val subredditSelected by lazy { navDrawerView.subredditChosen }
@@ -40,12 +40,10 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewAction = object : HomeContract.ViewAction {
         override fun navSetHightlight(subreddit: String) = navDrawerView.setHightlight(subreddit)
-
+        override fun dismissNoNetworkErrorSnackbar() = noNetworkSnackbar.dismiss()
         override fun updateToolbarSubredditText(subreddit: String) {
             selectedSubredditToolbar.text = RedditPreference.getSelectedSubreddit(this@HomeActivity)
         }
-
-        override fun dismissNoNetworkErrorSnackbar() = noNetworkSnackbar.dismiss()
 
         override fun showBottomLoadingProgresBar(isLoading: Boolean) {
             homeBottomProgressBar.visibility = isLoading.visibility()
@@ -67,8 +65,6 @@ class HomeActivity : AppCompatActivity() {
             )
         }
     }
-
-    val navDrawerView: NavigationDrawerView by lazy { NavigationDrawerView(homeDrawerLayout) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setupTheme()
