@@ -6,9 +6,7 @@ import com.worker8.redditapi.Listing
 import com.worker8.redditapi.ListingData
 import com.worker8.redditapi.RedditLink
 import com.worker8.redditapi.RedditLinkData
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import org.junit.Before
@@ -18,6 +16,7 @@ class HomeViewModelTest {
     lateinit var input: HomeContract.Input
     lateinit var retrySubject: PublishSubject<Unit>
     lateinit var loadMoreSubject: PublishSubject<Unit>
+    lateinit var subredditSelectedSubject: PublishSubject<String>
     lateinit var getMorePostsSubject: PublishSubject<Result<Listing, FuelError>>
     lateinit var viewModel: HomeViewModel
     lateinit var homeRepo: HomeRepo
@@ -28,14 +27,18 @@ class HomeViewModelTest {
         retrySubject = PublishSubject.create()
         loadMoreSubject = PublishSubject.create()
         getMorePostsSubject = PublishSubject.create()
+        subredditSelectedSubject = PublishSubject.create()
         input = mockk()
         homeRepo = mockk()
         viewAction = mockk(relaxed = true)
 
         every { input.retry } returns retrySubject
         every { input.loadMore } returns loadMoreSubject
+        every { input.subredditSelected } returns subredditSelectedSubject
 
         every { homeRepo.getBackgroundThread() } returns Schedulers.trampoline()
+        every { homeRepo.saveSubredditSharedPreference(any()) } just runs
+        every { homeRepo.selectSubreddit(any()) } just runs
         every { homeRepo.getMainThread() } returns Schedulers.trampoline()
         every { homeRepo.getMorePosts() } returns getMorePostsSubject
 
@@ -104,6 +107,32 @@ class HomeViewModelTest {
 
         verify(exactly = 1) { viewAction.showLoadingProgressBar(false) }
         verify(exactly = 1) { viewAction.showBottomLoadingProgresBar(false) }
+    }
+
+    @Test
+    fun testChangeSubreddit() {
+        // setup
+        every { input.isConnectedToInternet() } returns true
+        val screenStateTestObserver = viewModel.screenState.test()
+
+        // act
+        viewModel.onCreate()
+        val redditLinks: List<RedditLink> = listOf(RedditLink(value = RedditLinkData(url = "asdf")))
+        val fakeResult = makeFakeResult(redditLinks)
+        getMorePostsSubject.onNext(fakeResult)
+
+        // assert:
+        subredditSelectedSubject.onNext("aww")
+
+        verify(exactly = 1) { homeRepo.saveSubredditSharedPreference("aww") }
+        verify(exactly = 1) { homeRepo.selectSubreddit("aww") }
+        verify(exactly = 1) { viewAction.updateToolbarSubredditText("aww") }
+
+        screenStateTestObserver.assertNoErrors()
+
+        screenStateTestObserver.assertValueAt(2) {
+            it.redditLinks.count() == 0
+        }
     }
 
     fun makeFakeResult(redditLinks: List<RedditLink>): Result<Listing, FuelError> {
