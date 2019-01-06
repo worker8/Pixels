@@ -47,14 +47,6 @@
 
                 </FrameLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/md_grey_400"
-                    android:visibility="gone" />
 
             </LinearLayout>
         </ScrollView>

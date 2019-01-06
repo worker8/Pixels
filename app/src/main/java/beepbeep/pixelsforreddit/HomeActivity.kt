@@ -34,6 +34,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private val viewAction = object : HomeContract.ViewAction {
+        override fun navSetHightlight(subreddit: String) = navDrawerView.setHightlight(subreddit)
+
         override fun updateToolbarSubredditText(subreddit: String) {
             selectedSubredditToolbar.text = RedditPreference.getSelectedSubreddit(this@HomeActivity)
         }

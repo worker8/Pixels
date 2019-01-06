@@ -1,6 +1,7 @@
 package beepbeep.pixelsforreddit.home.navDrawer
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import beepbeep.pixelsforreddit.R
 import io.reactivex.subjects.PublishSubject
@@ -15,7 +16,14 @@ class NavigationDrawerView(val rootView: ViewGroup) {
 
     init {
         rootView.apply {
-            val subreddits = listOf("pics", "aww", "art", "IDAP", "doodles", "earthporn", "mildlyInteresting",
+            val subreddits = listOf(
+                "pics",
+                "aww",
+                "art",
+                "IDAP",
+                "doodles",
+                "earthporn",
+                "mildlyInteresting",
                 "food",
                 "FoodPorn",
                 "DessertPorn",
@@ -45,6 +53,30 @@ class NavigationDrawerView(val rootView: ViewGroup) {
             }
         }
     }
+
+    fun clearHighlight() {
+        rootView.apply {
+            // TODO: refactor this fragile code, start with 1 because first one is header
+            for (position in 1..homeNavigationDrawerContent.childCount - 1) {
+                val itemContainer = homeNavigationDrawerContent.getChildAt(position)
+                itemContainer.menuItemHighlight.visibility = View.GONE
+            }
+        }
+    }
+
+    fun setHightlight(subreddit: String) {
+        clearHighlight()
+        rootView.apply {
+            // TODO: refactor this fragile code, start with 1 because first one is header
+            for (position in 1..homeNavigationDrawerContent.childCount - 1) {
+                val itemContainer = homeNavigationDrawerContent.getChildAt(position)
+                if (itemContainer.menuItemTextView.text == subreddit) {
+                    itemContainer.menuItemHighlight.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
 
     private fun open() {
         rootView.apply {

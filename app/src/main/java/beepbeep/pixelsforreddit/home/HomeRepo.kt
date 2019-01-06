@@ -25,4 +25,6 @@ class HomeRepo(val context: Context, subreddit: String = "pics") {
     fun saveSubredditSharedPreference(subreddit: String) =
         RedditPreference.saveSelectedSubreddit(context, subreddit)
 
+    fun getSubredditSharedPreference() =
+        RedditPreference.getSelectedSubreddit(context)
 }

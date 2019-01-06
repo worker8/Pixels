@@ -45,6 +45,7 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
 
         input.apply {
             Observable.merge(initialLoadTrigger, loadMore, retry, subSelectedShared)
+                .doOnNext { viewAction.navSetHightlight(repo.getSubredditSharedPreference()) }
                 .filter { isConnectedToInternet() && !isLoading }
                 .observeOn(repo.getMainThread())
                 .doOnNext { setLoadingUi(true) }
@@ -58,6 +59,7 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
                     }
                 }, {
                     setLoadingUi(false)
+                    it.printStackTrace()
                 })
                 .addTo(disposableBag)
 
