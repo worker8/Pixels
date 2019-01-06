@@ -25,6 +25,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:layout_marginBottom="10dp"
                     android:background="?colorPrimaryDark"
                     android:elevation="2dp">
 
@@ -47,6 +48,9 @@
 
                 </FrameLayout>
 
+                <include layout="@layout/_navigation_night_mode" />
+
+                <include layout="@layout/_navigation_random" />
 
             </LinearLayout>
         </ScrollView>

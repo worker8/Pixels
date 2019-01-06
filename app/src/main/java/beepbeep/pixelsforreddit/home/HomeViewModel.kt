@@ -34,16 +34,15 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
     }
 
     private fun setupGetNewPosts() {
-        val subSelectedShared = input.subredditSelected
-            .doOnNext {
-                repo.saveSubredditSharedPreference(it)
-                dispatch(currentScreenState.copy(listOf()))
-                repo.selectSubreddit(it)
-                viewAction.updateToolbarSubredditText(it)
-            }
-            .share()
-
         input.apply {
+            val subSelectedShared = Observable.merge(subredditSelected, randomSubredditSelected)
+                .doOnNext {
+                    repo.saveSubredditSharedPreference(it)
+                    dispatch(currentScreenState.copy(listOf()))
+                    repo.selectSubreddit(it)
+                    viewAction.updateToolbarSubredditText(it)
+                }
+                .share()
             Observable.merge(initialLoadTrigger, loadMore, retry, subSelectedShared)
                 .doOnNext { viewAction.navSetHightlight(repo.getSubredditSharedPreference()) }
                 .filter { isConnectedToInternet() && !isLoading }

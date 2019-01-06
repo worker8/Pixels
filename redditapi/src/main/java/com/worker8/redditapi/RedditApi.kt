@@ -23,5 +23,29 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
     companion object {
         val gson = GsonBuilder().create()
         const val defaultSelectedSubreddit = "art"
+        val subreddits = listOf(
+            "pics",
+            "aww",
+            "art",
+            "IDAP",
+            "doodles",
+            "earthporn",
+            "mildlyInteresting",
+            "food",
+            "FoodPorn",
+            "DessertPorn",
+            "EarthPorn",
+            "JapanPics",
+            "WinterPorn",
+            "SpacePorn",
+            "WaterPorn",
+            "ImaginaryLandscapes",
+            "SpaceFlightPorn"
+        )
+
+        fun getRandomSubreddit(): String {
+            val randomPosition = (0..subreddits.count() - 1).shuffled().first()
+            return subreddits[randomPosition]
+        }
     }
 }

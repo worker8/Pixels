@@ -1,19 +1,22 @@
-package beepbeep.pixelsforreddit
+package beepbeep.pixelsforreddit.home
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
+import beepbeep.pixelsforreddit.R
 import beepbeep.pixelsforreddit.common.SnackbarOnlyOne
 import beepbeep.pixelsforreddit.extension.*
-import beepbeep.pixelsforreddit.home.*
 import beepbeep.pixelsforreddit.home.navDrawer.NavigationDrawerView
-import beepbeep.pixelsforreddit.reddit_api.RedditPreference
+import beepbeep.pixelsforreddit.preference.RedditPreference
+import beepbeep.pixelsforreddit.preference.ThemePreference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main._navigation_night_mode.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.navigational_parent.*
 
@@ -26,7 +29,9 @@ class HomeActivity : AppCompatActivity() {
     private val noNetworkSnackbar = SnackbarOnlyOne()
     private val disposableBag = CompositeDisposable()
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
+
     private val input = object : HomeContract.Input {
+        override val randomSubredditSelected by lazy { navDrawerView.randomSubredditSelected }
         override val subredditSelected by lazy { navDrawerView.subredditChosen }
         override val retry = retrySubject.hide()
         override val loadMore by lazy { homeList.onBottomDetectedObservable }
@@ -66,6 +71,7 @@ class HomeActivity : AppCompatActivity() {
     val navDrawerView: NavigationDrawerView by lazy { NavigationDrawerView(homeDrawerLayout) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigational_parent)
         LayoutInflater.from(this).inflate(R.layout.activity_home, contentSpace, true)
@@ -84,12 +90,26 @@ class HomeActivity : AppCompatActivity() {
         disposableBag.dispose()
     }
 
+    private fun setupTheme() {
+        if (ThemePreference.getThemePreference(this)) {
+            setTheme(R.style.AppThemeDark)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
+    }
+
     private fun setupView() {
         selectedSubredditToolbar.text = RedditPreference.getSelectedSubreddit(this)
         adapter.apply {
             homeList.adapter = this
             homeList.addItemDecoration(DividerItemDecoration(homeList.context, DividerItemDecoration.VERTICAL).apply { setDrawable(resources.getDrawable(R.drawable.recycler_view_divider)) })
             homeList.initBottomDetectListener()
+        }
+        nightModeSwitch.isChecked = ThemePreference.getThemePreference(this)
+        nightModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            ThemePreference.saveThemePreference(this, isChecked)
+            finish()
+            startActivity(Intent(this, HomeActivity::class.java))
         }
     }
 }

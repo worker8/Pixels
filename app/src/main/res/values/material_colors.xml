@@ -286,6 +286,7 @@
     <color name="md_grey_700" tools:keep="@color/md_grey_700">#616161</color>
     <color name="md_grey_800">#424242</color>
     <color name="md_grey_900" tools:keep="@color/md_grey_900">#212121</color>
+    <color name="md_grey_950" tools:keep="@color/md_grey_900">#111111</color>
     <color name="md_black_1000">#000000</color>
     <color name="md_white_1000">#ffffff</color>
 

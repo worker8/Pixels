@@ -8,6 +8,7 @@ class HomeContract {
         val loadMore: Observable<Unit>
         val retry: Observable<Unit>
         val subredditSelected: Observable<String>
+        val randomSubredditSelected: Observable<String>
         fun isConnectedToInternet(): Boolean
     }
 

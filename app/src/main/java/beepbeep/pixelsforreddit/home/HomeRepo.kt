@@ -1,7 +1,7 @@
 package beepbeep.pixelsforreddit.home
 
 import android.content.Context
-import beepbeep.pixelsforreddit.reddit_api.RedditPreference
+import beepbeep.pixelsforreddit.preference.RedditPreference
 import com.worker8.redditapi.RedditApi
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
