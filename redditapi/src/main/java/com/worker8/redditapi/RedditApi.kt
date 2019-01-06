@@ -7,7 +7,8 @@ import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import io.reactivex.Observable
 
-class RedditApi(val subreddit: String = "pics") {
+class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
+
     val REDDIT_API_BASE = "https://www.reddit.com/r/"
     var after = ""
     fun getMorePosts(): Observable<Result<Listing, FuelError>> =
@@ -21,5 +22,6 @@ class RedditApi(val subreddit: String = "pics") {
 
     companion object {
         val gson = GsonBuilder().create()
+        const val defaultSelectedSubreddit = "art"
     }
 }

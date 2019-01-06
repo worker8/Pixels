@@ -29,7 +29,7 @@ object Versions {
 }
 
 class Tool {
-    val kotlin = "1.2.71"
+    val kotlin = "1.3.11"
     val buildGradle = "3.2.1"
 }
 

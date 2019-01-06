@@ -33,10 +33,18 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
             .addTo(disposableBag)
     }
 
-
     private fun setupGetNewPosts() {
+        val subSelectedShared = input.subredditSelected
+            .doOnNext {
+                repo.saveSubredditSharedPreference(it)
+                dispatch(currentScreenState.copy(listOf()))
+                repo.selectSubreddit(it)
+                viewAction.updateToolbarSubredditText(it)
+            }
+            .share()
+
         input.apply {
-            Observable.merge(initialLoadTrigger, loadMore, retry)
+            Observable.merge(initialLoadTrigger, loadMore, retry, subSelectedShared)
                 .filter { isConnectedToInternet() && !isLoading }
                 .observeOn(repo.getMainThread())
                 .doOnNext { setLoadingUi(true) }

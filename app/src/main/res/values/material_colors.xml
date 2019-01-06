@@ -94,6 +94,8 @@
     <color name="md_blue_500" tools:keep="@color/md_blue_500">#2196F3</color>
     <color name="md_blue_600" tools:keep="@color/md_blue_600">#1E88E5</color>
     <color name="md_blue_700">#1976D2</color>
+    <color name="md_blue_700_50">#801976D2</color>
+    <color name="md_blue_700_10">#1A1976D2</color>
     <color name="md_blue_800" tools:keep="@color/md_blue_800">#1565C0</color>
     <color name="md_blue_900">#0D47A1</color>
     <color name="md_blue_A100" tools:keep="@color/md_blue_A100">#82B1FF</color>

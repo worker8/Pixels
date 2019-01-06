@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?pixelBackgroundColor"
     android:layout_marginBottom="20dp"
-    android:background="@color/md_white_1000"
     android:elevation="2dp">
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:textColor="?colorPrimary"
+        android:textColor="?attr/pixelTextHighlightColor"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/homeItemTitle"

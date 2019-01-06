@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pix for Reddit</string>
+    <string name="app_name">Pixels</string>
     <string name="no_network">No internet connection</string>
     <string name="retry">Retry</string>
 </resources>

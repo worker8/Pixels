@@ -6,9 +6,25 @@
         <item name="colorPrimary">@color/md_blue_700</item>
         <item name="colorPrimaryDark">@color/md_blue_900</item>
         <item name="colorAccent">@color/md_cyan_600</item>
-        <item name="subtleBackground">@color/md_blue_grey_100</item>
+        <item name="android:windowBackground">@color/md_grey_50</item>
+        <item name="pixelSubtleBackground">@color/md_blue_grey_100</item>
         <item name="android:navigationBarColor">@color/md_black_1000</item>
         <item name="android:textColor">@color/md_grey_800</item>
+        <item name="pixelTextHighlightColor">@color/md_blue_700</item>
+        <item name="pixelBackgroundColor">@color/md_white_1000</item>
+    </style>
+
+    <style name="AppTheme1" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/md_blue_700</item>
+        <item name="colorPrimaryDark">@color/md_blue_900</item>
+        <item name="colorAccent">@color/md_cyan_600</item>
+        <item name="android:windowBackground">@color/md_grey_900</item>
+        <item name="pixelSubtleBackground">@color/md_blue_grey_100</item>
+        <item name="android:navigationBarColor">@color/md_black_1000</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="pixelTextHighlightColor">@color/md_blue_300</item>
+        <item name="pixelBackgroundColor">@color/md_grey_800</item>
     </style>
 
 </resources>
