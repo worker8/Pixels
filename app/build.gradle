@@ -7,7 +7,7 @@ apply plugin: "kotlin-kapt"
 android {
     compileSdkVersion Versions.AndroidConfigs.sdkVersion
     defaultConfig {
-        applicationId "beepbeep.pixelsforreddit"
+        applicationId "beepbeep.pixelsforredditx"
         minSdkVersion Versions.AndroidConfigs.minSdkVersion
         targetSdkVersion Versions.AndroidConfigs.sdkVersion
         versionCode Versions.AndroidConfigs.versionCode
