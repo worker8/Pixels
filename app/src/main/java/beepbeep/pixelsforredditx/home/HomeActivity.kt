@@ -70,7 +70,6 @@ class HomeActivity : AppCompatActivity() {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigational_parent)
-        LayoutInflater.from(this).inflate(R.layout.activity_home, contentSpace, true)
         lifecycle.addObserver(viewModel)
         setupView()
 
