@@ -1,6 +1,7 @@
 package beepbeep.pixelsforreddit.home
 
 import android.arch.lifecycle.*
+import beepbeep.pixelsforreddit.BuildConfig
 import beepbeep.pixelsforreddit.extension.addTo
 import beepbeep.pixelsforreddit.extension.nonNullValue
 import io.reactivex.Observable
@@ -58,7 +59,6 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
                     }
                 }, {
                     setLoadingUi(false)
-                    it.printStackTrace()
                 })
                 .addTo(disposableBag)
 

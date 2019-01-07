@@ -17,6 +17,7 @@ class HomeViewModelTest {
     lateinit var retrySubject: PublishSubject<Unit>
     lateinit var loadMoreSubject: PublishSubject<Unit>
     lateinit var subredditSelectedSubject: PublishSubject<String>
+    lateinit var randomSubredditSelectedSubject: PublishSubject<String>
     lateinit var getMorePostsSubject: PublishSubject<Result<Listing, FuelError>>
     lateinit var viewModel: HomeViewModel
     lateinit var homeRepo: HomeRepo
@@ -28,6 +29,7 @@ class HomeViewModelTest {
         loadMoreSubject = PublishSubject.create()
         getMorePostsSubject = PublishSubject.create()
         subredditSelectedSubject = PublishSubject.create()
+        randomSubredditSelectedSubject = PublishSubject.create()
         input = mockk()
         homeRepo = mockk()
         viewAction = mockk(relaxed = true)
@@ -35,10 +37,12 @@ class HomeViewModelTest {
         every { input.retry } returns retrySubject
         every { input.loadMore } returns loadMoreSubject
         every { input.subredditSelected } returns subredditSelectedSubject
+        every { input.randomSubredditSelected } returns randomSubredditSelectedSubject
 
         every { homeRepo.getBackgroundThread() } returns Schedulers.trampoline()
         every { homeRepo.saveSubredditSharedPreference(any()) } just runs
         every { homeRepo.selectSubreddit(any()) } just runs
+        every { homeRepo.getSubredditSharedPreference() } returns ""
         every { homeRepo.getMainThread() } returns Schedulers.trampoline()
         every { homeRepo.getMorePosts() } returns getMorePostsSubject
 
