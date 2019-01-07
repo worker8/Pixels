@@ -111,6 +111,7 @@ class HomeViewModelTest {
 
         verify(exactly = 1) { viewAction.showLoadingProgressBar(false) }
         verify(exactly = 1) { viewAction.showBottomLoadingProgresBar(false) }
+        verify(exactly = 1) { viewAction.showGenericErrorMessage() }
     }
 
     @Test

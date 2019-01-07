@@ -58,6 +58,7 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
                     }
                 }, {
                     setLoadingUi(false)
+                    viewAction.showGenericErrorMessage() // unrecoverable error
                 })
                 .addTo(disposableBag)
 

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
-import android.view.LayoutInflater
+import android.view.View
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.common.SnackbarOnlyOne
 import beepbeep.pixelsforredditx.extension.*
@@ -39,6 +39,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private val viewAction = object : HomeContract.ViewAction {
+        override fun showGenericErrorMessage() {
+            homeErrorMessage.visibility = View.VISIBLE
+        }
+
         override fun navSetHightlight(subreddit: String) = navDrawerView.setHightlight(subreddit)
         override fun dismissNoNetworkErrorSnackbar() = noNetworkSnackbar.dismiss()
         override fun updateToolbarSubredditText(subreddit: String) {

@@ -19,6 +19,7 @@ class HomeContract {
         fun showBottomLoadingProgresBar(isLoading: Boolean)
         fun updateToolbarSubredditText(subreddit: String)
         fun navSetHightlight(subreddit: String)
+        fun showGenericErrorMessage()
     }
 
     data class ScreenState(val redditLinks: List<RedditLink> = listOf())
