@@ -93,7 +93,9 @@
     <color name="md_blue_400" tools:keep="@color/md_blue_400">#42A5F5</color>
     <color name="md_blue_500" tools:keep="@color/md_blue_500">#2196F3</color>
     <color name="md_blue_600" tools:keep="@color/md_blue_600">#1E88E5</color>
-    <color name="md_blue_700">#1976D2</color>
+    <color name="md_blue_700" tools:keep="@color/md_blue_700">#1976D2</color>
+    <color name="md_blue_700_50" tools:keep="@color/md_blue_700_50">#801976D2</color>
+    <color name="md_blue_700_10" tools:keep="@color/md_blue_700_10">#1A1976D2</color>
     <color name="md_blue_800" tools:keep="@color/md_blue_800">#1565C0</color>
     <color name="md_blue_900">#0D47A1</color>
     <color name="md_blue_A100" tools:keep="@color/md_blue_A100">#82B1FF</color>
@@ -284,12 +286,13 @@
     <color name="md_grey_700" tools:keep="@color/md_grey_700">#616161</color>
     <color name="md_grey_800">#424242</color>
     <color name="md_grey_900" tools:keep="@color/md_grey_900">#212121</color>
+    <color name="md_grey_950" tools:keep="@color/md_grey_900">#111111</color>
     <color name="md_black_1000">#000000</color>
     <color name="md_white_1000">#ffffff</color>
 
     <!--blue grey-->
     <color name="md_blue_grey_50" tools:keep="@color/md_blue_grey_50">#ECEFF1</color>
-    <color name="md_blue_grey_100">#CFD8DC</color>
+    <color name="md_blue_grey_100" tools:keep="@color/md_blue_grey_200">#CFD8DC</color>
     <color name="md_blue_grey_200" tools:keep="@color/md_blue_grey_200">#B0BBC5</color>
     <color name="md_blue_grey_300" tools:keep="@color/md_blue_grey_300">#90A4AE</color>
     <color name="md_blue_grey_400" tools:keep="@color/md_blue_grey_400">#78909C</color>

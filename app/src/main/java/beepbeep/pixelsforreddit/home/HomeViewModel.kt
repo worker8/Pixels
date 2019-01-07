@@ -1,6 +1,7 @@
 package beepbeep.pixelsforreddit.home
 
 import android.arch.lifecycle.*
+import beepbeep.pixelsforreddit.BuildConfig
 import beepbeep.pixelsforreddit.extension.addTo
 import beepbeep.pixelsforreddit.extension.nonNullValue
 import io.reactivex.Observable
@@ -33,10 +34,18 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
             .addTo(disposableBag)
     }
 
-
     private fun setupGetNewPosts() {
         input.apply {
-            Observable.merge(initialLoadTrigger, loadMore, retry)
+            val subSelectedShared = Observable.merge(subredditSelected, randomSubredditSelected)
+                .doOnNext {
+                    repo.saveSubredditSharedPreference(it)
+                    dispatch(currentScreenState.copy(listOf()))
+                    repo.selectSubreddit(it)
+                    viewAction.updateToolbarSubredditText(it)
+                }
+                .share()
+            Observable.merge(initialLoadTrigger, loadMore, retry, subSelectedShared)
+                .doOnNext { viewAction.navSetHightlight(repo.getSubredditSharedPreference()) }
                 .filter { isConnectedToInternet() && !isLoading }
                 .observeOn(repo.getMainThread())
                 .doOnNext { setLoadingUi(true) }
