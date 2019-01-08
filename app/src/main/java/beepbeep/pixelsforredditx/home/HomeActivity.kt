@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private val noNetworkSnackbar = SnackbarOnlyOne()
     private val disposableBag = CompositeDisposable()
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
-    private val navDrawerView: NavigationDrawerView by lazy { NavigationDrawerView(homeDrawerLayout) }
+    private lateinit var navDrawerView: NavigationDrawerView
     private val input = object : HomeContract.Input {
         override val randomSubredditSelected by lazy { navDrawerView.randomSubredditSelected }
         override val subredditSelected by lazy { navDrawerView.subredditChosen }
@@ -74,6 +74,7 @@ class HomeActivity : AppCompatActivity() {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigational_parent)
+        navDrawerView = NavigationDrawerView(homeDrawerLayout)
         lifecycle.addObserver(viewModel)
         setupView()
 
