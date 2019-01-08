@@ -8,7 +8,7 @@ import beepbeep.pixelsforredditx.common.save
 class RedditPreference {
     companion object {
         private const val PreferenceSelectedSubreddit = "PreferenceSelectedSubreddit"
-        private const val defaultSelectedSubreddit = "art"
+        private const val defaultSelectedSubreddit = "PixelArt"
 
         fun saveSelectedSubreddit(context: Context, subreddit: String) {
             context.defaultPrefs().save(PreferenceSelectedSubreddit, subreddit)

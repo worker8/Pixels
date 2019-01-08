@@ -22,7 +22,7 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
 
     companion object {
         val gson = GsonBuilder().create()
-        const val defaultSelectedSubreddit = "art"
+        const val defaultSelectedSubreddit = "PixelArt"
         val subreddits = listOf(
             "pics",
             "aww",
@@ -33,7 +33,7 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
             "QuotesPorn",
             "HistoryPorn",
             "funny",
-            "pixelart",
+            "PixelArt",
             "drawing",
             "wallpaper+wallpapers",
             "RedditGetsDrawn",
@@ -44,6 +44,7 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
             "ExposurePorn",
             "ITookAPicture",
             "IDAP",
+            "illustration",
             "doodles",
             "earthporn",
             "mildlyInteresting",
