@@ -23,14 +23,11 @@ import kotlinx.android.synthetic.main.navigational_parent.*
 
 class HomeActivity : AppCompatActivity() {
     private val adapter = HomeAdapter()
-    private val viewModel: HomeViewModel by lazy {
-        ViewModelProviders.of(this, HomeViewModelFactory(input, HomeRepo(this, RedditPreference.getSelectedSubreddit(this)), viewAction)).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
-    }
     private val noNetworkSnackbar = SnackbarOnlyOne()
     private val disposableBag = CompositeDisposable()
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
     private lateinit var navDrawerView: NavigationDrawerView
-    private val input = object : HomeContract.Input {
+    private val homeInput = object : HomeContract.Input {
         override val randomSubredditSelected by lazy { navDrawerView.randomSubredditSelected }
         override val subredditSelected by lazy { navDrawerView.subredditChosen }
         override val retry = retrySubject.hide()
@@ -38,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         override fun isConnectedToInternet() = this@HomeActivity.isConnectedToInternet()
     }
 
-    private val viewAction = object : HomeContract.ViewAction {
+    private val homeViewAction = object : HomeContract.ViewAction {
         override fun showGenericErrorMessage() {
             homeErrorMessage.visibility = View.VISIBLE
         }
@@ -75,6 +72,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigational_parent)
         navDrawerView = NavigationDrawerView(homeDrawerLayout)
+        val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
+        viewModel.apply {
+            input = homeInput
+            repo = HomeRepo(this@HomeActivity, RedditPreference.getSelectedSubreddit(this@HomeActivity))
+            viewAction = homeViewAction
+        }
         lifecycle.addObserver(viewModel)
         setupView()
 
@@ -82,7 +85,6 @@ class HomeActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { adapter.submitList(it.redditLinks) }
             .addTo(disposableBag)
-
     }
 
     override fun onDestroy() {

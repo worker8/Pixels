@@ -8,16 +8,23 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
-class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewAction: HomeContract.ViewAction) : ViewModel(), LifecycleObserver {
+class HomeViewModel() : ViewModel(), LifecycleObserver {
+    lateinit var input: HomeContract.Input
+    lateinit var repo: HomeRepo
+    lateinit var viewAction: HomeContract.ViewAction
+
     private val screenStateSubject = BehaviorSubject.createDefault<HomeContract.ScreenState>(HomeContract.ScreenState())
-    var screenState: Observable<HomeContract.ScreenState> = screenStateSubject.hide().observeOn(repo.getMainThread())
+    val screenState: Observable<HomeContract.ScreenState> by lazy { screenStateSubject.hide().observeOn(repo.getMainThread()) }
 
     private val currentScreenState get() = screenStateSubject.nonNullValue
     private var isLoading = false
     private val disposableBag = CompositeDisposable()
     private val initialLoadTrigger: PublishSubject<Unit> = PublishSubject.create()
-    private val loadMoreShared by lazy { input.loadMore.share() }
-    private val retryShared by lazy { input.retry.share() }
+
+    private val loadMoreShared: Observable<Unit>
+        get() = input.loadMore.share()
+    private val retryShared: Observable<Unit>
+        get() = input.retry.share()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
@@ -88,13 +95,13 @@ class HomeViewModel(val input: HomeContract.Input, val repo: HomeRepo, val viewA
 
     override fun onCleared() {
         super.onCleared()
-        disposableBag.dispose()
+        disposableBag.clear()
     }
 }
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory(val input: HomeContract.Input, val repo: HomeRepo, val viewAction: HomeContract.ViewAction) : ViewModelProvider.NewInstanceFactory() {
+class HomeViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return HomeViewModel(input, repo, viewAction) as T
+        return HomeViewModel() as T
     }
 }

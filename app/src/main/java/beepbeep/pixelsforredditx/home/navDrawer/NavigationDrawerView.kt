@@ -66,7 +66,6 @@ class NavigationDrawerView(val rootView: ViewGroup) {
         }
     }
 
-
     private fun open() {
         rootView.apply {
             homeDrawerLayout.openDrawer(homeNavigationDrawer)
