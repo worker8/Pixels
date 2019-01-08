@@ -27,48 +27,14 @@ The features are currently pretty limited! But here's a few that is available:
 
 ### Technical Details
 ##### General Architecture 
-The codebase is written in Kotlin. The architecture used is MVVM with RxJava. The `ViewModel` contains no Android related code, so the main logic can be [unit tested](https://github.com/worker8/Pixels/blob/b34b0a5fdf6e5e63f9298ccea51f08afaef792ca/app/src/test/java/beepbeep/pixelsforreddit/home/HomeViewModelTest.kt). 
-
-##### RxJava
-Asides from being good at manipulating threads, RxJava is very good at redirecting the streams of events. So I've decided to use in in almost every app I made. As an example, 4 different events such as: initial launch, retrying after connection failure, loading more, changing subreddit, all of them leads to the same things -- **getting more posts**, RxJava can help to merge all this flow into 1: [example code](https://github.com/worker8/Pixels/blob/b34b0a5fdf6e5e63f9298ccea51f08afaef792ca/app/src/main/java/beepbeep/pixelsforreddit/home/HomeViewModel.kt#L47)
-
-A few tips for those unfamiliar with RxJava:
-- use `doOnNext` instead of `map` when you don't need to mutate the data
-- remember to `dispose()` when you don't need it anymore, otherwise use `clear()`
-- avoid the use of `subjects` whenever possible (I think I can reduce a few of them...)
-  - use RxBinding instead of subject for making views into Rx
-- for expected errors, don't throw error but instead show correct retry UI accordingly since it will terminate the Rx stream.
+The codebase is written in Kotlin. The architecture used is MVVM with RxJava. The `ViewModel` contains no Android related code, so the main logic can be unit tested: [example, HomeViewModelTest.kt](https://github.com/worker8/Pixels/blob/b34b0a5fdf6e5e63f9298ccea51f08afaef792ca/app/src/test/java/beepbeep/pixelsforreddit/home/HomeViewModelTest.kt). More information written in the wiki: [MVVM Architecture used in this project](https://github.com/worker8/Pixels/wiki/MVVM-Architecture-used-in-this-project).
  
-##### Icons & Resources
-SVG resources is preferrred since `VectorDrawableCompat` can enough to support for the min sdk version 21 in this app. [Adaptive icon](https://developer.android.com/guide/practices/ui_guidelines/icon_design_adaptive) is used for the logo. Vector graphics can be created by Sketch(paid, cheaper), Adobe Illustrator (paid, expensive) or Inkscape (free). I used Illustrator and Sketch personally.
-
-The steps for creating usable vector drawable is roughly:
-- create your design using any design tools mentioned above (or any other tools)
-- export as **svg**
-- import **svg** into Android Studio, this will turn into a drawable xml
-- use drawable in `ImageView` like [here](https://github.com/worker8/Pixels/blob/98bf611db28bf2f406576058cc4b981ddf14f1d6/app/src/main/res/layout/_navigation_night_mode.xml#L15)
-
-
-##### Theming
-Since theming is fun, so this app is built with the capability to change theme in the future. To achieve, don't use resources directly. 
-
-Don't :point_down: :no_good_woman:  
-`android:background="@color/blue"`
-
-Do :smiley: 
-`android:background="?pixelBackgroundColor"`
-
-##### Modularization
-Currently only the network layer is extracted as a separate module. I currently do not have enough knowledge on Reddit Api, but this can potentially become a Reddit Kotlin client in the future, if I gain enough knowledge.
-
-Since the codebase is very small now, I only have network module and main app module. It can be further divided in the future.
+##### Icons, Resources and Theming
+SVG icons are preferred in this project, and night mode is supported. More details are in the wiki: [Assets, Resources & Theming
+](https://github.com/worker8/Pixels/wiki/Assets,-Resources-&-Theming).
 
 ##### Testing, CI, Danger & Linting
-Currently only unit test is added, because I haven't setup the integration tests and it doesn't bring too much help now. Bitrise CI is used to run the unit test. The Bitrise link badge is available at the top of this page.
-
-Android Lint is also setup in Bitrise CI to help catch warnings. Whenever a PR is opened in Github, it will trigger Bitrise to run [Danger](https://github.com/danger/danger), Danger will then run Android Lint and produce a lint report file, the report file is then parsed by the [Danger-Android-Lint-library](https://github.com/loadsmart/danger-android_lint) and posted back to the PR. 
-
-Try to fix all the warnings before merging, unless you know what the error is, and choose to ignore. In that case, feel free to open a PR to fix the `lint.xml` so that it doesn't produce meaningless warning in the future.
+Bitrise CI is used, and only JUnit test is available. No integration tests are added yet. Danger and Android Linting are used to report warnings in PR. More about how all they work in the wiki: [Bitrise CI, Danger, Android Lint Explanation](https://github.com/worker8/Pixels/wiki/Bitrise-CI,-Danger,-Android-Lint-Explanation).
 
 ##### Coding styles
 `.editorconfig` is used in this project to make sure that the spacing and indentations are standardized, the `editorconfig` is obtained from [ktlint project](https://github.com/shyiko/ktlint/blob/master/.editorconfig). 
