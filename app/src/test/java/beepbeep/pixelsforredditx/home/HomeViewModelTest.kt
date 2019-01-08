@@ -46,7 +46,10 @@ class HomeViewModelTest {
         every { homeRepo.getMainThread() } returns Schedulers.trampoline()
         every { homeRepo.getMorePosts() } returns getMorePostsSubject
 
-        viewModel = HomeViewModel(input = input, repo = homeRepo, viewAction = viewAction)
+        viewModel = HomeViewModel()
+        viewModel.input = input
+        viewModel.repo = homeRepo
+        viewModel.viewAction = viewAction
 
     }
 
