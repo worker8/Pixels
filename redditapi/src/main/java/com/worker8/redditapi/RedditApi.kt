@@ -22,15 +22,40 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
 
     companion object {
         val gson = GsonBuilder().create()
-        const val defaultSelectedSubreddit = "art"
+        const val defaultSelectedSubreddit = "PixelArt"
         val subreddits = listOf(
             "pics",
             "aww",
             "art",
+            "gifs",
+            "SweatyPalms",
+            "OldSchoolCool",
+            "QuotesPorn",
+            "HistoryPorn",
+            "funny",
+            "PixelArt",
+            "drawing",
+            "wallpaper+wallpapers",
+            "RedditGetsDrawn",
+            "ImaginaryMonsters",
+            "MicroPorn",
+            "MacroPorn",
+            "CrappyDesign",
+            "ExposurePorn",
+            "ITookAPicture",
             "IDAP",
+            "illustration",
             "doodles",
             "earthporn",
             "mildlyInteresting",
+            "awwnverts",
+            "cats",
+            "CatPictures",
+            "DogPictures",
+            "husky+corgi",
+            "AnimalPorn",
+            "DelightfullyChubby",
+            "HardcoreAww",
             "food",
             "FoodPorn",
             "DessertPorn",
@@ -40,7 +65,15 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
             "SpacePorn",
             "WaterPorn",
             "ImaginaryLandscapes",
-            "SpaceFlightPorn"
+            "SpaceFlightPorn",
+            "CarPorn",
+            "GunPorn",
+            "RoomPorn",
+            "CityPorn",
+            "VillagePorn",
+            "ArchitecturePorn",
+            "InfrastructurePorn"
+
         )
 
         fun getRandomSubreddit(): String {

@@ -4,4 +4,5 @@
     <string name="random_subreddit">Random Subreddit</string>
     <string name="no_network">No internet connection</string>
     <string name="retry">Retry</string>
+    <string name="generic_error_message">Opps, something went wrong\nTry to re-open the application</string>
 </resources>
