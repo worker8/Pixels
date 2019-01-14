@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- https://developer.android.com/studio/write/lint -->
+<lint>
+    <issue id="ContentDescription" severity="ignore" />
+    <issue id="UnusedResources" severity="ignore">
+        <ignore path="res/values/material_colors.xml" />
+    </issue>
+</lint>
