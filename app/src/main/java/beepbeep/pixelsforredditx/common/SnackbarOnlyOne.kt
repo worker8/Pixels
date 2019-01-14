@@ -1,8 +1,8 @@
 package beepbeep.pixelsforredditx.common
 
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
 import android.view.View
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * this is a class to ensure there's only one snackbar at a time, if it's already shown, then it won't show again

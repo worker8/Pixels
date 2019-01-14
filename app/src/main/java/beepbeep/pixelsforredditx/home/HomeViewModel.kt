@@ -1,6 +1,6 @@
 package beepbeep.pixelsforredditx.home
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 import beepbeep.pixelsforredditx.extension.addTo
 import beepbeep.pixelsforredditx.extension.nonNullValue
 import io.reactivex.Observable

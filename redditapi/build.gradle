@@ -9,7 +9,7 @@ android {
         targetSdkVersion Versions.AndroidConfigs.sdkVersion
         versionCode Versions.AndroidConfigs.versionCode
         versionName Versions.AndroidConfigs.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -23,7 +23,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$Versions.support"
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
 
     //implementation "com.github.kittinunf.fuel:fuel-android:$Versions.fuel"
     implementation "com.github.kittinunf.fuel:fuel-rxjava:$Versions.fuel"
@@ -35,6 +35,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
 
     testImplementation "junit:junit:$Versions.junit"
-    androidTestImplementation "com.android.support.test:runner:$Versions.testRunner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$Versions.espressoCore"
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

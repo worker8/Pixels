@@ -1,10 +1,10 @@
 package beepbeep.pixelsforredditx.extension
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.ConnectivityManager
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 
 inline fun <reified T : ViewModel> FragmentActivity.getViewModel() =
     ViewModelProviders.of(this).get(T::class.java)
