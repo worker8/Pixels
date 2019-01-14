@@ -1,18 +1,19 @@
 package beepbeep.pixelsforredditx.home
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.common.SnackbarOnlyOne
 import beepbeep.pixelsforredditx.extension.*
 import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
 import beepbeep.pixelsforredditx.preference.RedditPreference
 import beepbeep.pixelsforredditx.preference.ThemePreference
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject

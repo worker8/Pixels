@@ -37,6 +37,6 @@ class AndroidConfig {
     val sdkVersion = 28 // target & compile sdk
     val minSdkVersion = 21
     val targetSdkVersion = 28
-    val versionCode = 1
-    val versionName = "1.0"
+    val versionCode = 2
+    val versionName = "1.1"
 }

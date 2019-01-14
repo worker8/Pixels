@@ -12,7 +12,7 @@ android {
         targetSdkVersion Versions.AndroidConfigs.sdkVersion
         versionCode Versions.AndroidConfigs.versionCode
         versionName Versions.AndroidConfigs.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -33,20 +33,21 @@ android {
     }
     lintOptions {
         xmlReport true
+        lintConfig file('lint.xml')
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Versions.Tools.kotlin"
-    implementation "com.android.support:appcompat-v7:$Versions.support"
-    implementation "com.android.support:recyclerview-v7:$Versions.support"
-    implementation "com.android.support.constraint:constraint-layout:$Versions.constraintLayout"
-    implementation "android.arch.paging:runtime:$Versions.paging"
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.paging:paging-runtime:2.1.0-rc01'
     implementation "android.arch.paging:rxjava2:$Versions.pagingRx"
     implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
-    implementation "com.android.support:design:$Versions.support"
+    implementation 'com.google.android.material:material:1.1.0-alpha02'
     implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
@@ -55,7 +56,7 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$Versions.stetho"
     implementation "com.facebook.stetho:stetho-okhttp3:$Versions.stetho"
     implementation "com.squareup.picasso:picasso:$Versions.picasso"
-    implementation "android.arch.lifecycle:extensions:$Versions.lifecycle"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
     implementation "com.github.worker8:HeaderFooterAdapter:$Versions.headerFooterAdapter"
     implementation project(':redditapi')
     implementation "com.github.kittinunf.fuel:fuel-android:$Versions.fuel"
@@ -64,7 +65,7 @@ dependencies {
     //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
     testImplementation "junit:junit:$Versions.junit"
     testImplementation "io.mockk:mockk:$Versions.mockk"
-    androidTestImplementation "com.android.support.test:runner:$Versions.testRunner"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$Versions.espressoCore"
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
 }
