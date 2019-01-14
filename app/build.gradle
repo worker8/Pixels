@@ -33,6 +33,7 @@ android {
     }
     lintOptions {
         xmlReport true
+        lintConfig file('lint.xml')
     }
 }
 
