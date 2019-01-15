@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/Kotlin-1.2.71-blue.svg)](https://kotlinlang.org) [![](https://app.bitrise.io/app/41a292091e9fb0ad.svg?token=Zdc9-YXqjcj5P5HEqTPU1Q)](https://app.bitrise.io/app/41a292091e9fb0ad)
+[![](https://img.shields.io/badge/Kotlin-1.3.11-blue.svg)](https://kotlinlang.org) [![](https://app.bitrise.io/app/41a292091e9fb0ad.svg?token=Zdc9-YXqjcj5P5HEqTPU1Q)](https://app.bitrise.io/app/41a292091e9fb0ad)
 
 ### Pixels for Reddit Introduction
 <img src="https://user-images.githubusercontent.com/1988156/50760475-4ce08180-12ab-11e9-87ec-d9bb7fb512cb.png" width="150px"/>
