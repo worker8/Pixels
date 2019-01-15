@@ -30,6 +30,22 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
     fun onCreate() {
         setupNoNetwork()
         setupGetNewPosts()
+        setupNavbar()
+    }
+
+    private fun setupNavbar() {
+        input.apply {
+            aboutClicked
+                .observeOn(repo.getMainThread())
+                .subscribe { viewAction.navigateToAboutPage() }
+                .addTo(disposableBag)
+
+            nightModeCheckChanged
+                .skip(1)
+                .observeOn(repo.getMainThread())
+                .subscribe { viewAction.reRenderOnThemeChange(it) }
+                .addTo(disposableBag)
+        }
     }
 
     private fun setupNoNetwork() {

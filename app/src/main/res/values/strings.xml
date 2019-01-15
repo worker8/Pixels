@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Pixels</string>
     <string name="night_mode">Night Mode</string>
+    <string name="about">About</string>
     <string name="random_subreddit">Random Subreddit</string>
     <string name="no_network">No internet connection</string>
     <string name="retry">Retry</string>

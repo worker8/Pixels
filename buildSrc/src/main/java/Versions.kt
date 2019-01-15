@@ -2,7 +2,7 @@ object Versions {
     val Tools = Tool()
     val AndroidConfigs = AndroidConfig()
 
-    //    val jrawAndroid = "v1.0.0"
+//    val jrawAndroid = "v1.0.0"
 //    val jraw = "1.0.0"
     val jraw = "0.9.0"
     val paging = "1.0.0"
@@ -12,7 +12,7 @@ object Versions {
     val headerFooterAdapter = "0.0.3"
     val rxJava = "2.1.13"
     val rxAndroid = "2.0.2"
-    val rxBinding = "3.0.0-alpha1"
+    val rxBinding = "3.0.0-alpha2"
     val retrofit = "2.4.0"
     val jrawAndroid = "v1.0.0"
     val support = "28.0.0"

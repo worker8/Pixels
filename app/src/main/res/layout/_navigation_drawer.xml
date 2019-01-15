@@ -52,6 +52,8 @@
 
                 <include layout="@layout/_navigation_random" />
 
+                <include layout="@layout/_navigation_about" />
+
             </LinearLayout>
         </ScrollView>
     </com.google.android.material.navigation.NavigationView>

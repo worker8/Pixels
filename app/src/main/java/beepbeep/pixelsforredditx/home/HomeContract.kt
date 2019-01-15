@@ -9,6 +9,8 @@ class HomeContract {
         val retry: Observable<Unit>
         val subredditSelected: Observable<String>
         val randomSubredditSelected: Observable<String>
+        val aboutClicked: Observable<Unit>
+        val nightModeCheckChanged: Observable<Boolean>
         fun isConnectedToInternet(): Boolean
     }
 
@@ -20,6 +22,8 @@ class HomeContract {
         fun updateToolbarSubredditText(subreddit: String)
         fun navSetHightlight(subreddit: String)
         fun showGenericErrorMessage()
+        fun navigateToAboutPage()
+        fun reRenderOnThemeChange(isNightMode: Boolean)
     }
 
     data class ScreenState(val redditLinks: List<RedditLink> = listOf())
