@@ -2,12 +2,12 @@ package beepbeep.pixelsforredditx.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import beepbeep.pixelsforredditx.R
+import beepbeep.pixelsforredditx.about.AboutActivity
 import beepbeep.pixelsforredditx.common.SnackbarOnlyOne
 import beepbeep.pixelsforredditx.extension.*
 import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
@@ -45,8 +45,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         override fun navigateToAboutPage() {
-            Log.d("ddw", "navigate to About Page")
-            //startActivity(Intent(XXX))
+            startActivity(Intent(this@HomeActivity, AboutActivity::class.java))
         }
 
         override fun showGenericErrorMessage() {
