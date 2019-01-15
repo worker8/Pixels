@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
             homeErrorMessage.visibility = View.VISIBLE
         }
 
-        override fun navSetHightlight(subreddit: String) = navDrawerView.setHightlight(subreddit)
+        override fun navSetHighlight(subreddit: String) = navDrawerView.setHighlight(subreddit)
         override fun dismissNoNetworkErrorSnackbar() = noNetworkSnackbar.dismiss()
         override fun updateToolbarSubredditText(subreddit: String) {
             selectedSubredditToolbar.text = RedditPreference.getSelectedSubreddit(this@HomeActivity)

@@ -67,7 +67,7 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
                 }
                 .share()
             Observable.merge(initialLoadTrigger, loadMore, retry, subSelectedShared)
-                .doOnNext { viewAction.navSetHightlight(repo.getSubredditSharedPreference()) }
+                .doOnNext { viewAction.navSetHighlight(repo.getSubredditSharedPreference()) }
                 .filter { isConnectedToInternet() && !isLoading }
                 .observeOn(repo.getMainThread())
                 .doOnNext { setLoadingUi(true) }

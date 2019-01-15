@@ -54,21 +54,21 @@ class NavigationDrawerView(val rootView: ViewGroup) {
         }
     }
 
-    fun clearHighlight() {
+    private fun clearHighlight() {
         rootView.apply {
-            // TODO: refactor this fragile code, start with 3 because first one is header
-            for (position in 4..homeNavigationDrawerContent.childCount - 1) {
+            // TODO: refactor this fragile code, start with 4 because first one is header
+            for (position in 4 until homeNavigationDrawerContent.childCount) {
                 val itemContainer = homeNavigationDrawerContent.getChildAt(position)
                 itemContainer.menuItemHighlight.visibility = View.GONE
             }
         }
     }
 
-    fun setHightlight(subreddit: String) {
+    fun setHighlight(subreddit: String) {
         clearHighlight()
         rootView.apply {
             // TODO: refactor this fragile code, start with 4 because first one is header
-            for (position in 4..homeNavigationDrawerContent.childCount - 1) {
+            for (position in 4 until homeNavigationDrawerContent.childCount) {
                 val itemContainer = homeNavigationDrawerContent.getChildAt(position)
                 if (itemContainer.menuItemTextView.text == subreddit) {
                     itemContainer.menuItemHighlight.visibility = View.VISIBLE

@@ -20,7 +20,7 @@ class HomeContract {
         fun showLoadingProgressBar(isLoading: Boolean)
         fun showBottomLoadingProgresBar(isLoading: Boolean)
         fun updateToolbarSubredditText(subreddit: String)
-        fun navSetHightlight(subreddit: String)
+        fun navSetHighlight(subreddit: String)
         fun showGenericErrorMessage()
         fun navigateToAboutPage()
         fun reRenderOnThemeChange(isNightMode: Boolean)
