@@ -1,13 +1,13 @@
 package beepbeep.pixelsforredditx.home
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import beepbeep.pixelsforredditx.R
+import beepbeep.pixelsforredditx.about.AboutActivity
 import beepbeep.pixelsforredditx.common.SnackbarOnlyOne
 import beepbeep.pixelsforredditx.extension.*
 import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main._navigation_night_mode.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.navigational_parent.*
 
-
 class HomeActivity : AppCompatActivity() {
     private val adapter = HomeAdapter()
     private val noNetworkSnackbar = SnackbarOnlyOne()
@@ -29,7 +28,9 @@ class HomeActivity : AppCompatActivity() {
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
     private lateinit var navDrawerView: NavigationDrawerView
     private val homeInput = object : HomeContract.Input {
-        override val randomSubredditSelected by lazy { navDrawerView.randomSubredditSelected }
+        override val nightModeCheckChanged by lazy { navDrawerView.nightModeCheckChanged }
+        override val aboutClicked by lazy { navDrawerView.aboutButtonClick }
+        override val randomSubredditSelected by lazy { navDrawerView.randomButtonClick }
         override val subredditSelected by lazy { navDrawerView.subredditChosen }
         override val retry = retrySubject.hide()
         override val loadMore by lazy { homeList.onBottomDetectedObservable }
@@ -37,11 +38,21 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private val homeViewAction = object : HomeContract.ViewAction {
+        override fun reRenderOnThemeChange(isNightMode: Boolean) {
+            ThemePreference.saveThemePreference(this@HomeActivity, isNightMode)
+            finish()
+            startActivity(Intent(this@HomeActivity, HomeActivity::class.java))
+        }
+
+        override fun navigateToAboutPage() {
+            startActivity(Intent(this@HomeActivity, AboutActivity::class.java))
+        }
+
         override fun showGenericErrorMessage() {
             homeErrorMessage.visibility = View.VISIBLE
         }
 
-        override fun navSetHightlight(subreddit: String) = navDrawerView.setHightlight(subreddit)
+        override fun navSetHighlight(subreddit: String) = navDrawerView.setHighlight(subreddit)
         override fun dismissNoNetworkErrorSnackbar() = noNetworkSnackbar.dismiss()
         override fun updateToolbarSubredditText(subreddit: String) {
             selectedSubredditToolbar.text = RedditPreference.getSelectedSubreddit(this@HomeActivity)
@@ -109,10 +120,5 @@ class HomeActivity : AppCompatActivity() {
             homeList.initBottomDetectListener()
         }
         nightModeSwitch.isChecked = ThemePreference.getThemePreference(this)
-        nightModeSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            ThemePreference.saveThemePreference(this, isChecked)
-            finish()
-            startActivity(Intent(this, HomeActivity::class.java))
-        }
     }
 }

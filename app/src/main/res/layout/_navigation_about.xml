@@ -4,15 +4,25 @@
     android:layout_height="@dimen/setting_row_height"
     android:orientation="horizontal">
 
+    <View
+        android:id="@+id/aboutButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
-        android:id="@+id/nightModeIcon"
+        android:id="@+id/aboutIcon"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_night_mode" />
+        app:srcCompat="@drawable/ic_info" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,20 +31,11 @@
         android:layout_marginStart="8dp"
         android:background="?selectableItemBackground"
         android:gravity="center_vertical"
-        android:text="@string/night_mode"
+        android:text="@string/about"
         android:textColor="?android:textColor"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nightModeIcon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/nightModeSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/aboutIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

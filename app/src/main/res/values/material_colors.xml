@@ -289,6 +289,7 @@
     <color name="md_grey_950" tools:keep="@color/md_grey_900">#111111</color>
     <color name="md_black_1000">#000000</color>
     <color name="md_white_1000">#ffffff</color>
+    <color name="md_white_1000_80alpha">#CCffffff</color>
 
     <!--blue grey-->
     <color name="md_blue_grey_50" tools:keep="@color/md_blue_grey_50">#ECEFF1</color>
@@ -303,3 +304,27 @@
     <color name="md_blue_grey_900" tools:keep="@color/md_blue_grey_900">#263238</color>
 
 </resources>
+
+    <!-- Hex color percentage
+        100% — FF
+        95% — F2
+        90% — E6
+        85% — D9
+        80% — CC
+        75% — BF
+        70% — B3
+        65% — A6
+        60% — 99
+        55% — 8C
+        50% — 80
+        45% — 73
+        40% — 66
+        35% — 59
+        30% — 4D
+        25% — 40
+        20% — 33
+        15% — 26
+        10% — 1A
+        5% — 0D
+        0% — 00
+    -->

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Pixels</string>
     <string name="night_mode">Night Mode</string>
+    <string name="about">About</string>
+    <string name="about_description">Pixels is an Android app that brings you the beautiful and interesting pictures from Reddit</string>
+    <string name="about_github_description">The source code of the project is Open Source. The repository can be found in Github. \nhttps://github.com/worker8/Pixels</string>
+    <string name="about_github_issue_description">Please report any bugs, issues or feature request to the following link: \nhttps://github.com/worker8/Pixels/issues</string>
     <string name="random_subreddit">Random Subreddit</string>
     <string name="no_network">No internet connection</string>
     <string name="retry">Retry</string>

@@ -47,6 +47,7 @@ dependencies {
     implementation "android.arch.paging:rxjava2:$Versions.pagingRx"
     implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$Versions.rxBinding"
     implementation 'com.google.android.material:material:1.1.0-alpha02'
     implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"

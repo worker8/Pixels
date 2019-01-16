@@ -30,6 +30,22 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
     fun onCreate() {
         setupNoNetwork()
         setupGetNewPosts()
+        setupNavbar()
+    }
+
+    private fun setupNavbar() {
+        input.apply {
+            aboutClicked
+                .observeOn(repo.getMainThread())
+                .subscribe { viewAction.navigateToAboutPage() }
+                .addTo(disposableBag)
+
+            nightModeCheckChanged
+                .skip(1)
+                .observeOn(repo.getMainThread())
+                .subscribe { viewAction.reRenderOnThemeChange(it) }
+                .addTo(disposableBag)
+        }
     }
 
     private fun setupNoNetwork() {
@@ -51,7 +67,7 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
                 }
                 .share()
             Observable.merge(initialLoadTrigger, loadMore, retry, subSelectedShared)
-                .doOnNext { viewAction.navSetHightlight(repo.getSubredditSharedPreference()) }
+                .doOnNext { viewAction.navSetHighlight(repo.getSubredditSharedPreference()) }
                 .filter { isConnectedToInternet() && !isLoading }
                 .observeOn(repo.getMainThread())
                 .doOnNext { setLoadingUi(true) }

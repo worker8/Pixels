@@ -18,6 +18,8 @@ class HomeViewModelTest {
     lateinit var loadMoreSubject: PublishSubject<Unit>
     lateinit var subredditSelectedSubject: PublishSubject<String>
     lateinit var randomSubredditSelectedSubject: PublishSubject<String>
+    lateinit var aboutClickedSubject: PublishSubject<Unit>
+    lateinit var nightModeCheckChangedSubject: PublishSubject<Boolean>
     lateinit var getMorePostsSubject: PublishSubject<Result<Listing, FuelError>>
     lateinit var viewModel: HomeViewModel
     lateinit var homeRepo: HomeRepo
@@ -30,6 +32,9 @@ class HomeViewModelTest {
         getMorePostsSubject = PublishSubject.create()
         subredditSelectedSubject = PublishSubject.create()
         randomSubredditSelectedSubject = PublishSubject.create()
+        aboutClickedSubject = PublishSubject.create()
+        nightModeCheckChangedSubject = PublishSubject.create()
+
         input = mockk()
         homeRepo = mockk()
         viewAction = mockk(relaxed = true)
@@ -38,6 +43,8 @@ class HomeViewModelTest {
         every { input.loadMore } returns loadMoreSubject
         every { input.subredditSelected } returns subredditSelectedSubject
         every { input.randomSubredditSelected } returns randomSubredditSelectedSubject
+        every { input.aboutClicked } returns aboutClickedSubject
+        every { input.nightModeCheckChanged } returns nightModeCheckChangedSubject
 
         every { homeRepo.getBackgroundThread() } returns Schedulers.trampoline()
         every { homeRepo.saveSubredditSharedPreference(any()) } just runs

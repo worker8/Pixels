@@ -4,13 +4,25 @@
     android:layout_height="48dp"
     android:background="?pixelBackgroundColor">
 
-    <View
+    <LinearLayout
         android:id="@+id/menuItemHighlight"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?pixelSubtleBackground"
+        android:orientation="horizontal"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="?colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?pixelSubtleBackground" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/menuItemTextView"
