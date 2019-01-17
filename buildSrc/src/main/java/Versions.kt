@@ -32,11 +32,3 @@ class Tool {
     val kotlin = "1.3.11"
     val buildGradle = "3.2.1"
 }
-
-class AndroidConfig {
-    val sdkVersion = 28 // target & compile sdk
-    val minSdkVersion = 21
-    val targetSdkVersion = 28
-    val versionCode = 2
-    val versionName = "1.1"
-}
