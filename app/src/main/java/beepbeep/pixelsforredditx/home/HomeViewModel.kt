@@ -80,6 +80,7 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
                         dispatch(currentScreenState.copy(redditLinks = currentScreenState.redditLinks + it.value.getRedditImageLinks()))
                     }
                 }, {
+                    it.printStackTrace()
                     setLoadingUi(false)
                     viewAction.showGenericErrorMessage() // unrecoverable error
                 })
