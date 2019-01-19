@@ -7,7 +7,7 @@ data class RedditLinkListingData(
     val after: String = "",
     val before: String = "",
     @SerializedName("children")
-    val valueList: List<RedditLink> = listOf(),
+    val valueList: List<RedditLinkObject> = listOf(),
     val dist: Int = 0,
     val modhash: String = ""
 ) {
