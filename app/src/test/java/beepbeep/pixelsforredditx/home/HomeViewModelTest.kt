@@ -2,10 +2,10 @@ package beepbeep.pixelsforredditx.home
 
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.result.Result
-import com.worker8.redditapi.Listing
-import com.worker8.redditapi.ListingData
-import com.worker8.redditapi.RedditLink
-import com.worker8.redditapi.RedditLinkData
+import com.worker8.redditapi.model.t3_link.RedditLinkListing
+import com.worker8.redditapi.model.t3_link.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.RedditLink
+import com.worker8.redditapi.model.t3_link.RedditLinkData
 import io.mockk.*
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -20,7 +20,7 @@ class HomeViewModelTest {
     lateinit var randomSubredditSelectedSubject: PublishSubject<String>
     lateinit var aboutClickedSubject: PublishSubject<Unit>
     lateinit var nightModeCheckChangedSubject: PublishSubject<Boolean>
-    lateinit var getMorePostsSubject: PublishSubject<Result<Listing, FuelError>>
+    lateinit var getMorePostsSubject: PublishSubject<Result<RedditLinkListing, FuelError>>
     lateinit var viewModel: HomeViewModel
     lateinit var homeRepo: HomeRepo
     lateinit var viewAction: HomeContract.ViewAction
@@ -150,10 +150,10 @@ class HomeViewModelTest {
         }
     }
 
-    fun makeFakeResult(redditLinks: List<RedditLink>): Result<Listing, FuelError> {
-        val fakeResult = mockk<Result<Listing, FuelError>>()
-        val fakeListing = mockk<Listing>()
-        val fakeListingData = mockk<ListingData>()
+    fun makeFakeResult(redditLinks: List<RedditLink>): Result<RedditLinkListing, FuelError> {
+        val fakeResult = mockk<Result<RedditLinkListing, FuelError>>()
+        val fakeListing = mockk<RedditLinkListing>()
+        val fakeListingData = mockk<RedditLinkListingData>()
         every { fakeListingData.getRedditImageLinks() } returns redditLinks
         every { fakeListing.value } returns fakeListingData
         every { fakeResult.component1() } returns fakeListing

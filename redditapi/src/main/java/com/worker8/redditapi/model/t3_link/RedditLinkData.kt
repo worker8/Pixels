@@ -1,4 +1,9 @@
-package com.worker8.redditapi
+package com.worker8.redditapi.model.t3_link
+
+import com.worker8.redditapi.Gildings
+import com.worker8.redditapi.Media
+import com.worker8.redditapi.MediaEmbed
+import com.worker8.redditapi.SecureMediaEmbed
 
 data class RedditLinkData(
     //val approved_at_utc: Any,

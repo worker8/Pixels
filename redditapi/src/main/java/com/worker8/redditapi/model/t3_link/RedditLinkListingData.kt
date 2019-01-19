@@ -1,8 +1,9 @@
-package com.worker8.redditapi
+package com.worker8.redditapi.model.t3_link
 
 import com.google.gson.annotations.SerializedName
+import com.worker8.redditapi.isImageUrl
 
-data class ListingData(
+data class RedditLinkListingData(
     val after: String = "",
     val before: String = "",
     @SerializedName("children")

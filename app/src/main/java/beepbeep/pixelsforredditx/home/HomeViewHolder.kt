@@ -9,7 +9,7 @@ import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.worker8.redditapi.RedditLink
+import com.worker8.redditapi.model.t3_link.RedditLink
 import kotlinx.android.synthetic.main.home_item.view.*
 
 class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
