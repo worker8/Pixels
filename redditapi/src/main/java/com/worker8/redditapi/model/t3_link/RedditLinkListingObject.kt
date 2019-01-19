@@ -11,8 +11,10 @@ data class RedditLinkListingObject(
     override val value: RedditLinkListingData,
     @SerializedName("kind")
     override val kind: String = "" // kind = "Listing"
-) : RedditObject<RedditLinkListingData>() {
+) : RedditObject<RedditLinkListingData> {
     class Deserializer : ResponseDeserializable<RedditLinkListingObject> {
-        override fun deserialize(reader: Reader) = RedditApi.gson.fromJson(reader, RedditLinkListingObject::class.java)
+        override fun deserialize(reader: Reader): RedditLinkListingObject {
+            return RedditApi.gson.fromJson(reader, RedditLinkListingObject::class.java)
+        }
     }
 }

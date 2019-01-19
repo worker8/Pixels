@@ -8,4 +8,4 @@ data class RedditCommentObject(
     override val value: RedditCommentData = RedditCommentData(),
     @SerializedName("kind")
     override val kind: String = "" // kind = t1, Comment
-) : RedditObject<RedditCommentData>()
+) : RedditObject<RedditCommentData>

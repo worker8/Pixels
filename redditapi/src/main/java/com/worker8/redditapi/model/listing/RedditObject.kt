@@ -1,6 +1,6 @@
 package com.worker8.redditapi.model.listing
 
-abstract class RedditObject<T> {
-    abstract val value: T
-    abstract val kind: String
+interface RedditObject<T> {
+    val value: T
+    val kind: String
 }

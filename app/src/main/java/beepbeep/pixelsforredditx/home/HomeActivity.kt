@@ -14,8 +14,10 @@ import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
 import beepbeep.pixelsforredditx.preference.RedditPreference
 import beepbeep.pixelsforredditx.preference.ThemePreference
 import com.google.android.material.snackbar.Snackbar
+import com.worker8.redditapi.RedditApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main._navigation_night_mode.*
 import kotlinx.android.synthetic.main.activity_home.*
@@ -83,6 +85,15 @@ class HomeActivity : AppCompatActivity() {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigational_parent)
+        RedditApi().getComment("a4ithw")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ (pair, fuelError) ->
+                fuelError?.printStackTrace()
+            }, {
+                it.printStackTrace()
+            })
+            .addTo(disposableBag)
         navDrawerView = NavigationDrawerView(homeDrawerLayout)
         val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
         viewModel.apply {

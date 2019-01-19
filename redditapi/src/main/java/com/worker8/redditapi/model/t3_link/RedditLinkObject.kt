@@ -9,4 +9,4 @@ data class RedditLinkObject(
 
     @SerializedName("kind")
     override val kind: String = "" // kind = t3, Link
-) : RedditObject<RedditLinkData>()
+) : RedditObject<RedditLinkData>
