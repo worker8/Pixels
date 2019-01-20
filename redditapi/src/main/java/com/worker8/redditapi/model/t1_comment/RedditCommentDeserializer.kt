@@ -36,23 +36,8 @@ class RedditCommentDeserializer : ResponseDeserializable<Pair<RedditLinkListingD
 
 // reddit api can sometimes reply "" or the object itself, this deserializer handles this polymorphic object
 class RedditCommentListingObjectDeserializer : JsonDeserializer<RedditCommentListingObject> {
-
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): RedditCommentListingObject {
         val newJsonString = json.toString().replace("\"replies\":\"\"", "\"replies\":{}")
-//        val jsonObject = (json as JsonObject)
-//        jsonObject.getAsJsonObject("")
-//        if ((json as JsonObject).size() == 0) {
-//            return RedditCommentListingObject()
-//        } else {
         return Gson().fromJson(newJsonString, RedditCommentListingObject::class.java)
-//        }
-//        try {
-//            val gson = GsonBuilder().registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer()).create()
-//            return gson.fromJson(json, RedditCommentListingObject::class.java)
-//        } catch (e: JsonSyntaxException) {
-        // this is expected since when the replies is empty, swallow error
-//            return RedditCommentListingObject()
-//        }
     }
-
 }
