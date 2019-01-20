@@ -17,7 +17,7 @@ class RedditCommentDeserializer : ResponseDeserializable<Pair<RedditLinkListingD
         val titleListing = gson.fromJson(jsonArray[0], RedditLinkListingObject::class.java)
         val commentTreeListing = gson.fromJson(jsonArray[1], RedditCommentListingObject::class.java)
 
-        traverse(commentTreeListing, 0)
+        //traverse(commentTreeListing, 0)
 
         return titleListing.value to commentTreeListing.value
     }

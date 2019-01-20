@@ -11,6 +11,7 @@ class HomeContract {
         val randomSubredditSelected: Observable<String>
         val aboutClicked: Observable<Unit>
         val nightModeCheckChanged: Observable<Boolean>
+        val postClicked: Observable<String>
         fun isConnectedToInternet(): Boolean
     }
 
@@ -24,6 +25,7 @@ class HomeContract {
         fun showGenericErrorMessage()
         fun navigateToAboutPage()
         fun reRenderOnThemeChange(isNightMode: Boolean)
+        fun navigateToCommentActivity(commentId: String)
     }
 
     data class ScreenState(val redditLinks: List<RedditLinkObject> = listOf())

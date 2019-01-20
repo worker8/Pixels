@@ -26,6 +26,11 @@
         <activity android:name=".about.AboutActivity">
 
         </activity>
+        <activity android:name=".ui.comment.CommentActivity">
+
+        </activity>
+
+
     </application>
 
 </manifest>

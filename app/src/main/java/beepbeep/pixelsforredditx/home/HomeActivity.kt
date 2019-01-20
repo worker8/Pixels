@@ -13,11 +13,10 @@ import beepbeep.pixelsforredditx.extension.*
 import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
 import beepbeep.pixelsforredditx.preference.RedditPreference
 import beepbeep.pixelsforredditx.preference.ThemePreference
+import beepbeep.pixelsforredditx.ui.comment.CommentActivity
 import com.google.android.material.snackbar.Snackbar
-import com.worker8.redditapi.RedditApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main._navigation_night_mode.*
 import kotlinx.android.synthetic.main.activity_home.*
@@ -30,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
     private lateinit var navDrawerView: NavigationDrawerView
     private val homeInput = object : HomeContract.Input {
+        override val postClicked by lazy { adapter.postClickedObservable }
         override val nightModeCheckChanged by lazy { navDrawerView.nightModeCheckChanged }
         override val aboutClicked by lazy { navDrawerView.aboutButtonClick }
         override val randomSubredditSelected by lazy { navDrawerView.randomButtonClick }
@@ -40,6 +40,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private val homeViewAction = object : HomeContract.ViewAction {
+        override fun navigateToCommentActivity(commentId: String) {
+            startActivity(Intent(this@HomeActivity, CommentActivity::class.java).apply {
+                putExtra(CommentActivity.COMMENT_ID, commentId)
+            })
+        }
+
         override fun reRenderOnThemeChange(isNightMode: Boolean) {
             ThemePreference.saveThemePreference(this@HomeActivity, isNightMode)
             finish()
@@ -81,19 +87,12 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigational_parent)
-        RedditApi().getComment("a4ithw")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ (pair, fuelError) ->
-                fuelError?.printStackTrace()
-            }, {
-                it.printStackTrace()
-            })
-            .addTo(disposableBag)
+
         navDrawerView = NavigationDrawerView(homeDrawerLayout)
         val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
         viewModel.apply {
@@ -108,6 +107,11 @@ class HomeActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { adapter.submitList(it.redditLinks) }
             .addTo(disposableBag)
+//
+//        adapter.postClickedObservable
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe { Log.d("ddw", "comment clicked: ${it}") }
+//            .addTo(disposableBag)
     }
 
     override fun onDestroy() {

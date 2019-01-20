@@ -66,6 +66,12 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
                     viewAction.updateToolbarSubredditText(it)
                 }
                 .share()
+
+            postClicked
+                .observeOn(repo.getMainThread())
+                .subscribe { viewAction.navigateToCommentActivity(it) }
+                .addTo(disposableBag)
+
             Observable.merge(initialLoadTrigger, loadMore, retry, subSelectedShared)
                 .doOnNext { viewAction.navSetHighlight(repo.getSubredditSharedPreference()) }
                 .filter { isConnectedToInternet() && !isLoading }
