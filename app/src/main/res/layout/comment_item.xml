@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?pixelBackgroundColor"
+    android:elevation="2dp">
+
+    <View
+        android:id="@+id/commentIndentation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?pixelSubtleBackground"
+        app:layout_constraintBottom_toBottomOf="@id/commentItemText"
+        app:layout_constraintEnd_toEndOf="@id/commentGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/commentItemText" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/commentGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0" />
+
+    <View
+        android:id="@+id/commentIndentationBar"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="?colorAccent"
+        app:layout_constraintBottom_toBottomOf="@id/commentItemText"
+        app:layout_constraintStart_toEndOf="@id/commentGuideline"
+        app:layout_constraintTop_toTopOf="@id/commentItemText" />
+
+    <TextView
+        android:id="@+id/commentItemText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="10dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/commentIndentationBar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="This is a pretty awesome rice field!" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?pixelSubtleBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
