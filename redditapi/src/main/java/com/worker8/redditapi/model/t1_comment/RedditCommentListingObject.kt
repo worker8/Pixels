@@ -9,7 +9,7 @@ import java.io.Reader
 
 data class RedditCommentListingObject(
     @SerializedName("data")
-    override val value: RedditCommentListingData,
+    override val value: RedditCommentListingData = RedditCommentListingData(),
     @SerializedName("kind")
     override val kind: String = "" // kind = "Listing"
 ) : RedditObject<RedditCommentListingData> {

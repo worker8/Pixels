@@ -1,5 +1,6 @@
 package com.worker8.redditapi.model.t1_comment
 
+import com.google.gson.annotations.SerializedName
 import com.worker8.redditapi.Gildings
 
 data class RedditCommentData(
@@ -30,7 +31,7 @@ data class RedditCommentData(
     val depth: Int = 0,
 //    val distinguished: Any,
     val downs: Int = 0,
-    val edited: Boolean = false,
+    //val edited: Boolean = false,
     val gilded: Int = 0,
     val gildings: Gildings = Gildings(),
     val id: String = "",
@@ -47,7 +48,8 @@ data class RedditCommentData(
     val parent_id: String = "",
     val permalink: String = "",
 //    val removal_reason: Any,
-    //val replies: Replies,
+    @SerializedName("replies")
+    val replies: RedditCommentListingObject = RedditCommentListingObject(),
 //    val report_reasons: Any,
     val saved: Boolean = false,
     val score: Int = 0,

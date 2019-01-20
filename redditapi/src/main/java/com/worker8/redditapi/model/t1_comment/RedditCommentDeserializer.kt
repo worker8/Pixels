@@ -2,30 +2,57 @@ package com.worker8.redditapi.model.t1_comment
 
 import android.util.Log
 import com.github.kittinunf.fuel.core.ResponseDeserializable
-import com.google.gson.Gson
-import com.google.gson.JsonParser
-import com.worker8.redditapi.model.t3_link.RedditLinkData
+import com.google.gson.*
+import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import com.worker8.redditapi.model.t3_link.RedditLinkListingObject
 import java.io.Reader
+import java.lang.reflect.Type
 
-class RedditCommentDeserializer : ResponseDeserializable<Pair<RedditLinkData, RedditCommentData>> {
-    override fun deserialize(reader: Reader): Pair<RedditLinkData, RedditCommentData>? {
+class RedditCommentDeserializer : ResponseDeserializable<Pair<RedditLinkListingData, RedditCommentListingData>> {
+    override fun deserialize(reader: Reader): Pair<RedditLinkListingData, RedditCommentListingData> {
         val jsonParser = JsonParser()
         val jsonArray = jsonParser.parse(reader).asJsonArray
 
-        Log.d("ddw", "jsonArray[0]: ${jsonArray[0]}")
-        Log.d("ddw", "jsonArray[1]: ${jsonArray[1]}")
+        val gson = GsonBuilder().registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer()).create()
+        val titleListing = gson.fromJson(jsonArray[0], RedditLinkListingObject::class.java)
+        val commentTreeListing = gson.fromJson(jsonArray[1], RedditCommentListingObject::class.java)
 
+        traverse(commentTreeListing, 0)
 
-        val gson = Gson()
-        val res0 = gson.fromJson(jsonArray[0], RedditLinkListingObject::class.java)
-        val res1 = gson.fromJson(jsonArray[1], RedditCommentListingObject::class.java)
-
-        Log.d("ddw", "res0: ${res0.value}")
-        res1.value.valueList.forEach {
-            Log.d("ddw", "res1: ${it.value.body}")
-        }
-
-        return super.deserialize(reader)
+        return titleListing.value to commentTreeListing.value
     }
+
+    fun traverse(rootNode: RedditCommentListingObject, level: Int) {
+        if (rootNode.value.valueList.isEmpty()) {
+            return
+        }
+        val spaces = "  ".repeat(level)
+        rootNode.value.valueList.forEach {
+            Log.d("ddw", "${spaces}>>body: ${it.value.body}")
+            traverse(it.value.replies, level + 1)
+        }
+    }
+}
+
+// reddit api can sometimes reply "" or the object itself, this deserializer handles this polymorphic object
+class RedditCommentListingObjectDeserializer : JsonDeserializer<RedditCommentListingObject> {
+
+    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): RedditCommentListingObject {
+        val newJsonString = json.toString().replace("\"replies\":\"\"", "\"replies\":{}")
+//        val jsonObject = (json as JsonObject)
+//        jsonObject.getAsJsonObject("")
+//        if ((json as JsonObject).size() == 0) {
+//            return RedditCommentListingObject()
+//        } else {
+        return Gson().fromJson(newJsonString, RedditCommentListingObject::class.java)
+//        }
+//        try {
+//            val gson = GsonBuilder().registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer()).create()
+//            return gson.fromJson(json, RedditCommentListingObject::class.java)
+//        } catch (e: JsonSyntaxException) {
+        // this is expected since when the replies is empty, swallow error
+//            return RedditCommentListingObject()
+//        }
+    }
+
 }

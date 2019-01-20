@@ -8,7 +8,9 @@ import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import com.worker8.redditapi.model.t1_comment.RedditCommentData
 import com.worker8.redditapi.model.t1_comment.RedditCommentDeserializer
+import com.worker8.redditapi.model.t1_comment.RedditCommentListingData
 import com.worker8.redditapi.model.t3_link.RedditLinkData
+import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import com.worker8.redditapi.model.t3_link.RedditLinkListingObject
 import io.reactivex.Observable
 
@@ -25,7 +27,7 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
                 listing?.value?.after?.also { after = it }
             }
 
-    fun getComment(commentId: String): Observable<Result<Pair<RedditLinkData, RedditCommentData>, FuelError>> {
+    fun getComment(commentId: String): Observable<Result<Pair<RedditLinkListingData, RedditCommentListingData>, FuelError>> {
         val curlString = "${REDDIT_API_BASE}comments/${commentId}.json"
             .httpGet()
             .cUrlString()
