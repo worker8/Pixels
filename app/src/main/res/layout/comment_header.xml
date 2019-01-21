@@ -8,7 +8,7 @@
     android:elevation="2dp">
 
     <ImageView
-        android:id="@+id/commentImage"
+        android:id="@+id/commentHeaderImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -17,4 +17,96 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"
+        android:padding="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/commentHeaderImage">
+
+        <TextView
+            android:id="@+id/commentHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_white_1000"
+            android:textSize="18sp"
+            tools:text="Pretty Corn Field" />
+
+        <TextView
+            android:id="@+id/commentHeaderAuthorBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="by"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintBottom_toBottomOf="@id/commentHeaderAuthor"
+            app:layout_constraintTop_toTopOf="@id/commentHeaderAuthor" />
+
+        <TextView
+            android:id="@+id/commentHeaderAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="3dp"
+            android:textColor="@color/md_white_1000"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/commentHeaderAuthorBy"
+            app:layout_constraintTop_toBottomOf="@id/commentHeaderTitle"
+            tools:text="momodao" />
+
+        <TextView
+            android:id="@+id/commentHeaderDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintBottom_toBottomOf="@id/commentHeaderAuthor"
+            app:layout_constraintStart_toEndOf="@id/commentHeaderAuthor"
+            app:layout_constraintTop_toTopOf="@id/commentHeaderAuthor"
+            tools:text=" 19 hours ago" />
+
+        <TextView
+            android:id="@+id/commentPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/commentHeaderAuthor"
+            tools:text="123 " />
+
+        <TextView
+            android:id="@+id/commentPointLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:text=" points,"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintStart_toEndOf="@id/commentPoint"
+            app:layout_constraintTop_toBottomOf="@id/commentHeaderAuthor" />
+
+        <TextView
+            android:id="@+id/commentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:alpha="0.7"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintStart_toEndOf="@id/commentPointLabel"
+            app:layout_constraintTop_toBottomOf="@id/commentHeaderAuthor"
+            tools:text="12" />
+
+        <TextView
+            android:id="@+id/commentCountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:text=" comments"
+            android:textColor="@color/md_white_1000"
+            app:layout_constraintStart_toEndOf="@id/commentCount"
+            app:layout_constraintTop_toBottomOf="@id/commentHeaderAuthor" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

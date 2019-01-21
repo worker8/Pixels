@@ -30,7 +30,7 @@ class CommentActivity : AppCompatActivity() {
                     val (titleListing, commentListing) = it
                     val flattenComments = RedditCommentListingData.flattenComments(commentListing).map { comment -> CommentAdapter.CommentViewType.Item(comment) }
                     val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
-                    dataRows.add(CommentAdapter.CommentViewType.Header(titleListing.valueList[0].value.url))
+                    dataRows.add(CommentAdapter.CommentViewType.Header(titleListing))
                     if (flattenComments.isEmpty()) {
                         dataRows.add(CommentAdapter.CommentViewType.Empty())
                     } else {
@@ -46,7 +46,6 @@ class CommentActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-        backButton.setOnClickListener { onBackPressed() }
     }
 
     private fun setupTheme() {

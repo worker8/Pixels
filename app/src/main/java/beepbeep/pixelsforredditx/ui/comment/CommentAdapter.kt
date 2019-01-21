@@ -8,6 +8,7 @@ import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentEmptyViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
+import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import io.reactivex.subjects.PublishSubject
 
 class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.ViewHolder>(POST_COMPARATOR) {
@@ -39,7 +40,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
     override fun getItemViewType(position: Int) = position
 
     sealed class CommentViewType() {
-        class Header(val headerData: String) : CommentViewType()
+        class Header(val headerData: RedditLinkListingData) : CommentViewType()
         class Item(val itemData: Pair<Int, String>) : CommentViewType()
         class Empty() : CommentViewType()
     }
