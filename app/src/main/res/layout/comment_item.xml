@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="@id/commentItemText"
         app:layout_constraintEnd_toEndOf="@id/commentGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/commentItemText" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/commentGuideline"
@@ -26,26 +26,82 @@
 
     <View
         android:id="@+id/commentIndentationBar"
-        android:layout_width="2dp"
+        android:layout_width="3dp"
         android:layout_height="0dp"
         android:background="?colorAccent"
-        app:layout_constraintBottom_toBottomOf="@id/commentItemText"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/commentGuideline"
-        app:layout_constraintTop_toTopOf="@id/commentItemText" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commentItemAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:paddingTop="10dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/commentItemText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="momodao" />
+
+    <TextView
+        android:id="@+id/commentItemAuthorLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:alpha="0.7"
+        android:paddingTop="10dp"
+        android:text=" . "
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/commentItemAuthor"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commentItemPoint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:paddingTop="10dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/commentItemAuthorLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="181" />
+
+    <TextView
+        android:id="@+id/commentItemPointLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:alpha="0.7"
+        android:paddingTop="10dp"
+        android:text="points . "
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/commentItemPoint"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commentItemDateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:paddingTop="10dp"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/commentItemPointLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="3 hours ago" />
 
     <TextView
         android:id="@+id/commentItemText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingStart="15dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:paddingBottom="10dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/commentIndentationBar"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/commentItemAuthor"
         tools:text="This is a pretty awesome rice field!" />
 
     <View

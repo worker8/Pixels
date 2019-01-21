@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import beepbeep.pixelsforredditx.R
+import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.worker8.redditapi.model.t1_comment.RedditCommentData
 import kotlinx.android.synthetic.main.comment_item.view.*
 
@@ -16,6 +17,9 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             //commentIndentation.scaleX = 1 + (level * 0.1f)
             commentGuideline.setGuidelinePercent(level * 0.02f)
             commentItemText.text = Html.fromHtml(Html.fromHtml(redditCommentData.body_html).toString()).trim()
+            commentItemAuthor.text = redditCommentData.author
+            commentItemPoint.text = redditCommentData.score.toString()
+            commentItemDateTime.text = redditCommentData.created.toRelativeTimeString()
         }
     }
 
