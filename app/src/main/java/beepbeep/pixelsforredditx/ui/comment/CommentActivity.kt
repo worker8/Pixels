@@ -21,6 +21,7 @@ class CommentActivity : AppCompatActivity() {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
+        setupViews()
         RedditApi().getComment(commentId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -30,7 +31,11 @@ class CommentActivity : AppCompatActivity() {
                     val flattenComments = RedditCommentListingData.flattenComments(commentListing).map { comment -> CommentAdapter.CommentViewType.Item(comment) }
                     val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
                     dataRows.add(CommentAdapter.CommentViewType.Header(titleListing.valueList[0].value.url))
-                    dataRows.addAll(flattenComments)
+                    if (flattenComments.isEmpty()) {
+                        dataRows.add(CommentAdapter.CommentViewType.Empty())
+                    } else {
+                        dataRows.addAll(flattenComments)
+                    }
                     commentRecyclerView.adapter = CommentAdapter().apply { submitList(dataRows) }
                 }
                 fuelError?.printStackTrace()
@@ -38,6 +43,10 @@ class CommentActivity : AppCompatActivity() {
                 it.printStackTrace()
             })
             .addTo(disposableBag)
+    }
+
+    private fun setupViews() {
+        backButton.setOnClickListener { onBackPressed() }
     }
 
     private fun setupTheme() {

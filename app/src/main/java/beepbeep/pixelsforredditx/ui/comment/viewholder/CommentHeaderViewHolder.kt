@@ -1,4 +1,4 @@
-package beepbeep.pixelsforredditx.ui.comment
+package beepbeep.pixelsforredditx.ui.comment.viewholder
 
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater

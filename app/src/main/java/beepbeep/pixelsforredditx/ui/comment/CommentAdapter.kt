@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import beepbeep.pixelsforredditx.extension.ofType
+import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentEmptyViewHolder
+import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
+import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
 import io.reactivex.subjects.PublishSubject
 
 class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.ViewHolder>(POST_COMPARATOR) {
@@ -15,6 +18,9 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
         val item = getItem(viewType)
         item.ofType<CommentViewType.Header> {
             return CommentHeaderViewHolder.create(parent)
+        }
+        item.ofType<CommentViewType.Empty> {
+            return CommentEmptyViewHolder.create(parent)
         }
         return CommentViewHolder.create(parent)
     }
@@ -35,6 +41,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
     sealed class CommentViewType() {
         class Header(val headerData: String) : CommentViewType()
         class Item(val itemData: Pair<Int, String>) : CommentViewType()
+        class Empty() : CommentViewType()
     }
 
     companion object {

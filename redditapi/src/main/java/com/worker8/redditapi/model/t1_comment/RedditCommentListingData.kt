@@ -26,7 +26,7 @@ data class RedditCommentListingData(
             val spaces = "  ".repeat(level)
             rootNode.valueList.forEach {
                 //Log.d("ddw", "${spaces}>>comment: ${it.value.body}")
-                callback.invoke(level, it.value.body)
+                callback.invoke(level, it.value.body_html)
                 traverse(it.value.replies.value, level + 1, callback)
             }
         }

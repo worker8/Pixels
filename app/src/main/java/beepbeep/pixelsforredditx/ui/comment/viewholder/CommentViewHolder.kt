@@ -1,5 +1,6 @@
-package beepbeep.pixelsforredditx.ui.comment
+package beepbeep.pixelsforredditx.ui.comment.viewholder
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.apply {
             //commentIndentation.scaleX = 1 + (level * 0.1f)
             commentGuideline.setGuidelinePercent(level * 0.02f)
-            commentItemText.text = comment
+            commentItemText.text = Html.fromHtml(Html.fromHtml(comment).toString()).trim()
         }
     }
 
