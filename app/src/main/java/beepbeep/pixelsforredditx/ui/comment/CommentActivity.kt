@@ -28,7 +28,7 @@ class CommentActivity : AppCompatActivity() {
             .subscribe({ (resultPair, fuelError) ->
                 resultPair?.let {
                     val (titleListing, commentListing) = it
-                    val flattenComments = RedditCommentListingData.flattenComments(commentListing).map { comment -> CommentAdapter.CommentViewType.Item(comment) }
+                    val flattenComments = RedditCommentListingData.flattenComments1(commentListing).map { CommentAdapter.CommentViewType.Item(it) }
                     val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
                     dataRows.add(CommentAdapter.CommentViewType.Header(titleListing))
                     if (flattenComments.isEmpty()) {
