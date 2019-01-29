@@ -27,7 +27,7 @@ The features are currently pretty limited! But here's a few that is available:
 
 ### Technical Details
 ##### General Architecture 
-The codebase is written in Kotlin. The architecture used is MVVM with RxJava. The `ViewModel` contains no Android related code, so the main logic can be unit tested: [example, HomeViewModelTest.kt](https://github.com/worker8/Pixels/blob/b34b0a5fdf6e5e63f9298ccea51f08afaef792ca/app/src/test/java/beepbeep/pixelsforreddit/home/HomeViewModelTest.kt). More information written in the wiki: [MVVM Architecture used in this project](https://github.com/worker8/Pixels/wiki/MVVM-Architecture-used-in-this-project).
+The codebase is written in Kotlin. The architecture used is MVVM with RxJava. The `ViewModel` contains no Android related code, so the main logic can be unit tested: [example, HomeViewModelTest.kt](https://github.com/worker8/Pixels/blob/b34b0a5fdf6e5e63f9298ccea51f08afaef792ca/app/src/test/java/beepbeep/pixelsforreddit/home/HomeViewModelTest.kt). More information written in the wiki: [Architecture Explanation](https://github.com/worker8/Pixels/wiki/Architecture-Explanation).
  
 ##### Icons, Resources and Theming
 SVG icons are preferred in this project, and night mode is supported. More details are in the wiki: [Assets, Resources & Theming
