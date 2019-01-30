@@ -6,20 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import beepbeep.pixelsforredditx.R
+import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
-import com.worker8.redditapi.model.t1_comment.RedditCommentData
+import com.worker8.redditapi.model.listing.RedditCommentDataType
 import kotlinx.android.synthetic.main.comment_item.view.*
 
 class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(commentPair: Pair<Int, RedditCommentData>) {
-        val (level, redditCommentData) = commentPair
+    fun bind(commentPair: Pair<Int, RedditCommentDataType>) {
+        val (level, redditCommentDataType) = commentPair
         itemView.apply {
             //commentIndentation.scaleX = 1 + (level * 0.1f)
-            commentGuideline.setGuidelinePercent(level * 0.02f)
-            commentItemText.text = Html.fromHtml(Html.fromHtml(redditCommentData.body_html).toString()).trim()
-            commentItemAuthor.text = redditCommentData.author
-            commentItemPoint.text = redditCommentData.score.toString()
-            commentItemDateTime.text = redditCommentData.created.toRelativeTimeString()
+            redditCommentDataType.ofType<RedditCommentDataType.RedditCommentData> { _redditCommentData ->
+                commentGuideline.setGuidelinePercent(level * 0.02f)
+                commentItemText.text = Html.fromHtml(Html.fromHtml(_redditCommentData.body_html).toString()).trim()
+                commentItemAuthor.text = _redditCommentData.author
+                commentItemPoint.text = _redditCommentData.score.toString()
+                commentItemDateTime.text = _redditCommentData.created.toRelativeTimeString()
+            }
+
+            redditCommentDataType.ofType<RedditCommentDataType.TMore> {
+                commentItemText.text = "(read more...)"
+            }
+
         }
     }
 

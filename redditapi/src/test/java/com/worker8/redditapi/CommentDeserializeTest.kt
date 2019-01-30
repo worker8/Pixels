@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.worker8.redditapi.model.listing.RedditListing
 import com.worker8.redditapi.model.listing.RedditReply
+import com.worker8.redditapi.model.t1_comment.RedditReply
 import org.junit.Test
 
 

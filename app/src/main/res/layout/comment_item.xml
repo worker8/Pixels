@@ -49,9 +49,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:alpha="0.7"
         android:paddingTop="10dp"
         android:text=" . "
+        android:textColor="@color/md_black_60alpha"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/commentItemAuthor"
         app:layout_constraintTop_toTopOf="parent" />

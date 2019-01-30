@@ -7,6 +7,7 @@ import beepbeep.pixelsforredditx.extension.addTo
 import beepbeep.pixelsforredditx.preference.ThemePreference
 import com.worker8.redditapi.RedditApi
 import com.worker8.redditapi.model.t1_comment.RedditCommentListingData
+import com.worker8.redditapi.model.t1_comment.RedditReply
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +29,7 @@ class CommentActivity : AppCompatActivity() {
             .subscribe({ (resultPair, fuelError) ->
                 resultPair?.let {
                     val (titleListing, commentListing) = it
-                    val flattenComments = RedditCommentListingData.flattenComments1(commentListing).map { CommentAdapter.CommentViewType.Item(it) }
+                    val flattenComments = RedditReply.flattenComments(commentListing).map { CommentAdapter.CommentViewType.Item(it) }
                     val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
                     dataRows.add(CommentAdapter.CommentViewType.Header(titleListing))
                     if (flattenComments.isEmpty()) {

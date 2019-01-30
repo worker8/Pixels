@@ -8,13 +8,15 @@ import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentEmptyViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
-import com.worker8.redditapi.model.t1_comment.RedditCommentData
+import com.worker8.redditapi.model.listing.RedditCommentDataType
+
 import com.worker8.redditapi.model.t3_link.RedditLinkListingData
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.ViewHolder>(POST_COMPARATOR) {
     private val postClickedSubject: PublishSubject<String> = PublishSubject.create()
-    val postClickedObservable = postClickedSubject.hide()
+    val postClickedObservable: Observable<String> = postClickedSubject.hide()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val item = getItem(viewType)
@@ -42,7 +44,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
 
     sealed class CommentViewType() {
         class Header(val headerData: RedditLinkListingData) : CommentViewType()
-        class Item(val itemData: Pair<Int, RedditCommentData>) : CommentViewType()
+        class Item(val itemData: Pair<Int, RedditCommentDataType>) : CommentViewType()
         class Empty() : CommentViewType()
     }
 
