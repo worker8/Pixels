@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?pixelBackgroundColor"
+    android:elevation="2dp">
+
+    <View
+        android:id="@+id/commentMoreIndentation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?pixelSubtleBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/commentMoreGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/commentMoreGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0" />
+
+    <View
+        android:id="@+id/commentMoreIndentationBar"
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:background="?colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/commentMoreGuideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commentMoreText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="read more"
+        android:textColor="?pixelSubtleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/commentMoreIndentationBar" />
+
+    <TextView
+        android:id="@+id/commentMoreCountText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="?pixelSubtleTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/commentMoreText"
+        tools:text="(24)" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?pixelSubtleBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

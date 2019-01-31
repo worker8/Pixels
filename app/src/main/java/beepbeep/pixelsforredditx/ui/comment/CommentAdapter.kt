@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentEmptyViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
+import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentMoreViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
 import com.worker8.redditapi.model.listing.RedditCommentDataType
 
@@ -26,6 +27,9 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
         item.ofType<CommentViewType.Empty> {
             return CommentEmptyViewHolder.create(parent)
         }
+        item.ofType<CommentViewType.ItemViewMore> {
+            return CommentMoreViewHolder.create(parent)
+        }
         return CommentViewHolder.create(parent)
     }
 
@@ -38,13 +42,18 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
         item.ofType<CommentViewType.Header> {
             (holder as CommentHeaderViewHolder).bind(it.headerData)
         }
+
+        item.ofType<CommentViewType.ItemViewMore> {
+            (holder as CommentMoreViewHolder).bind(it.itemMoreData)
+        }
     }
 
     override fun getItemViewType(position: Int) = position
 
     sealed class CommentViewType() {
         class Header(val headerData: RedditLinkListingData) : CommentViewType()
-        class Item(val itemData: Pair<Int, RedditCommentDataType>) : CommentViewType()
+        class Item(val itemData: Pair<Int, RedditCommentDataType.RedditCommentData>) : CommentViewType()
+        class ItemViewMore(val itemMoreData: Pair<Int, RedditCommentDataType.TMore>) : CommentViewType()
         class Empty() : CommentViewType()
     }
 
