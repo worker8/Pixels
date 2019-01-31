@@ -77,6 +77,20 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
                         return _oldItem.headerData == _newItem.headerData
                     }
                 }
+
+                oldItem.ofType<CommentViewType.ItemViewMore> { _oldItem ->
+                    newItem.ofType<CommentViewType.ItemViewMore> { _newItem ->
+                        val (oldLevel, oldComment) = _oldItem.itemMoreData
+                        val (newLevel, newComment) = _newItem.itemMoreData
+                        return oldLevel == newLevel && oldComment == newComment
+                    }
+                }
+
+                oldItem.ofType<CommentViewType.Empty> { _oldItem ->
+                    newItem.ofType<CommentViewType.Empty> { _newItem ->
+                        return _oldItem == _newItem
+                    }
+                }
                 return false // this means they have different type
             }
         }

@@ -50,11 +50,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:paddingTop="10dp"
-        android:text=" . "
+        android:text=" · "
         android:textColor="?pixelSubtleTextColor"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/commentItemAuthor"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/commentItemPoint"
@@ -73,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:paddingTop="10dp"
-        android:text="points . "
+        android:text="points · "
         android:textColor="?pixelSubtleTextColor"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/commentItemPoint"

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.worker8.redditapi.model.listing.RedditCommentDataType
 import com.worker8.redditapi.ofType
 
-public sealed class RedditReply() {
+sealed class RedditReply {
     class T1_RedditObject(@SerializedName("data") val value: RedditCommentDataType.RedditCommentData = RedditCommentDataType.RedditCommentData(), @SerializedName("kind") val kind: String = "") : RedditReply()
     class TM_RedditObject(@SerializedName("data") val value: RedditCommentDataType.TMore = RedditCommentDataType.TMore(), @SerializedName("kind") val kind: String = "") : RedditReply()
 
