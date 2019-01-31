@@ -2,4 +2,5 @@
     <attr name="pixelSubtleBackground" format="reference|color" />
     <attr name="pixelTextHighlightColor" format="reference|color" />
     <attr name="pixelBackgroundColor" format="reference|color" />
+    <attr name="pixelSubtleTextColor" format="reference|color" />
 </resources>

@@ -25,6 +25,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
 
             redditCommentDataType.ofType<RedditCommentDataType.TMore> {
+                commentGuideline.setGuidelinePercent(it.depth * 0.02f)
                 commentItemText.text = "(read more...)"
             }
 
