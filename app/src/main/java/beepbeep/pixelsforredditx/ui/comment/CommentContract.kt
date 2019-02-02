@@ -9,7 +9,7 @@ class CommentContract {
     }
 
     interface ViewAction {
-
+        fun showLoadingProgressBar(isLoading: Boolean)
     }
 
     data class ScreenState(val linkAndComments: Pair<RedditLinkListingData, RedditReplyListingData>? = null)

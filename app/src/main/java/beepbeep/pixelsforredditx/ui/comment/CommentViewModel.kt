@@ -6,6 +6,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import beepbeep.pixelsforredditx.extension.addTo
 import beepbeep.pixelsforredditx.extension.nonNullValue
+import com.github.kittinunf.result.failure
 import com.worker8.redditapi.model.t1_comment.RedditReplyListingData
 import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import io.reactivex.Observable
@@ -24,15 +25,24 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        repo.getComments(commentId)
-            .subscribeOn(repo.getBackgroundThread())
+        Observable.fromCallable { viewAction.showLoadingProgressBar(true) }
+            .subscribeOn(repo.getMainThread())
+            .observeOn(repo.getBackgroundThread())
+            .flatMap { repo.getComments(commentId) }
             .observeOn(repo.getMainThread())
+            .doOnNext {
+                it.failure {
+                    // handles error
+                }
+            }
             .subscribe({ (resultPair: Pair<RedditLinkListingData, RedditReplyListingData>?, fuelError) ->
                 resultPair?.let {
                     dispatch(currentScreenState.copy(it))
                 }
+                viewAction.showLoadingProgressBar(false)
                 fuelError?.printStackTrace()
             }, {
+                viewAction.showLoadingProgressBar(false)
                 it.printStackTrace()
             })
             .addTo(disposableBag)

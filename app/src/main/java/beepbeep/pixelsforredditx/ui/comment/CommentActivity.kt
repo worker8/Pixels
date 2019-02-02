@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.extension.addTo
 import beepbeep.pixelsforredditx.extension.ofType
+import beepbeep.pixelsforredditx.extension.visibility
 import beepbeep.pixelsforredditx.preference.ThemePreference
 import com.worker8.redditapi.model.listing.RedditCommentDataType
 import com.worker8.redditapi.model.t1_comment.RedditReply
@@ -21,7 +22,9 @@ class CommentActivity : AppCompatActivity() {
 
     }
     private val commentViewAction = object : CommentContract.ViewAction {
-
+        override fun showLoadingProgressBar(isLoading: Boolean) {
+            commentProgressBar.visibility = isLoading.visibility()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
