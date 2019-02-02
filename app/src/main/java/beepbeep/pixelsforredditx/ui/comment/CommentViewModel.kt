@@ -50,7 +50,7 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                         }
                         val commentData = (redditCommentDataType as RedditCommentDataType.RedditCommentData)
                         val concatenatedInfoString = commentData.run {
-                            author + " · " + score.toString() + " · " + created.toRelativeTimeString()
+                            author + " · " + score.toString() + " points · " + created.toRelativeTimeString()
                         }
                         return@map CommentAdapter.CommentViewType.Item(level = " ".repeat(level), concatenatedInfoString = concatenatedInfoString, commentHtmlString = commentData.body_html)
                     }
