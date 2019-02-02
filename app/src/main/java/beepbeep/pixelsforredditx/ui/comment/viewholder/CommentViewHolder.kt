@@ -14,8 +14,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(commentPair: Pair<Int, RedditCommentDataType.RedditCommentData>) {
         val (level, redditCommentDataType) = commentPair
         itemView.apply {
-            //commentIndentation.scaleX = 1 + (level * 0.1f)
-            commentGuideline.setGuidelinePercent(level * 0.01f)
+            commentIndentation.text = " ".repeat(level)
             commentItemText.text = Html.fromHtml(Html.fromHtml(redditCommentDataType.body_html).toString()).trim()
             commentItemAuthor.text = redditCommentDataType.author
             commentItemPoint.text = redditCommentDataType.score.toString()
