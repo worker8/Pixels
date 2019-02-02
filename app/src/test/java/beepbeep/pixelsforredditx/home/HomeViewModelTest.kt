@@ -2,10 +2,10 @@ package beepbeep.pixelsforredditx.home
 
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.result.Result
-import com.worker8.redditapi.model.t3_link.RedditLinkListingObject
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
-import com.worker8.redditapi.model.t3_link.RedditLinkObject
 import com.worker8.redditapi.model.t3_link.RedditLinkData
+import com.worker8.redditapi.model.t3_link.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.RedditLinkListingObject
+import com.worker8.redditapi.model.t3_link.RedditLinkObject
 import io.mockk.*
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -15,6 +15,7 @@ import org.junit.Test
 class HomeViewModelTest {
     lateinit var input: HomeContract.Input
     lateinit var retrySubject: PublishSubject<Unit>
+    lateinit var postClickedSubject: PublishSubject<String>
     lateinit var loadMoreSubject: PublishSubject<Unit>
     lateinit var subredditSelectedSubject: PublishSubject<String>
     lateinit var randomSubredditSelectedSubject: PublishSubject<String>
@@ -28,6 +29,7 @@ class HomeViewModelTest {
     @Before
     fun setup() {
         retrySubject = PublishSubject.create()
+        postClickedSubject = PublishSubject.create()
         loadMoreSubject = PublishSubject.create()
         getMorePostsSubject = PublishSubject.create()
         subredditSelectedSubject = PublishSubject.create()
@@ -40,6 +42,7 @@ class HomeViewModelTest {
         viewAction = mockk(relaxed = true)
 
         every { input.retry } returns retrySubject
+        every { input.postClicked } returns postClickedSubject
         every { input.loadMore } returns loadMoreSubject
         every { input.subredditSelected } returns subredditSelectedSubject
         every { input.randomSubredditSelected } returns randomSubredditSelectedSubject
