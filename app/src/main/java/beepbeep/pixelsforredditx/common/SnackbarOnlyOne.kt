@@ -12,7 +12,7 @@ class SnackbarOnlyOne() {
 
     fun show(view: View, @StringRes resId: Int, duration: Int, @StringRes actionResId: Int, actionCallback: () -> Unit) {
         if (snackbar != null) {
-            return
+            snackbar?.show()
         }
         Snackbar.make(view, resId, duration)
             .apply {

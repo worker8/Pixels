@@ -30,7 +30,6 @@ class HomeViewHolder(itemView: View, val callback: (commentId: String) -> Unit) 
                 homeItemUsername.text = author
                 homeItemDateTime.text = created.toRelativeTimeString()
                 itemView.setOnClickListener { callback(id) }
-                Log.d("ddw", "commentId: ${this.id}")
             }
 
         }

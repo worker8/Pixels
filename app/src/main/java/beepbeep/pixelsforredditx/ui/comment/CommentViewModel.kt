@@ -16,6 +16,7 @@ import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 
 class CommentViewModel() : ViewModel(), LifecycleObserver {
     lateinit var commentId: String
@@ -25,12 +26,21 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
     private val disposableBag = CompositeDisposable()
     private val screenStateSubject = BehaviorSubject.createDefault<CommentContract.ScreenState>(CommentContract.ScreenState())
     private val currentScreenState get() = screenStateSubject.nonNullValue
+    private val initialLoadTrigger: PublishSubject<Unit> = PublishSubject.create()
     val screenState: Observable<CommentContract.ScreenState> by lazy { screenStateSubject.hide().observeOn(repo.getMainThread()) }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        Observable.fromCallable { viewAction.showLoadingProgressBar(true) }
-            .subscribeOn(repo.getMainThread())
+        setupNoNetwork()
+        setupGetComments()
+        initialLoadTrigger.onNext(Unit)
+    }
+
+    private fun setupGetComments() {
+        Observable.merge(initialLoadTrigger, input.retry)
+            .filter { input.isConnectedToInternet() }
+            .observeOn(repo.getMainThread())
+            .doOnNext { viewAction.showLoadingProgressBar(true) }
             .observeOn(repo.getBackgroundThread())
             .flatMap { repo.getComments(commentId) }
             .observeOn(repo.getMainThread())
@@ -72,6 +82,14 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                 viewAction.showLoadingProgressBar(false)
                 it.printStackTrace()
             })
+            .addTo(disposableBag)
+    }
+
+    private fun setupNoNetwork() {
+        Observable.merge(initialLoadTrigger, input.retry)
+            .filter { !input.isConnectedToInternet() }
+            .observeOn(repo.getMainThread())
+            .subscribe { viewAction.showNoNetworkErrorSnackbar() }
             .addTo(disposableBag)
     }
 
