@@ -2,34 +2,49 @@ package beepbeep.pixelsforredditx.ui.comment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.extension.addTo
 import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.preference.ThemePreference
-import com.worker8.redditapi.RedditApi
 import com.worker8.redditapi.model.listing.RedditCommentDataType
 import com.worker8.redditapi.model.t1_comment.RedditReply
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_comment.*
 
 class CommentActivity : AppCompatActivity() {
 
     val commentId by lazy { intent.getStringExtra(COMMENT_ID) }
     private val disposableBag = CompositeDisposable()
+    private val commentInput = object : CommentContract.Input {
+
+    }
+    private val commentViewAction = object : CommentContract.ViewAction {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
         setupViews()
-        RedditApi().getComment(commentId)
-            .subscribeOn(Schedulers.io())
+
+        val viewModel = ViewModelProviders.of(this).get(CommentViewModel::class.java)
+            .apply {
+                commentId = this@CommentActivity.commentId
+                input = commentInput
+                repo = CommentRepo()
+                viewAction = commentViewAction
+            }
+
+        lifecycle.addObserver(viewModel)
+
+        viewModel.screenState
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ (resultPair, fuelError) ->
-                resultPair?.let {
-                    val (titleListing, commentListing) = it
+            .subscribe {
+                it.linkAndComments?.let { _linkAndComments ->
+                    val (titleListing, commentListing) = _linkAndComments
                     val flattenComments: List<CommentAdapter.CommentViewType> = RedditReply.flattenComments(commentListing).map { (level, redditCommentDataType) ->
                         redditCommentDataType.ofType<RedditCommentDataType.TMore> {
                             return@map CommentAdapter.CommentViewType.ItemViewMore(level to it)
@@ -45,10 +60,7 @@ class CommentActivity : AppCompatActivity() {
                     }
                     commentRecyclerView.adapter = CommentAdapter().apply { submitList(dataRows) }
                 }
-                fuelError?.printStackTrace()
-            }, {
-                it.printStackTrace()
-            })
+            }
             .addTo(disposableBag)
     }
 
