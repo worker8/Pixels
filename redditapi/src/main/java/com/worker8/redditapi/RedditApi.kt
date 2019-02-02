@@ -1,6 +1,5 @@
 package com.worker8.redditapi
 
-import android.util.Log
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
@@ -25,17 +24,11 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
                 listing?.value?.after?.also { after = it }
             }
 
-    fun getComment(commentId: String): Observable<Result<Pair<RedditLinkListingData, RedditReplyListingData>, FuelError>> {
-        val curlString = "${REDDIT_API_BASE}comments/${commentId}.json"
-            .httpGet()
-            .cUrlString()
-        Log.d("ddw", "curlString: $curlString")
-
-        return "${REDDIT_API_BASE}comments/${commentId}.json"
+    fun getComment(commentId: String): Observable<Result<Pair<RedditLinkListingData, RedditReplyListingData>, FuelError>> =
+        "${REDDIT_API_BASE}comments/${commentId}.json"
             .httpGet()
             .rx_object(RedditCommentDeserializer())
             .toObservable()
-    }
 
     companion object {
         val gson = GsonBuilder().create()
@@ -90,7 +83,6 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
             "VillagePorn",
             "ArchitecturePorn",
             "InfrastructurePorn"
-
         )
 
         fun getRandomSubreddit(): String {

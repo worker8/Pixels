@@ -9,46 +9,4 @@ data class RedditCommentListingData(
     val valueList: List<RedditCommentObject> = listOf(),
     val dist: Int = 0,
     val modhash: String = ""
-) {
-    companion object {
-//        fun flattenComments(rootNode: RedditCommentListingData): MutableList<Pair<Int, String>> {
-//            val store: MutableList<Pair<Int, String>> = mutableListOf()
-//            traverse(rootNode, 0) { level, comment ->
-//                store.add(level to comment)
-//            }
-//            return store
-//        }
-//
-//        fun traverse(rootNode: RedditCommentListingData, level: Int, callback: (Int, String) -> Unit = { _, _ -> }) {
-//            if (rootNode.valueList.isEmpty()) {
-//                return
-//            }
-//            val spaces = "  ".repeat(level)
-//            rootNode.valueList.forEach {
-//                //Log.d("ddw", "${spaces}>>comment: ${it.value.body}")
-//                callback.invoke(level, it.value.body_html)
-//                traverse(it.value.replies.value, level + 1, callback)
-//            }
-//        }
-
-//        fun flattenComments1(rootNode: RedditCommentListingData): MutableList<Pair<Int, RedditCommentData>> {
-//            val store: MutableList<Pair<Int, RedditCommentData>> = mutableListOf()
-//            traverse1(rootNode, 0) { level, RedditCommentData ->
-//                store.add(level to RedditCommentData)
-//            }
-//            return store
-//        }
-//
-//        fun traverse1(rootNode: RedditCommentListingData, level: Int, callback: (Int, RedditCommentData) -> Unit = { _, _ -> }) {
-//            if (rootNode.valueList.isEmpty()) {
-//                return
-//            }
-//            val spaces = "  ".repeat(level)
-//            rootNode.valueList.forEach {
-//                //Log.d("ddw", "${spaces}>>comment: ${it.value.body}")
-//                callback.invoke(level, it.value)
-//                traverse1(it.value.replies.value, level + 1, callback)
-//            }
-//        }
-    }
-}
+)

@@ -23,7 +23,6 @@ sealed class RedditReply {
             }
             val spaces = "  ".repeat(level)
             rootNode.valueList.forEach { _redditReply ->
-                //Log.d("ddw", "${spaces}>>comment: ${it.value.body}")
                 _redditReply.ofType<T1_RedditObject> {
                     callback.invoke(level, it.value)
                     traverse(it.value.replies.value, level + 1, callback)
@@ -31,7 +30,6 @@ sealed class RedditReply {
 
                 _redditReply.ofType<TM_RedditObject> {
                     callback.invoke(level, it.value)
-                    //traverse(it.value.replies.value, level + 1, callback)
                 }
             }
         }

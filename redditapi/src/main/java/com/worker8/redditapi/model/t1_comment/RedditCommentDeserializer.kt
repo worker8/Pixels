@@ -19,21 +19,8 @@ class RedditCommentDeserializer : ResponseDeserializable<Pair<RedditLinkListingD
         val titleListing = gson.fromJson(jsonArray[0], RedditLinkListingObject::class.java)
         val commentTreeListing = gson.fromJson(jsonArray[1], RedditReplyListingObject::class.java)
 
-        //traverse(commentTreeListing, 0)
-
         return titleListing.value to commentTreeListing.value
     }
-
-//    fun traverse(rootNode: RedditCommentListingObject, level: Int) {
-//        if (rootNode.value.valueList.isEmpty()) {
-//            return
-//        }
-//        val spaces = "  ".repeat(level)
-//        rootNode.value.valueList.forEach {
-//            Log.d("ddw", "${spaces}>>body: ${it.value.body}")
-//            traverse(it.value.replies, level + 1)
-//        }
-//    }
 }
 
 // reddit api can sometimes reply "" or the object itself, this deserializer handles this polymorphic object
