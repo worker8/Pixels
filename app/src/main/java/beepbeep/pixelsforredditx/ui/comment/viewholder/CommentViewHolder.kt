@@ -14,9 +14,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.apply {
             commentIndentation.text = commentRow.level
             commentItemText.text = Html.fromHtml(Html.fromHtml(commentRow.commentHtmlString).toString()).trim()
-            commentItemAuthor.text = commentRow.concatenatedInfoString //redditCommentDataType.author
-//            commentItemPoint.text = redditCommentDataType.score.toString()
-//            commentItemDateTime.text = redditCommentDataType.created.toRelativeTimeString()
+            commentItemConcatInfo.text = commentRow.concatenatedInfoString
         }
     }
 

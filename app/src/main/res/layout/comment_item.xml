@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/commentItemAuthor"
+        android:id="@+id/commentItemConcatInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
@@ -36,53 +36,6 @@
         app:layout_constraintStart_toStartOf="@id/commentItemText"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="momodao" />
-
-    <!--<TextView-->
-    <!--android:id="@+id/commentItemAuthorLabel"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="2dp"-->
-    <!--android:paddingTop="10dp"-->
-    <!--android:text=" · "-->
-    <!--android:textColor="?pixelSubtleTextColor"-->
-    <!--android:textSize="14sp"-->
-    <!--app:layout_constraintStart_toEndOf="@id/commentItemAuthor"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--tools:ignore="HardcodedText" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/commentItemPoint"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:paddingTop="10dp"-->
-    <!--android:textColor="?pixelSubtleTextColor"-->
-    <!--android:textSize="14sp"-->
-    <!--app:layout_constraintStart_toEndOf="@id/commentItemAuthorLabel"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--tools:text="181" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/commentItemPointLabel"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="2dp"-->
-    <!--android:paddingTop="10dp"-->
-    <!--android:text="points · "-->
-    <!--android:textColor="?pixelSubtleTextColor"-->
-    <!--android:textSize="14sp"-->
-    <!--app:layout_constraintStart_toEndOf="@id/commentItemPoint"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/commentItemDateTime"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:paddingTop="10dp"-->
-    <!--android:textColor="?pixelSubtleTextColor"-->
-    <!--android:textSize="14sp"-->
-    <!--app:layout_constraintStart_toEndOf="@id/commentItemPointLabel"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--tools:text="3 hours ago" />-->
 
     <TextView
         android:id="@+id/commentItemText"
@@ -96,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/commentIndentationBar"
-        app:layout_constraintTop_toBottomOf="@id/commentItemAuthor"
+        app:layout_constraintTop_toBottomOf="@id/commentItemConcatInfo"
         tools:text="This is a pretty awesome rice field!" />
 
     <View
