@@ -8,40 +8,6 @@
     android:clipToPadding="false"
     tools:context=".ui.comment.CommentActivity">
 
-    <!--<androidx.appcompat.widget.Toolbar-->
-    <!--android:id="@+id/commentToolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="?colorPrimary"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent">-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--tools:ignore="UseCompoundDrawables">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/backButton"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="?selectableItemBackgroundBorderless"-->
-    <!--app:srcCompat="@drawable/ic_back_arrow" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:text="@string/comment"-->
-    <!--android:textColor="@color/md_white_1000"-->
-    <!--android:textSize="16sp"-->
-    <!--android:textStyle="bold" />-->
-    <!--</LinearLayout>-->
-    <!--</androidx.appcompat.widget.Toolbar>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
         android:layout_width="0dp"
