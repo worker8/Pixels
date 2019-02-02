@@ -6,7 +6,11 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import beepbeep.pixelsforredditx.extension.addTo
 import beepbeep.pixelsforredditx.extension.nonNullValue
+import beepbeep.pixelsforredditx.extension.ofType
+import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.github.kittinunf.result.failure
+import com.worker8.redditapi.model.listing.RedditCommentDataType
+import com.worker8.redditapi.model.t1_comment.RedditReply
 import com.worker8.redditapi.model.t1_comment.RedditReplyListingData
 import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import io.reactivex.Observable
@@ -32,15 +36,38 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
             .observeOn(repo.getMainThread())
             .doOnNext {
                 it.failure {
-                    // handles error
+                    // TODO: handles error
                 }
             }
-            .subscribe({ (resultPair: Pair<RedditLinkListingData, RedditReplyListingData>?, fuelError) ->
-                resultPair?.let {
-                    dispatch(currentScreenState.copy(it))
+            .observeOn(repo.getBackgroundThread())
+            .map { (resultPair: Pair<RedditLinkListingData, RedditReplyListingData>?, fuelError) ->
+                val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
+                resultPair?.let { linkAndComments ->
+                    val (titleListing, commentListing) = linkAndComments
+                    val flattenComments: List<CommentAdapter.CommentViewType> = RedditReply.flattenComments(commentListing).map { (level, redditCommentDataType) ->
+                        redditCommentDataType.ofType<RedditCommentDataType.TMore> {
+                            return@map CommentAdapter.CommentViewType.ItemViewMore(level to it)
+                        }
+                        val commentData = (redditCommentDataType as RedditCommentDataType.RedditCommentData)
+                        val concatenatedInfoString = commentData.run {
+                            author + " · " + score.toString() + " · " + created.toRelativeTimeString()
+                        }
+                        return@map CommentAdapter.CommentViewType.Item(level = " ".repeat(level), concatenatedInfoString = concatenatedInfoString, commentHtmlString = commentData.body_html)
+                    }
+
+                    dataRows.add(CommentAdapter.CommentViewType.Header(titleListing))
+                    if (flattenComments.isEmpty()) {
+                        dataRows.add(CommentAdapter.CommentViewType.Empty())
+                    } else {
+                        dataRows.addAll(flattenComments)
+                    }
                 }
-                viewAction.showLoadingProgressBar(false)
-                fuelError?.printStackTrace()
+                dataRows
+            }
+            .filter { it.isNotEmpty() }
+            .observeOn(repo.getMainThread())
+            .subscribe({
+                dispatch(currentScreenState.copy(it))
             }, {
                 viewAction.showLoadingProgressBar(false)
                 it.printStackTrace()

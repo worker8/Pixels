@@ -1,8 +1,5 @@
 package beepbeep.pixelsforredditx.ui.comment
 
-import com.worker8.redditapi.model.t1_comment.RedditReplyListingData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
-
 class CommentContract {
     interface Input {
 
@@ -12,5 +9,6 @@ class CommentContract {
         fun showLoadingProgressBar(isLoading: Boolean)
     }
 
-    data class ScreenState(val linkAndComments: Pair<RedditLinkListingData, RedditReplyListingData>? = null)
+    data class ScreenState(val dataRows: List<CommentAdapter.CommentViewType>? = null)
+
 }

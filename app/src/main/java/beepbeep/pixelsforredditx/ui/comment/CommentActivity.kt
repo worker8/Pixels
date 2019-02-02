@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.extension.addTo
-import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.extension.visibility
 import beepbeep.pixelsforredditx.preference.ThemePreference
-import com.worker8.redditapi.model.listing.RedditCommentDataType
-import com.worker8.redditapi.model.t1_comment.RedditReply
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_comment.*
@@ -46,22 +43,8 @@ class CommentActivity : AppCompatActivity() {
         viewModel.screenState
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                it.linkAndComments?.let { _linkAndComments ->
-                    val (titleListing, commentListing) = _linkAndComments
-                    val flattenComments: List<CommentAdapter.CommentViewType> = RedditReply.flattenComments(commentListing).map { (level, redditCommentDataType) ->
-                        redditCommentDataType.ofType<RedditCommentDataType.TMore> {
-                            return@map CommentAdapter.CommentViewType.ItemViewMore(level to it)
-                        }
-                        return@map CommentAdapter.CommentViewType.Item(level to redditCommentDataType as RedditCommentDataType.RedditCommentData)
-                    }
-                    val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
-                    dataRows.add(CommentAdapter.CommentViewType.Header(titleListing))
-                    if (flattenComments.isEmpty()) {
-                        dataRows.add(CommentAdapter.CommentViewType.Empty())
-                    } else {
-                        dataRows.addAll(flattenComments)
-                    }
-                    commentRecyclerView.adapter = CommentAdapter().apply { submitList(dataRows) }
+                it.dataRows?.let { rows ->
+                    commentRecyclerView.adapter = CommentAdapter().apply { submitList(rows) }
                 }
             }
             .addTo(disposableBag)

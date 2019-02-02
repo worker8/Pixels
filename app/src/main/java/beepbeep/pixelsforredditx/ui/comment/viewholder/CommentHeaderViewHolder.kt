@@ -17,13 +17,13 @@ class CommentHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
     fun bind(headerData: RedditLinkListingData) {
         val redditLinkData = headerData.valueList[0].value
         itemView.apply {
-            val cropOptions = RequestOptions()
-                .fitCenter()
-                .placeholder(ColorDrawable(0xaaAAaa))
-            Glide.with(context)
-                .load(redditLinkData.url)
-                .apply(cropOptions)
-                .into(commentHeaderImage)
+//            val cropOptions = RequestOptions()
+//                .fitCenter()
+//                .placeholder(ColorDrawable(0xaaAAaa))
+//            Glide.with(context)
+//                .load(redditLinkData.url)
+//                .apply(cropOptions)
+//                .into(commentHeaderImage)
 
             commentHeaderAuthor.text = redditLinkData.author
             commentHeaderTitle.text = redditLinkData.title

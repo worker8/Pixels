@@ -6,19 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import beepbeep.pixelsforredditx.R
-import beepbeep.pixelsforredditx.extension.toRelativeTimeString
-import com.worker8.redditapi.model.listing.RedditCommentDataType
+import beepbeep.pixelsforredditx.ui.comment.CommentAdapter
 import kotlinx.android.synthetic.main.comment_item.view.*
 
 class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(commentPair: Pair<Int, RedditCommentDataType.RedditCommentData>) {
-        val (level, redditCommentDataType) = commentPair
+    fun bind(commentRow: CommentAdapter.CommentViewType.Item) {
         itemView.apply {
-            commentIndentation.text = " ".repeat(level)
-            commentItemText.text = Html.fromHtml(Html.fromHtml(redditCommentDataType.body_html).toString()).trim()
-            commentItemAuthor.text = redditCommentDataType.author
-            commentItemPoint.text = redditCommentDataType.score.toString()
-            commentItemDateTime.text = redditCommentDataType.created.toRelativeTimeString()
+            commentIndentation.text = commentRow.level
+            commentItemText.text = Html.fromHtml(Html.fromHtml(commentRow.commentHtmlString).toString()).trim()
+            commentItemAuthor.text = commentRow.concatenatedInfoString //redditCommentDataType.author
+//            commentItemPoint.text = redditCommentDataType.score.toString()
+//            commentItemDateTime.text = redditCommentDataType.created.toRelativeTimeString()
         }
     }
 

@@ -7,16 +7,16 @@
     android:background="?pixelBackgroundColor"
     android:elevation="2dp">
 
-    <ImageView
-        android:id="@+id/commentHeaderImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+    <!--<ImageView-->
+    <!--android:id="@+id/commentHeaderImage"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:scaleType="fitStart"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--tools:src="@tools:sample/backgrounds/scenic" />-->
 
     <View
         android:layout_width="0dp"
@@ -35,10 +35,10 @@
         android:paddingTop="10dp"
         android:textColor="@color/md_white_1000"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/commentHeaderImage"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry"
         tools:text="Pretty Corn Field" />
-
+    <!--app:layout_constraintTop_toBottomOf="@id/commentHeaderImage"-->
     <TextView
         android:id="@+id/commentHeaderAuthorBy"
         android:layout_width="wrap_content"

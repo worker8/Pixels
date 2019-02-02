@@ -36,7 +36,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         item.ofType<CommentViewType.Item> {
-            (holder as CommentViewHolder).bind(it.itemData)
+            (holder as CommentViewHolder).bind(it)
         }
 
         item.ofType<CommentViewType.Header> {
@@ -52,7 +52,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
 
     sealed class CommentViewType() {
         class Header(val headerData: RedditLinkListingData) : CommentViewType()
-        class Item(val itemData: Pair<Int, RedditCommentDataType.RedditCommentData>) : CommentViewType()
+        class Item(val level: String, val concatenatedInfoString: String, val commentHtmlString: String) : CommentViewType()
         class ItemViewMore(val itemMoreData: Pair<Int, RedditCommentDataType.TMore>) : CommentViewType()
         class Empty() : CommentViewType()
     }
@@ -66,9 +66,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
             override fun areContentsTheSame(oldItem: CommentViewType, newItem: CommentViewType): Boolean {
                 oldItem.ofType<CommentViewType.Item> { _oldItem ->
                     newItem.ofType<CommentViewType.Item> { _newItem ->
-                        val (oldLevel, oldComment) = _oldItem.itemData
-                        val (newLevel, newComment) = _newItem.itemData
-                        return oldLevel == newLevel && oldComment == newComment
+                        return _oldItem == _newItem
                     }
                 }
 
