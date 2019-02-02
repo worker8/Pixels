@@ -10,7 +10,6 @@ import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentMoreViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
 import com.worker8.redditapi.model.listing.RedditCommentDataType
-
 import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -20,17 +19,20 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
     val postClickedObservable: Observable<String> = postClickedSubject.hide()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val item = getItem(viewType)
-        item.ofType<CommentViewType.Header> {
-            return CommentHeaderViewHolder.create(parent)
+        when (viewType) {
+            0 -> {
+                return CommentHeaderViewHolder.create(parent)
+            }
+            1 -> {
+                return CommentViewHolder.create(parent)
+            }
+            2 -> {
+                return CommentMoreViewHolder.create(parent)
+            }
+            else -> {
+                return CommentEmptyViewHolder.create(parent)
+            }
         }
-        item.ofType<CommentViewType.Empty> {
-            return CommentEmptyViewHolder.create(parent)
-        }
-        item.ofType<CommentViewType.ItemViewMore> {
-            return CommentMoreViewHolder.create(parent)
-        }
-        return CommentViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -48,7 +50,24 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
         }
     }
 
-    override fun getItemViewType(position: Int) = position
+    override fun getItemViewType(position: Int): Int {
+        val item = getItem(position)
+        item.ofType<CommentViewType.Header> {
+            return 0
+        }
+        item.ofType<CommentViewType.Item> {
+            return 1
+        }
+
+        item.ofType<CommentViewType.ItemViewMore> {
+            return 2
+        }
+
+        item.ofType<CommentViewType.Empty> {
+            return 3
+        }
+        return 1
+    }
 
     sealed class CommentViewType() {
         class Header(val headerData: RedditLinkListingData) : CommentViewType()
