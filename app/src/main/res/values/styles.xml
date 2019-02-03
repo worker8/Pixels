@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/md_blue_700</item>
         <item name="colorPrimaryDark">@color/md_blue_900</item>
-        <item name="colorAccent">@color/md_pink_600</item>
+        <item name="colorAccent">@color/md_amber_700</item>
         <item name="colorControlHighlight">?pixelSubtleBackground</item>
         <item name="android:windowBackground">@color/md_grey_50</item>
         <item name="android:navigationBarColor">@color/md_black_1000</item>

@@ -18,10 +18,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
+    <Space
+        android:id="@+id/commentImageSpace"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/comment_round_corner"
+        app:layout_constraintBottom_toBottomOf="@id/commentHeaderImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="?colorPrimary"
+        android:background="@drawable/bg_round_top_primary_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,12 +40,12 @@
         android:id="@+id/commentHeaderTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
+        android:paddingStart="14dp"
         android:paddingTop="10dp"
         android:textColor="@color/md_white_1000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/commentHeaderImage"
+        app:layout_constraintTop_toBottomOf="@id/commentImageSpace"
         tools:ignore="RtlSymmetry"
         tools:text="Pretty Corn Field" />
 
@@ -44,7 +53,7 @@
         android:id="@+id/commentHeaderAuthorBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
+        android:paddingStart="14dp"
         android:text="@string/by"
         android:textColor="@color/md_white_1000"
         app:layout_constraintBottom_toBottomOf="@id/commentHeaderAuthor"
@@ -80,8 +89,8 @@
         android:id="@+id/commentPoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:paddingBottom="10dp"
+        android:layout_marginStart="14dp"
+        android:paddingBottom="14dp"
         android:textColor="@color/md_cyan_100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/commentHeaderAuthor"
