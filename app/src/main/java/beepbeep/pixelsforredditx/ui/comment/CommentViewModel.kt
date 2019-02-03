@@ -55,13 +55,19 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                 val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
                 resultPair?.let { linkAndComments ->
                     val (titleListing, commentListing) = linkAndComments
+                    val originalPoster = titleListing.valueList[0].value.author
                     val flattenComments: List<CommentAdapter.CommentViewType> = RedditReplyDynamicObject.flattenComments(commentListing).map { (level, redditCommentDataType) ->
                         redditCommentDataType.ofType<RedditCommentDynamicData.TMore> {
                             return@map CommentAdapter.CommentViewType.ItemViewMore(id = it.id, itemMoreData = level to it)
                         }
                         val commentData = (redditCommentDataType as RedditCommentDynamicData.T1RedditCommentData)
+                        val highlightedAuthor = if (commentData.author.equals(originalPoster)) {
+                            "<strong><u><font color='#FF6F00'>${commentData.author}</font></u></strong>"
+                        } else {
+                            "<font color='#1E88E5'>${commentData.author}</font>"
+                        }
                         val concatenatedInfoString = commentData.run {
-                            author + " · " + score.toString() + " points · " + created.toRelativeTimeString()
+                            Html.fromHtml(highlightedAuthor + " · " + score.toString() + " points · " + created.toRelativeTimeString())
                         }
                         val htmlString = Html.fromHtml(Html.fromHtml(commentData.body_html).toString()).trim()
                         return@map CommentAdapter.CommentViewType.Item(id = commentData.id, level = " ".repeat(level), concatenatedInfoString = concatenatedInfoString, commentHtmlString = htmlString)

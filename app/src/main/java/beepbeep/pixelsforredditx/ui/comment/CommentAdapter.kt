@@ -57,7 +57,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
 
     sealed class CommentViewType(open val id: String, val typeNumber: Int) {
         class Header(val headerData: RedditLinkListingData) : CommentViewType(id = "header_type", typeNumber = 0)
-        class Item(override val id: String, val level: String, val concatenatedInfoString: String, val commentHtmlString: CharSequence) : CommentViewType(id = id, typeNumber = 1)
+        class Item(override val id: String, val level: String, val concatenatedInfoString: CharSequence, val commentHtmlString: CharSequence) : CommentViewType(id = id, typeNumber = 1)
         class ItemViewMore(override val id: String, val itemMoreData: Pair<Int, RedditCommentDynamicData.TMore>) : CommentViewType(id = id, typeNumber = 2)
         class Empty() : CommentViewType(id = "empty_type", typeNumber = 3)
     }
