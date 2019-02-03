@@ -46,8 +46,8 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
         val item = getItem(position)
         when (item.typeNumber) {
             0 -> (holder as CommentHeaderViewHolder).bind((item as CommentViewType.Header).headerData)
-            1 -> (holder as CommentViewHolder).bind((item as CommentViewType.Item))
-            2 -> (holder as CommentMoreViewHolder).bind((item as CommentViewType.ItemViewMore).itemMoreData)
+            1 -> (holder as CommentViewHolder).bind((item as CommentViewType.Item), position)
+            2 -> (holder as CommentMoreViewHolder).bind((item as CommentViewType.ItemViewMore).itemMoreData, position)
             else -> {
             }
         }
