@@ -1,4 +1,4 @@
-package com.worker8.redditapi
+package com.worker8.redditapi.common
 
 /**
  * https://stackoverflow.com/a/169631/75579

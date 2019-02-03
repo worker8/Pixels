@@ -5,20 +5,30 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentDeserializer
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.response.RedditLinkListingObject
 import io.reactivex.Observable
 
 class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
 
-    val REDDIT_API_BASE = "https://www.reddit.com/r/"
+    val REDDIT_API_BASE = "https://www.reddit.com/"
     var after = ""
-    fun getMorePosts(): Observable<Result<Listing, FuelError>> =
-        "$REDDIT_API_BASE$subreddit.json?after=$after"
+    fun getMorePosts(): Observable<Result<RedditLinkListingObject, FuelError>> =
+        "${REDDIT_API_BASE}r/$subreddit.json?after=$after"
             .httpGet()
-            .rx_object(Listing.Deserializer())
+            .rx_object(RedditLinkListingObject.Deserializer())
             .toObservable()
             .doOnNext { (listing, fuelError) ->
                 listing?.value?.after?.also { after = it }
             }
+
+    fun getComment(commentId: String): Observable<Result<Pair<RedditLinkListingData, RedditReplyListingData>, FuelError>> =
+        "${REDDIT_API_BASE}comments/${commentId}.json"
+            .httpGet()
+            .rx_object(RedditCommentDeserializer())
+            .toObservable()
 
     companion object {
         val gson = GsonBuilder().create()
@@ -73,7 +83,6 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
             "VillagePorn",
             "ArchitecturePorn",
             "InfrastructurePorn"
-
         )
 
         fun getRandomSubreddit(): String {

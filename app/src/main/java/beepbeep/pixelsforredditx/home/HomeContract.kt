@@ -1,6 +1,6 @@
 package beepbeep.pixelsforredditx.home
 
-import com.worker8.redditapi.RedditLink
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import io.reactivex.Observable
 
 class HomeContract {
@@ -11,6 +11,7 @@ class HomeContract {
         val randomSubredditSelected: Observable<String>
         val aboutClicked: Observable<Unit>
         val nightModeCheckChanged: Observable<Boolean>
+        val postClicked: Observable<String>
         fun isConnectedToInternet(): Boolean
     }
 
@@ -24,7 +25,8 @@ class HomeContract {
         fun showGenericErrorMessage()
         fun navigateToAboutPage()
         fun reRenderOnThemeChange(isNightMode: Boolean)
+        fun navigateToCommentActivity(commentId: String)
     }
 
-    data class ScreenState(val redditLinks: List<RedditLink> = listOf())
+    data class ScreenState(val redditLinks: List<RedditLinkObject> = listOf())
 }

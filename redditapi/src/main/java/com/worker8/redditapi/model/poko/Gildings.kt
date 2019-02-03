@@ -1,4 +1,4 @@
-package com.worker8.redditapi
+package com.worker8.redditapi.model.poko
 
 data class Gildings(
     val gid_1: Int = 0,

@@ -4,11 +4,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.worker8.redditapi.RedditLink
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
+import io.reactivex.subjects.PublishSubject
 
-class HomeAdapter : ListAdapter<RedditLink, RecyclerView.ViewHolder>(POST_COMPARATOR) {
+class HomeAdapter : ListAdapter<RedditLinkObject, RecyclerView.ViewHolder>(POST_COMPARATOR) {
+    private val postClickedSubject: PublishSubject<String> = PublishSubject.create()
+    val postClickedObservable = postClickedSubject.hide()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return HomeViewHolder.create(parent)
+        return HomeViewHolder.create(parent, { commentId -> postClickedSubject.onNext(commentId) })
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -16,12 +20,12 @@ class HomeAdapter : ListAdapter<RedditLink, RecyclerView.ViewHolder>(POST_COMPAR
     }
 
     companion object {
-        val POST_COMPARATOR = object : DiffUtil.ItemCallback<RedditLink>() {
-            override fun areItemsTheSame(oldItem: RedditLink, newItem: RedditLink): Boolean {
+        val POST_COMPARATOR = object : DiffUtil.ItemCallback<RedditLinkObject>() {
+            override fun areItemsTheSame(oldItem: RedditLinkObject, newItem: RedditLinkObject): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: RedditLink, newItem: RedditLink): Boolean {
+            override fun areContentsTheSame(oldItem: RedditLinkObject, newItem: RedditLinkObject): Boolean {
                 return oldItem == newItem
             }
         }

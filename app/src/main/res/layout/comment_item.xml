@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?pixelBackgroundColor"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/commentIndentation"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="?pixelSubtleBackground"
+        app:layout_constraintBottom_toBottomOf="@id/commentItemText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="     " />
+
+    <View
+        android:id="@+id/commentIndentationBar"
+        android:layout_width="3dp"
+        android:layout_height="0dp"
+        android:background="?colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/commentIndentation"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/commentItemConcatInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:textColor="?pixelSubtleTextColor"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/commentItemText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="momodao" />
+
+    <TextView
+        android:id="@+id/commentItemText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:linksClickable="true"
+        android:paddingBottom="10dp"
+        android:textColorLink="?colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/commentIndentationBar"
+        app:layout_constraintTop_toBottomOf="@id/commentItemConcatInfo"
+        tools:text="This is a pretty awesome rice field!" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?pixelSubtleBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

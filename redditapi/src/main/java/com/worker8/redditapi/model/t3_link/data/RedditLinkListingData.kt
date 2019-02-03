@@ -1,12 +1,14 @@
-package com.worker8.redditapi
+package com.worker8.redditapi.model.t3_link.data
 
 import com.google.gson.annotations.SerializedName
+import com.worker8.redditapi.common.isImageUrl
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 
-data class ListingData(
+data class RedditLinkListingData(
     val after: String = "",
     val before: String = "",
     @SerializedName("children")
-    val valueList: List<RedditLink> = listOf(),
+    val valueList: List<RedditLinkObject> = listOf(),
     val dist: Int = 0,
     val modhash: String = ""
 ) {

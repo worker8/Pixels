@@ -2,10 +2,10 @@ package beepbeep.pixelsforredditx.home
 
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.result.Result
-import com.worker8.redditapi.Listing
-import com.worker8.redditapi.ListingData
-import com.worker8.redditapi.RedditLink
-import com.worker8.redditapi.RedditLinkData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.response.RedditLinkListingObject
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import io.mockk.*
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -15,12 +15,13 @@ import org.junit.Test
 class HomeViewModelTest {
     lateinit var input: HomeContract.Input
     lateinit var retrySubject: PublishSubject<Unit>
+    lateinit var postClickedSubject: PublishSubject<String>
     lateinit var loadMoreSubject: PublishSubject<Unit>
     lateinit var subredditSelectedSubject: PublishSubject<String>
     lateinit var randomSubredditSelectedSubject: PublishSubject<String>
     lateinit var aboutClickedSubject: PublishSubject<Unit>
     lateinit var nightModeCheckChangedSubject: PublishSubject<Boolean>
-    lateinit var getMorePostsSubject: PublishSubject<Result<Listing, FuelError>>
+    lateinit var getMorePostsSubject: PublishSubject<Result<RedditLinkListingObject, FuelError>>
     lateinit var viewModel: HomeViewModel
     lateinit var homeRepo: HomeRepo
     lateinit var viewAction: HomeContract.ViewAction
@@ -28,6 +29,7 @@ class HomeViewModelTest {
     @Before
     fun setup() {
         retrySubject = PublishSubject.create()
+        postClickedSubject = PublishSubject.create()
         loadMoreSubject = PublishSubject.create()
         getMorePostsSubject = PublishSubject.create()
         subredditSelectedSubject = PublishSubject.create()
@@ -40,6 +42,7 @@ class HomeViewModelTest {
         viewAction = mockk(relaxed = true)
 
         every { input.retry } returns retrySubject
+        every { input.postClicked } returns postClickedSubject
         every { input.loadMore } returns loadMoreSubject
         every { input.subredditSelected } returns subredditSelectedSubject
         every { input.randomSubredditSelected } returns randomSubredditSelectedSubject
@@ -87,7 +90,7 @@ class HomeViewModelTest {
         verify(exactly = 0) { viewAction.showBottomLoadingProgresBar(any()) }
 
         // act
-        val redditLinks: List<RedditLink> = listOf(RedditLink(value = RedditLinkData(url = "asdf")))
+        val redditLinks: List<RedditLinkObject> = listOf(RedditLinkObject(value = RedditLinkData(url = "asdf")))
         val fakeResult = makeFakeResult(redditLinks)
 
         getMorePostsSubject.onNext(fakeResult)
@@ -113,7 +116,7 @@ class HomeViewModelTest {
         // act
         viewModel.onCreate()
 
-        val redditLinks: List<RedditLink> = listOf(RedditLink(value = RedditLinkData(url = "asdf")))
+        val redditLinks: List<RedditLinkObject> = listOf(RedditLinkObject(value = RedditLinkData(url = "asdf")))
         val fakeResult = makeFakeResult(redditLinks)
 
         val throwable = mockk<Throwable>()
@@ -132,7 +135,7 @@ class HomeViewModelTest {
 
         // act
         viewModel.onCreate()
-        val redditLinks: List<RedditLink> = listOf(RedditLink(value = RedditLinkData(url = "asdf")))
+        val redditLinks: List<RedditLinkObject> = listOf(RedditLinkObject(value = RedditLinkData(url = "asdf")))
         val fakeResult = makeFakeResult(redditLinks)
         getMorePostsSubject.onNext(fakeResult)
 
@@ -150,10 +153,10 @@ class HomeViewModelTest {
         }
     }
 
-    fun makeFakeResult(redditLinks: List<RedditLink>): Result<Listing, FuelError> {
-        val fakeResult = mockk<Result<Listing, FuelError>>()
-        val fakeListing = mockk<Listing>()
-        val fakeListingData = mockk<ListingData>()
+    fun makeFakeResult(redditLinks: List<RedditLinkObject>): Result<RedditLinkListingObject, FuelError> {
+        val fakeResult = mockk<Result<RedditLinkListingObject, FuelError>>()
+        val fakeListing = mockk<RedditLinkListingObject>()
+        val fakeListingData = mockk<RedditLinkListingData>()
         every { fakeListingData.getRedditImageLinks() } returns redditLinks
         every { fakeListing.value } returns fakeListingData
         every { fakeResult.component1() } returns fakeListing

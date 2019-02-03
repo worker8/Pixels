@@ -9,11 +9,11 @@ import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.worker8.redditapi.RedditLink
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import kotlinx.android.synthetic.main.home_item.view.*
 
-class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(redditLink: RedditLink) {
+class HomeViewHolder(itemView: View, val callback: (commentId: String) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    fun bind(redditLink: RedditLinkObject) {
         itemView.apply {
             context?.also { _context ->
                 val cropOptions = RequestOptions()
@@ -27,16 +27,18 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             redditLink.value.apply {
                 homeItemTitle.text = title
                 homeItemUsername.text = author
+                homeItemScore.text = "${score} points · "
                 homeItemDateTime.text = created.toRelativeTimeString()
+                itemView.setOnClickListener { callback(id) }
             }
 
         }
     }
 
     companion object {
-        fun create(parent: ViewGroup) =
+        fun create(parent: ViewGroup, callback: (commentId: String) -> Unit) =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.home_item, parent, false)
-                .let { HomeViewHolder(it) }
+                .let { HomeViewHolder(it, callback) }
     }
 }

@@ -13,6 +13,7 @@ import beepbeep.pixelsforredditx.extension.*
 import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
 import beepbeep.pixelsforredditx.preference.RedditPreference
 import beepbeep.pixelsforredditx.preference.ThemePreference
+import beepbeep.pixelsforredditx.ui.comment.CommentActivity
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
     private lateinit var navDrawerView: NavigationDrawerView
     private val homeInput = object : HomeContract.Input {
+        override val postClicked by lazy { adapter.postClickedObservable }
         override val nightModeCheckChanged by lazy { navDrawerView.nightModeCheckChanged }
         override val aboutClicked by lazy { navDrawerView.aboutButtonClick }
         override val randomSubredditSelected by lazy { navDrawerView.randomButtonClick }
@@ -38,6 +40,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private val homeViewAction = object : HomeContract.ViewAction {
+        override fun navigateToCommentActivity(commentId: String) {
+            startActivity(Intent(this@HomeActivity, CommentActivity::class.java).apply {
+                putExtra(CommentActivity.COMMENT_ID, commentId)
+            })
+        }
+
         override fun reRenderOnThemeChange(isNightMode: Boolean) {
             ThemePreference.saveThemePreference(this@HomeActivity, isNightMode)
             finish()
@@ -79,10 +87,12 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navigational_parent)
+
         navDrawerView = NavigationDrawerView(homeDrawerLayout)
         val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
         viewModel.apply {
