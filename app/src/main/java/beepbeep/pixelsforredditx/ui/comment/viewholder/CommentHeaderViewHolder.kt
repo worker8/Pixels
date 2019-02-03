@@ -10,7 +10,7 @@ import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
 import kotlinx.android.synthetic.main.comment_header.view.*
 
 class CommentHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

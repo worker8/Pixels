@@ -5,10 +5,10 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
-import com.worker8.redditapi.model.t1_comment.RedditCommentDeserializer
-import com.worker8.redditapi.model.t1_comment.RedditReplyListingData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingObject
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentDeserializer
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.response.RedditLinkListingObject
 import io.reactivex.Observable
 
 class RedditApi(val subreddit: String = defaultSelectedSubreddit) {

@@ -1,8 +1,10 @@
 package com.worker8.redditapi
 
 import com.google.gson.GsonBuilder
-import com.worker8.redditapi.model.t1_comment.*
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentListingObjectDeserializer
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditReplyListingDataDeserializer
+import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
 import org.junit.Test
 
 

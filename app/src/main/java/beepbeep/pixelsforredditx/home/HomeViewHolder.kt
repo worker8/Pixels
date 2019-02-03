@@ -1,7 +1,6 @@
 package beepbeep.pixelsforredditx.home
 
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.worker8.redditapi.model.t3_link.RedditLinkObject
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import kotlinx.android.synthetic.main.home_item.view.*
 
 class HomeViewHolder(itemView: View, val callback: (commentId: String) -> Unit) : RecyclerView.ViewHolder(itemView) {

@@ -1,9 +1,10 @@
-package com.worker8.redditapi.model.t3_link
+package com.worker8.redditapi.model.t3_link.response
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.annotations.SerializedName
 import com.worker8.redditapi.RedditApi
-import com.worker8.redditapi.model.listing.RedditObject
+import com.worker8.redditapi.model.base.RedditObject
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
 import java.io.Reader
 
 data class RedditLinkListingObject(

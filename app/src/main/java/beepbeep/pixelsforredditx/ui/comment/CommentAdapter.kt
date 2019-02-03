@@ -9,8 +9,8 @@ import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentEmptyViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentMoreViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
-import com.worker8.redditapi.model.t1_comment.RedditCommentDynamicData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
+import com.worker8.redditapi.model.t1_comment.data.RedditCommentDynamicData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 

@@ -1,7 +1,8 @@
-package com.worker8.redditapi.model.t1_comment
+package com.worker8.redditapi.model.t1_comment.response
 
 import com.google.gson.annotations.SerializedName
-import com.worker8.redditapi.model.listing.RedditObject
+import com.worker8.redditapi.model.base.RedditObject
+import com.worker8.redditapi.model.t1_comment.data.RedditCommentDynamicData
 
 data class RedditCommentObject(
     @SerializedName("data")

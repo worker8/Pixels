@@ -1,4 +1,4 @@
-package com.worker8.redditapi
+package com.worker8.redditapi.common
 
 inline fun <T, T2, R> T?.letWith(secondArg: T2?, block: (T, T2) -> R): R? {
     return this?.let {

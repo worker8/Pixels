@@ -2,7 +2,11 @@ package com.worker8.redditapi
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
-import com.worker8.redditapi.model.t1_comment.*
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentListingObjectDeserializer
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditReplyListingDataDeserializer
+import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
 import org.junit.Test
 
 
@@ -18,19 +22,19 @@ class DynamicDeserializationTest {
         val jsonObject = jsonParser.parse(listingRepliesString).asJsonObject
         val jsonArray = jsonObject.get("children").asJsonArray
         val result = jsonArray.map {
-            var redditReply: RedditReply
+            var redditReply: RedditReplyDynamicObject
             if (it.asJsonObject.get("kind").asString == "t1") {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReply.T1_RedditObject::class.java)
+                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.T1_RedditObject::class.java)
             } else {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReply.TM_RedditObject::class.java)
+                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.TM_RedditObject::class.java)
             }
             redditReply
         }
         val redditReply1 = gson.fromJson(listingRepliesString, RedditReplyListingData::class.java)
         val redditReply2 = gson.fromJson(moreRepliesString, RedditReplyListingData::class.java)
-        assert(redditReply1.valueList[0] is RedditReply.T1_RedditObject)
-        assert(redditReply1.valueList[1] is RedditReply.TM_RedditObject)
-        assert(redditReply2.valueList[0] is RedditReply.TM_RedditObject)
+        assert(redditReply1.valueList[0] is RedditReplyDynamicObject.T1_RedditObject)
+        assert(redditReply1.valueList[1] is RedditReplyDynamicObject.TM_RedditObject)
+        assert(redditReply2.valueList[0] is RedditReplyDynamicObject.TM_RedditObject)
     }
 
     private val listingRepliesString = """

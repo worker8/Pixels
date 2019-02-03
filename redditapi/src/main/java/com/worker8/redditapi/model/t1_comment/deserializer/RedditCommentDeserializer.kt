@@ -1,9 +1,13 @@
-package com.worker8.redditapi.model.t1_comment
+package com.worker8.redditapi.model.t1_comment.deserializer
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.*
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingObject
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyListingObject
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.response.RedditLinkListingObject
 import java.io.Reader
 import java.lang.reflect.Type
 
@@ -31,9 +35,9 @@ class RedditCommentListingObjectDeserializer : JsonDeserializer<RedditCommentLis
     }
 }
 
-class T1_RedditObjectDeserializer : JsonDeserializer<RedditReply> {
-    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): RedditReply {
+class T1_RedditObjectDeserializer : JsonDeserializer<RedditReplyDynamicObject> {
+    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): RedditReplyDynamicObject {
         val newJsonString = json.toString().replace("\"replies\":\"\"", "\"replies\":{}")
-        return Gson().fromJson(newJsonString, RedditReply::class.java)
+        return Gson().fromJson(newJsonString, RedditReplyDynamicObject::class.java)
     }
 }

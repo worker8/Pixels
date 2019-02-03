@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.worker8.redditapi.model.t3_link.RedditLinkObject
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import io.reactivex.subjects.PublishSubject
 
 class HomeAdapter : ListAdapter<RedditLinkObject, RecyclerView.ViewHolder>(POST_COMPARATOR) {

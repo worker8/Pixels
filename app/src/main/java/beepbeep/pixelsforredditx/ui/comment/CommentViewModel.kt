@@ -9,10 +9,10 @@ import beepbeep.pixelsforredditx.extension.nonNullValue
 import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.github.kittinunf.result.failure
-import com.worker8.redditapi.model.t1_comment.RedditCommentDynamicData
-import com.worker8.redditapi.model.t1_comment.RedditReply
-import com.worker8.redditapi.model.t1_comment.RedditReplyListingData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
+import com.worker8.redditapi.model.t1_comment.data.RedditCommentDynamicData
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
@@ -54,7 +54,7 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                 val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
                 resultPair?.let { linkAndComments ->
                     val (titleListing, commentListing) = linkAndComments
-                    val flattenComments: List<CommentAdapter.CommentViewType> = RedditReply.flattenComments(commentListing).map { (level, redditCommentDataType) ->
+                    val flattenComments: List<CommentAdapter.CommentViewType> = RedditReplyDynamicObject.flattenComments(commentListing).map { (level, redditCommentDataType) ->
                         redditCommentDataType.ofType<RedditCommentDynamicData.TMore> {
                             return@map CommentAdapter.CommentViewType.ItemViewMore(level to it)
                         }

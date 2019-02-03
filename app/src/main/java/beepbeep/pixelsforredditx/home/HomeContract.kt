@@ -1,6 +1,6 @@
 package beepbeep.pixelsforredditx.home
 
-import com.worker8.redditapi.model.t3_link.RedditLinkObject
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import io.reactivex.Observable
 
 class HomeContract {

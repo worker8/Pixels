@@ -1,7 +1,12 @@
-package com.worker8.redditapi.model.t1_comment
+package com.worker8.redditapi.model.t1_comment.deserializer
 
 import android.util.Log
 import com.google.gson.*
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyListingObject
+import com.worker8.redditapi.model.t1_comment.data.RedditCommentDynamicData
+import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
 import java.io.Reader
 import java.lang.reflect.Type
 
@@ -12,11 +17,11 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
         val jsonArray = jsonObject.get("children").asJsonArray
         val gson = GsonBuilder()
             .registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer())
-            .registerTypeAdapter(RedditReply.T1_RedditObject::class.java, T1_RedditObjectDeserializer())
+            .registerTypeAdapter(RedditReplyDynamicObject.T1_RedditObject::class.java, T1_RedditObjectDeserializer())
             .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
             .create()
         val result = jsonArray.map {
-            var redditReply: RedditReply
+            var redditReply: RedditReplyDynamicObject
             if (it.asJsonObject.get("kind").asString == "t1") {
                 try {
 
@@ -45,16 +50,16 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
                         score = score1
                     )
 
-                    redditReply = RedditReply.T1_RedditObject(value = redditCommentData, kind = it.asJsonObject.get("kind").asString)
+                    redditReply = RedditReplyDynamicObject.T1_RedditObject(value = redditCommentData, kind = it.asJsonObject.get("kind").asString)
                 } catch (e: JsonSyntaxException) {
-                    redditReply = RedditReply.T1_RedditObject(value = RedditCommentDynamicData.T1RedditCommentData(), kind = "t1")
+                    redditReply = RedditReplyDynamicObject.T1_RedditObject(value = RedditCommentDynamicData.T1RedditCommentData(), kind = "t1")
                     e.printStackTrace()
 
                     Log.d("ddw", "e.message: !! ${e.message}")
                     Log.d("ddw", "ERROR: !! ${it}")
                 }
             } else {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReply.TM_RedditObject::class.java)
+                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.TM_RedditObject::class.java)
             }
             redditReply
         }
@@ -78,11 +83,11 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
             .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
             .create()
         val result = jsonArray.map {
-            var redditReply: RedditReply
+            var redditReply: RedditReplyDynamicObject
             if (it.asJsonObject.get("kind").asString == "t1") {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReply.T1_RedditObject::class.java)
+                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.T1_RedditObject::class.java)
             } else {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReply.TM_RedditObject::class.java)
+                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.TM_RedditObject::class.java)
             }
             redditReply
         }

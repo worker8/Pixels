@@ -1,7 +1,8 @@
-package com.worker8.redditapi.model.t3_link
+package com.worker8.redditapi.model.t3_link.data
 
 import com.google.gson.annotations.SerializedName
-import com.worker8.redditapi.isImageUrl
+import com.worker8.redditapi.common.isImageUrl
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 
 data class RedditLinkListingData(
     val after: String = "",

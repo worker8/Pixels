@@ -1,4 +1,4 @@
-package com.worker8.redditapi
+package com.worker8.redditapi.model.poko
 
 data class Oembed(val width: Int = 0,
                   val height: Int = 0,

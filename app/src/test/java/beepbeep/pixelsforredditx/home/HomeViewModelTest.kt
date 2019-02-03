@@ -2,10 +2,10 @@ package beepbeep.pixelsforredditx.home
 
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.result.Result
-import com.worker8.redditapi.model.t3_link.RedditLinkData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingData
-import com.worker8.redditapi.model.t3_link.RedditLinkListingObject
-import com.worker8.redditapi.model.t3_link.RedditLinkObject
+import com.worker8.redditapi.model.t3_link.data.RedditLinkData
+import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
+import com.worker8.redditapi.model.t3_link.response.RedditLinkListingObject
+import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import io.mockk.*
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
