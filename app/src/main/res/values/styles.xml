@@ -10,7 +10,7 @@
         <item name="android:windowBackground">@color/md_grey_50</item>
         <item name="android:navigationBarColor">@color/md_black_1000</item>
         <item name="android:textColor">@color/md_grey_800</item>
-        <item name="pixelSubtleTextColor">@color/md_grey_600</item>
+        <item name="pixelSubtleTextColor">@color/md_grey_700</item>
         <item name="pixelSubtleBackground">@color/md_grey_200</item>
         <item name="pixelTextHighlightColor">@color/md_blue_700</item>
         <item name="pixelBackgroundColor">@color/md_white_1000</item>

@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:textColor="?pixelSubtleTextColor"
-        android:textSize="14sp"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/commentItemText"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="momodao" />
