@@ -1,20 +1,19 @@
 package com.worker8.redditapi
 
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
-import com.worker8.redditapi.model.listing.RedditListing
-import com.worker8.redditapi.model.listing.RedditReply
-import com.worker8.redditapi.model.t1_comment.RedditReply
+import com.worker8.redditapi.model.t1_comment.*
 import org.junit.Test
 
 
-class CommentDeserializeTest {
+class DynamicDeserializationTest {
 
     @Test
     fun deserialize() {
-        //val gson = GsonBuilder().registerTypeAdapter(Barn::class.java, barnDeserializer).create()
-        val parser = JsonParser()
-        val gson = Gson()
+        val gson = GsonBuilder()
+            .registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer())
+            .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
+            .create()
         val jsonParser = JsonParser()
         val jsonObject = jsonParser.parse(listingRepliesString).asJsonObject
         val jsonArray = jsonObject.get("children").asJsonArray
@@ -27,10 +26,11 @@ class CommentDeserializeTest {
             }
             redditReply
         }
-        //gson.fromJson((jsonObject.get("children") as JsonArray).get(0).toString(), RedditReply.T1_RedditObject::class.java)
-        val redditReply1 = gson.fromJson(listingRepliesString, RedditListing::class.java)
-        val redditReply2 = gson.fromJson(moreRepliesString, RedditListing::class.java)
-        assert(true)
+        val redditReply1 = gson.fromJson(listingRepliesString, RedditReplyListingData::class.java)
+        val redditReply2 = gson.fromJson(moreRepliesString, RedditReplyListingData::class.java)
+        assert(redditReply1.valueList[0] is RedditReply.T1_RedditObject)
+        assert(redditReply1.valueList[1] is RedditReply.TM_RedditObject)
+        assert(redditReply2.valueList[0] is RedditReply.TM_RedditObject)
     }
 
     private val listingRepliesString = """
@@ -51,7 +51,7 @@ class CommentDeserializeTest {
                             "author_flair_template_id": null,
                             "likes": null,
                             "no_follow": false,
-                            "replies": "",
+                            "replies": {},
                             "user_reports": [],
                             "saved": false,
                             "id": "eeqryrc",

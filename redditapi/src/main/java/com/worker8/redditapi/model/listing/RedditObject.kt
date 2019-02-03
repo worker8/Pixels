@@ -10,14 +10,6 @@ interface RedditObject<T> {
     val kind: String
 }
 
-class RedditListing(
-    val after: String,
-    val before: String,
-    val valueList: List<RedditReply>,
-    val dist: Int,
-    val modhash: String
-)
-
 sealed class RedditCommentDataType {
     data class TMore(
         val children: List<String> = listOf(),

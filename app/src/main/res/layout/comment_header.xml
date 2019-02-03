@@ -85,12 +85,13 @@
         android:textColor="@color/md_cyan_100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/commentHeaderAuthor"
-        tools:text="123 " />
+        tools:text="123" />
 
     <TextView
         android:id="@+id/commentPointLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="@string/points_with_comma"
         android:textColor="@color/md_cyan_100"
         app:layout_constraintStart_toEndOf="@id/commentPoint"
@@ -110,6 +111,7 @@
         android:id="@+id/commentCountLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="@string/comments"
         android:textColor="@color/md_cyan_100"
         app:layout_constraintStart_toEndOf="@id/commentCount"
