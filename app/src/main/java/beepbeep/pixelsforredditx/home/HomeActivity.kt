@@ -107,11 +107,6 @@ class HomeActivity : AppCompatActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { adapter.submitList(it.redditLinks) }
             .addTo(disposableBag)
-//
-//        adapter.postClickedObservable
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe { Log.d("ddw", "comment clicked: ${it}") }
-//            .addTo(disposableBag)
     }
 
     override fun onDestroy() {
