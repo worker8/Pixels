@@ -82,8 +82,9 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                 }
                 dataRows
             }
-            .filter { it.isNotEmpty() }
             .observeOn(repo.getMainThread())
+            .doOnNext { viewAction.showLoadingProgressBar(false) }
+            .filter { it.isNotEmpty() }
             .subscribe({
                 dispatch(currentScreenState.copy(it))
             }, {
