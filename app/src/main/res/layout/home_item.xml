@@ -4,55 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?pixelBackgroundColor"
     android:layout_marginBottom="20dp"
+    android:background="?pixelBackgroundColor"
     android:elevation="2dp">
-
-    <TextView
-        android:id="@+id/homeItemTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="This is a pretty awesome rice field!" />
 
     <TextView
         android:id="@+id/homeItemUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:textColor="?attr/pixelTextHighlightColor"
-        android:textSize="16sp"
+        android:layout_marginTop="15dp"
+        android:textColor="?colorPrimary"
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/homeItemTitle"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
+
+    <TextView
+        android:id="@+id/homeItemScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="?pixelSubtleTextColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/homeItemUsername"
+        app:layout_constraintStart_toEndOf="@id/homeItemUsername"
+        app:layout_constraintTop_toTopOf="@id/homeItemUsername"
+        tools:text="1234 points" />
 
     <TextView
         android:id="@+id/homeItemDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:alpha="0.7"
+        android:layout_marginEnd="15dp"
         android:fontFamily="sans-serif-condensed"
+        android:textColor="?pixelSubtleTextColor"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/homeItemUsername"
-        app:layout_constraintStart_toEndOf="@id/homeItemUsername"
+        app:layout_constraintStart_toEndOf="@id/homeItemScore"
         app:layout_constraintTop_toTopOf="@id/homeItemUsername"
         tools:text="16 hours ago" />
+
+    <TextView
+        android:id="@+id/homeItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeItemUsername"
+        tools:text="This is a pretty awesome rice field!" />
+
 
     <ImageView
         android:id="@+id/homeItemImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeItemUsername"
+        app:layout_constraintTop_toBottomOf="@+id/homeItemTitle"
         tools:src="@tools:sample/backgrounds/scenic" />
 </androidx.constraintlayout.widget.ConstraintLayout>

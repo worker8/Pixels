@@ -1,6 +1,7 @@
 package beepbeep.pixelsforredditx.ui.comment.viewholder
 
 import android.graphics.Color
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             commentIndentationBar.visibility = if (commentRow.level.length == 0) View.GONE else View.VISIBLE
             commentIndentation.text = commentRow.level
             commentItemText.text = commentRow.commentHtmlString
+            commentItemText.movementMethod = LinkMovementMethod.getInstance()
             commentItemConcatInfo.text = commentRow.concatenatedInfoString
         }
     }
