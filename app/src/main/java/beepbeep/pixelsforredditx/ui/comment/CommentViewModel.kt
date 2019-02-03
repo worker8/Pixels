@@ -1,5 +1,6 @@
 package beepbeep.pixelsforredditx.ui.comment
 
+import android.text.Html
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -10,8 +11,8 @@ import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.github.kittinunf.result.failure
 import com.worker8.redditapi.model.t1_comment.data.RedditCommentDynamicData
-import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
 import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
 import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -56,13 +57,14 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                     val (titleListing, commentListing) = linkAndComments
                     val flattenComments: List<CommentAdapter.CommentViewType> = RedditReplyDynamicObject.flattenComments(commentListing).map { (level, redditCommentDataType) ->
                         redditCommentDataType.ofType<RedditCommentDynamicData.TMore> {
-                            return@map CommentAdapter.CommentViewType.ItemViewMore(level to it)
+                            return@map CommentAdapter.CommentViewType.ItemViewMore(id = it.id, itemMoreData = level to it)
                         }
                         val commentData = (redditCommentDataType as RedditCommentDynamicData.T1RedditCommentData)
                         val concatenatedInfoString = commentData.run {
                             author + " · " + score.toString() + " points · " + created.toRelativeTimeString()
                         }
-                        return@map CommentAdapter.CommentViewType.Item(level = " ".repeat(level), concatenatedInfoString = concatenatedInfoString, commentHtmlString = commentData.body_html)
+                        val htmlString = Html.fromHtml(Html.fromHtml(commentData.body_html).toString()).trim()
+                        return@map CommentAdapter.CommentViewType.Item(id = commentData.id, level = " ".repeat(level), concatenatedInfoString = concatenatedInfoString, commentHtmlString = htmlString)
                     }
 
                     dataRows.add(CommentAdapter.CommentViewType.Header(titleListing))

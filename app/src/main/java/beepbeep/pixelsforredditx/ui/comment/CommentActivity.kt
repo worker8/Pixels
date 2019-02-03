@@ -47,7 +47,6 @@ class CommentActivity : AppCompatActivity() {
         setupTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
-        setupViews()
 
         val viewModel = ViewModelProviders.of(this).get(CommentViewModel::class.java)
             .apply {
@@ -67,9 +66,6 @@ class CommentActivity : AppCompatActivity() {
                 }
             }
             .addTo(disposableBag)
-    }
-
-    private fun setupViews() {
     }
 
     private fun setupTheme() {

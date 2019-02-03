@@ -13,7 +13,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(commentRow: CommentAdapter.CommentViewType.Item) {
         itemView.apply {
             commentIndentation.text = commentRow.level
-            commentItemText.text = Html.fromHtml(Html.fromHtml(commentRow.commentHtmlString).toString()).trim()
+            commentItemText.text = commentRow.commentHtmlString
             commentItemConcatInfo.text = commentRow.concatenatedInfoString
         }
     }

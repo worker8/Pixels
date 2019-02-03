@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentEmptyViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentMoreViewHolder
@@ -17,6 +16,14 @@ import io.reactivex.subjects.PublishSubject
 class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.ViewHolder>(POST_COMPARATOR) {
     private val postClickedSubject: PublishSubject<String> = PublishSubject.create()
     val postClickedObservable: Observable<String> = postClickedSubject.hide()
+
+    init {
+        hasStableIds()
+    }
+
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id.hashCode().toLong()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -37,43 +44,23 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        item.ofType<CommentViewType.Item> {
-            (holder as CommentViewHolder).bind(it)
-        }
-
-        item.ofType<CommentViewType.Header> {
-            (holder as CommentHeaderViewHolder).bind(it.headerData)
-        }
-
-        item.ofType<CommentViewType.ItemViewMore> {
-            (holder as CommentMoreViewHolder).bind(it.itemMoreData)
+        when (item.typeNumber) {
+            0 -> (holder as CommentHeaderViewHolder).bind((item as CommentViewType.Header).headerData)
+            1 -> (holder as CommentViewHolder).bind((item as CommentViewType.Item))
+            2 -> (holder as CommentMoreViewHolder).bind((item as CommentViewType.ItemViewMore).itemMoreData)
+            else -> {
+            }
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
-        item.ofType<CommentViewType.Header> {
-            return 0
-        }
-        item.ofType<CommentViewType.Item> {
-            return 1
-        }
+    override fun getItemViewType(position: Int): Int = getItem(position).typeNumber
 
-        item.ofType<CommentViewType.ItemViewMore> {
-            return 2
-        }
 
-        item.ofType<CommentViewType.Empty> {
-            return 3
-        }
-        return 1
-    }
-
-    sealed class CommentViewType() {
-        class Header(val headerData: RedditLinkListingData) : CommentViewType()
-        class Item(val level: String, val concatenatedInfoString: String, val commentHtmlString: String) : CommentViewType()
-        class ItemViewMore(val itemMoreData: Pair<Int, RedditCommentDynamicData.TMore>) : CommentViewType()
-        class Empty() : CommentViewType()
+    sealed class CommentViewType(open val id: String, val typeNumber: Int) {
+        class Header(val headerData: RedditLinkListingData) : CommentViewType(id = "header_type", typeNumber = 0)
+        class Item(override val id: String, val level: String, val concatenatedInfoString: String, val commentHtmlString: CharSequence) : CommentViewType(id = id, typeNumber = 1)
+        class ItemViewMore(override val id: String, val itemMoreData: Pair<Int, RedditCommentDynamicData.TMore>) : CommentViewType(id = id, typeNumber = 2)
+        class Empty() : CommentViewType(id = "empty_type", typeNumber = 3)
     }
 
     companion object {
@@ -83,32 +70,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
             }
 
             override fun areContentsTheSame(oldItem: CommentViewType, newItem: CommentViewType): Boolean {
-                oldItem.ofType<CommentViewType.Item> { _oldItem ->
-                    newItem.ofType<CommentViewType.Item> { _newItem ->
-                        return _oldItem == _newItem
-                    }
-                }
-
-                oldItem.ofType<CommentViewType.Header> { _oldItem ->
-                    newItem.ofType<CommentViewType.Header> { _newItem ->
-                        return _oldItem.headerData == _newItem.headerData
-                    }
-                }
-
-                oldItem.ofType<CommentViewType.ItemViewMore> { _oldItem ->
-                    newItem.ofType<CommentViewType.ItemViewMore> { _newItem ->
-                        val (oldLevel, oldComment) = _oldItem.itemMoreData
-                        val (newLevel, newComment) = _newItem.itemMoreData
-                        return oldLevel == newLevel && oldComment == newComment
-                    }
-                }
-
-                oldItem.ofType<CommentViewType.Empty> { _oldItem ->
-                    newItem.ofType<CommentViewType.Empty> { _newItem ->
-                        return _oldItem == _newItem
-                    }
-                }
-                return false // this means they have different type
+                return oldItem.id == newItem.id // assume content doesn't get edited (not supported)
             }
         }
     }

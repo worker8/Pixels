@@ -32,4 +32,3 @@
         tools:listitem="@layout/comment_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
