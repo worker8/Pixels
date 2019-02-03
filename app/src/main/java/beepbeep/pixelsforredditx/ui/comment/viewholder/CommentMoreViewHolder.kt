@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import beepbeep.pixelsforredditx.R
-import com.worker8.redditapi.model.listing.RedditCommentDataType
-import kotlinx.android.synthetic.main.comment_item.view.*
+import com.worker8.redditapi.model.t1_comment.RedditCommentDynamicData
 import kotlinx.android.synthetic.main.comment_more_item.view.*
 
 class CommentMoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(commentPair: Pair<Int, RedditCommentDataType.TMore>) {
+    fun bind(commentPair: Pair<Int, RedditCommentDynamicData.TMore>) {
         val (level, redditCommentDataType) = commentPair
         itemView.apply {
             commentMoreIndentation.text = " ".repeat(level)

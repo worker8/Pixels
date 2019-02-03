@@ -2,7 +2,6 @@ package com.worker8.redditapi.model.t1_comment
 
 import android.util.Log
 import com.google.gson.*
-import com.worker8.redditapi.model.listing.RedditCommentDataType
 import java.io.Reader
 import java.lang.reflect.Type
 
@@ -36,7 +35,7 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
                         RedditReplyListingObject()
                     }
 
-                    val redditCommentData = RedditCommentDataType.RedditCommentData(
+                    val redditCommentData = RedditCommentDynamicData.T1RedditCommentData(
                         author = author1,
                         created_utc = created_utc1,
                         body = body1,
@@ -48,7 +47,7 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
 
                     redditReply = RedditReply.T1_RedditObject(value = redditCommentData, kind = it.asJsonObject.get("kind").asString)
                 } catch (e: JsonSyntaxException) {
-                    redditReply = RedditReply.T1_RedditObject(value = RedditCommentDataType.RedditCommentData(), kind = "t1")
+                    redditReply = RedditReply.T1_RedditObject(value = RedditCommentDynamicData.T1RedditCommentData(), kind = "t1")
                     e.printStackTrace()
 
                     Log.d("ddw", "e.message: !! ${e.message}")

@@ -9,7 +9,7 @@ import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentEmptyViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentHeaderViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentMoreViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
-import com.worker8.redditapi.model.listing.RedditCommentDataType
+import com.worker8.redditapi.model.t1_comment.RedditCommentDynamicData
 import com.worker8.redditapi.model.t3_link.RedditLinkListingData
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -72,7 +72,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
     sealed class CommentViewType() {
         class Header(val headerData: RedditLinkListingData) : CommentViewType()
         class Item(val level: String, val concatenatedInfoString: String, val commentHtmlString: String) : CommentViewType()
-        class ItemViewMore(val itemMoreData: Pair<Int, RedditCommentDataType.TMore>) : CommentViewType()
+        class ItemViewMore(val itemMoreData: Pair<Int, RedditCommentDynamicData.TMore>) : CommentViewType()
         class Empty() : CommentViewType()
     }
 

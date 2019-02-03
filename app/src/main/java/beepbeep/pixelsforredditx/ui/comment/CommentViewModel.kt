@@ -9,7 +9,7 @@ import beepbeep.pixelsforredditx.extension.nonNullValue
 import beepbeep.pixelsforredditx.extension.ofType
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
 import com.github.kittinunf.result.failure
-import com.worker8.redditapi.model.listing.RedditCommentDataType
+import com.worker8.redditapi.model.t1_comment.RedditCommentDynamicData
 import com.worker8.redditapi.model.t1_comment.RedditReply
 import com.worker8.redditapi.model.t1_comment.RedditReplyListingData
 import com.worker8.redditapi.model.t3_link.RedditLinkListingData
@@ -55,10 +55,10 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                 resultPair?.let { linkAndComments ->
                     val (titleListing, commentListing) = linkAndComments
                     val flattenComments: List<CommentAdapter.CommentViewType> = RedditReply.flattenComments(commentListing).map { (level, redditCommentDataType) ->
-                        redditCommentDataType.ofType<RedditCommentDataType.TMore> {
+                        redditCommentDataType.ofType<RedditCommentDynamicData.TMore> {
                             return@map CommentAdapter.CommentViewType.ItemViewMore(level to it)
                         }
-                        val commentData = (redditCommentDataType as RedditCommentDataType.RedditCommentData)
+                        val commentData = (redditCommentDataType as RedditCommentDynamicData.T1RedditCommentData)
                         val concatenatedInfoString = commentData.run {
                             author + " · " + score.toString() + " points · " + created.toRelativeTimeString()
                         }
