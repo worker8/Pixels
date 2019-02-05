@@ -30,5 +30,5 @@ object Versions {
 
 class Tool {
     val kotlin = "1.3.11"
-    val buildGradle = "3.2.1"
+    val buildGradle = "3.3.0"
 }
