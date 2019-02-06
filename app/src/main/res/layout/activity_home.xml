@@ -75,7 +75,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/homeList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

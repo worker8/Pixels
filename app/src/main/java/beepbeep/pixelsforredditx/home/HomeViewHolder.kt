@@ -4,13 +4,22 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.extension.toRelativeTimeString
+import com.airbnb.epoxy.EpoxyAttribute
+import com.airbnb.epoxy.EpoxyHolder
+import com.airbnb.epoxy.EpoxyModelClass
+import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import kotlinx.android.synthetic.main.home_item.view.*
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 
 class HomeViewHolder(itemView: View, val callback: (commentId: String) -> Unit) : RecyclerView.ViewHolder(itemView) {
     fun bind(redditLink: RedditLinkObject) {
@@ -31,7 +40,6 @@ class HomeViewHolder(itemView: View, val callback: (commentId: String) -> Unit) 
                 homeItemDateTime.text = created.toRelativeTimeString()
                 itemView.setOnClickListener { callback(id) }
             }
-
         }
     }
 

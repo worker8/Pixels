@@ -26,6 +26,7 @@ object Versions {
     val result = "2.0.0"
     val fuel = "1.15.1"
     val mockk = "1.8.13.kotlin13"
+    val epoxy = "3.3.0"
 }
 
 class Tool {

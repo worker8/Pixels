@@ -4,6 +4,10 @@ apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-kapt"
 //apply from: '../utils.gradle'
 
+kapt {
+    correctErrorTypes = true
+}
+
 android {
     compileSdkVersion Versions.AndroidConfigs.sdkVersion
     defaultConfig {
@@ -62,6 +66,8 @@ dependencies {
     implementation project(':redditapi')
     implementation "com.github.kittinunf.fuel:fuel-android:$Versions.fuel"
     implementation "com.github.kittinunf.fuel:fuel-rxjava:$Versions.fuel"
+    implementation "com.airbnb.android:epoxy:$Versions.epoxy"
+    kapt "com.airbnb.android:epoxy-processor:$Versions.epoxy"
 
     //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
     testImplementation "junit:junit:$Versions.junit"
