@@ -45,9 +45,6 @@
 #-keep class com.worker8.redditapi.model.**
 #-keep class com.worker8.redditapi.** { *; }
 -keep class com.worker8.redditapi.model.** { *; }
--dontshrink
--dontoptimize
--dontpreverify
 
 # Prevent proguard from stripping interface information from TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
@@ -63,4 +60,4 @@
 -keep public class com.github.kittinunf.** {
   public protected *;
 }
--dontobfuscate
+
