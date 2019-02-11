@@ -4,5 +4,3 @@ interface RedditObject<T> {
     val value: T
     val kind: String
 }
-
-
