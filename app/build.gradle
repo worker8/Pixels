@@ -17,7 +17,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -49,13 +49,13 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
     implementation "com.jakewharton.rxbinding3:rxbinding:$Versions.rxBinding"
     implementation 'com.google.android.material:material:1.1.0-alpha03'
-    implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
+//    implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
+//    implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
+//    implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
     implementation "com.github.bumptech.glide:glide:$Versions.glide"
     kapt "com.github.bumptech.glide:compiler:$Versions.glide"
     implementation "com.facebook.stetho:stetho:$Versions.stetho"
-    implementation "com.facebook.stetho:stetho-okhttp3:$Versions.stetho"
+
     implementation "com.squareup.picasso:picasso:$Versions.picasso"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
     implementation "com.github.worker8:HeaderFooterAdapter:$Versions.headerFooterAdapter"
