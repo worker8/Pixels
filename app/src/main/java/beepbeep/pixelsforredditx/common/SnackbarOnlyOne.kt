@@ -1,5 +1,7 @@
 package beepbeep.pixelsforredditx.common
 
+import android.content.Context
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
@@ -14,6 +16,7 @@ class SnackbarOnlyOne {
         if (snackbar != null) {
             snackbar?.show()
         }
+
         Snackbar.make(view, resId, duration)
             .apply {
                 setAction(actionResId) { actionCallback.invoke() }
@@ -24,11 +27,19 @@ class SnackbarOnlyOne {
                     }
                 })
                 snackbar = this
+                val backgroundColor = getThemeBackgroundColor(this@apply.view.context)
+                this@apply.view.setBackgroundColor(backgroundColor)
             }
             .show()
     }
 
     fun dismiss() {
         snackbar?.dismiss()
+    }
+
+    fun getThemeBackgroundColor(context: Context): Int {
+        val value = TypedValue()
+        context.getTheme().resolveAttribute(beepbeep.pixelsforredditx.R.attr.background, value, true)
+        return value.data
     }
 }

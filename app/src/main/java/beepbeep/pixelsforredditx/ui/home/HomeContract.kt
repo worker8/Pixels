@@ -1,4 +1,4 @@
-package beepbeep.pixelsforredditx.home
+package beepbeep.pixelsforredditx.ui.home
 
 import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import io.reactivex.Observable

@@ -1,4 +1,4 @@
-package beepbeep.pixelsforredditx.home.navDrawer
+package beepbeep.pixelsforredditx.ui.home.navDrawer
 
 import android.view.LayoutInflater
 import android.view.View

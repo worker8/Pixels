@@ -1,4 +1,4 @@
-package beepbeep.pixelsforredditx.home
+package beepbeep.pixelsforredditx.ui.home
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver

@@ -1,7 +1,6 @@
 package beepbeep.pixelsforredditx.ui.comment
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.common.SnackbarOnlyOne
@@ -10,14 +9,19 @@ import beepbeep.pixelsforredditx.extension.isConnectedToInternet
 import beepbeep.pixelsforredditx.extension.visibility
 import beepbeep.pixelsforredditx.preference.ThemePreference
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_comment.*
+import javax.inject.Inject
 
-class CommentActivity : AppCompatActivity() {
+class CommentActivity : DaggerAppCompatActivity() {
     private val noNetworkSnackbar = SnackbarOnlyOne()
+
+    @Inject
+    lateinit var commentRepo: CommentRepo
     private val commentId by lazy { intent.getStringExtra(COMMENT_ID) }
     private val disposableBag = CompositeDisposable()
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
@@ -52,7 +56,7 @@ class CommentActivity : AppCompatActivity() {
             .apply {
                 commentId = this@CommentActivity.commentId
                 input = commentInput
-                repo = CommentRepo()
+                repo = commentRepo
                 viewAction = commentViewAction
             }
 

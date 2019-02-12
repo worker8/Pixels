@@ -5,6 +5,7 @@ object Versions {
     const val androidX = "1.1.0-alpha02"
     const val constraintLayout = "2.0.0-alpha3"
     const val cyanea = "1.0.1"
+    const val dagger = "2.21"
     const val espressoCore = "3.0.2"
     const val fuel = "2.0.1"
     const val glide = "4.8.0"
@@ -24,6 +25,7 @@ object Versions {
     const val stetho = "1.5.0"
     const val support = "28.0.0"
     const val testRunner = "1.0.2"
+
 }
 
 class Tool {
