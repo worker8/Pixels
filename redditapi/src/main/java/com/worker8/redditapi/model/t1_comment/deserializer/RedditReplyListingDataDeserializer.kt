@@ -1,25 +1,24 @@
 package com.worker8.redditapi.model.t1_comment.deserializer
 
 import android.util.Log
-import com.google.gson.*
-import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
-import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
-import com.worker8.redditapi.model.t1_comment.response.RedditReplyListingObject
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
+import com.google.gson.JsonSyntaxException
+import com.worker8.redditapi.RedditApi.Companion.gson
 import com.worker8.redditapi.model.t1_comment.data.RedditCommentDynamicData
-import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
-import java.io.Reader
+import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyListingObject
 import java.lang.reflect.Type
 
 class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingData> {
+
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): RedditReplyListingData {
         val jsonParser = JsonParser()
         val jsonObject = jsonParser.parse(json.toString()).asJsonObject
         val jsonArray = jsonObject.get("children").asJsonArray
-        val gson = GsonBuilder()
-            .registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer())
-            .registerTypeAdapter(RedditReplyDynamicObject.T1_RedditObject::class.java, T1_RedditObjectDeserializer())
-            .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
-            .create()
         val result = jsonArray.map {
             var redditReply: RedditReplyDynamicObject
             if (it.asJsonObject.get("kind").asString == "t1") {
@@ -73,29 +72,5 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
             valueList = result,
             dist = dist,
             modhash = modhash)
-    }
-
-    fun deserialize(reader: Reader): RedditReplyListingData {
-        val jsonParser = JsonParser()
-        val jsonObject = jsonParser.parse(reader).asJsonObject
-        val jsonArray = jsonObject.get("children").asJsonArray
-        val gson = GsonBuilder()
-            .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
-            .create()
-        val result = jsonArray.map {
-            var redditReply: RedditReplyDynamicObject
-            if (it.asJsonObject.get("kind").asString == "t1") {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.T1_RedditObject::class.java)
-            } else {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.TM_RedditObject::class.java)
-            }
-            redditReply
-        }
-        return RedditReplyListingData(
-            before = jsonObject.get("before").asString,
-            after = jsonObject.get("after").asString,
-            valueList = result,
-            dist = jsonObject.get("dist").asInt,
-            modhash = jsonObject.get("modhash").asString)
     }
 }

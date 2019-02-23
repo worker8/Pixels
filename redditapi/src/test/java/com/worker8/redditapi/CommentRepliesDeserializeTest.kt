@@ -1,9 +1,6 @@
 package com.worker8.redditapi
 
-import com.google.gson.GsonBuilder
-import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
-import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentListingObjectDeserializer
-import com.worker8.redditapi.model.t1_comment.deserializer.RedditReplyListingDataDeserializer
+import com.worker8.redditapi.RedditApi.Companion.gson
 import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
 import org.junit.Test
 
@@ -12,11 +9,6 @@ class CommentRepliesDeserializeTest {
 
     @Test
     fun deserialize() {
-        val gson = GsonBuilder()
-            .registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer())
-            .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
-            .create()
-
         val result = gson.fromJson(commentReplyJson, RedditCommentListingObject::class.java)
         //RedditCommentDeserializer
 

@@ -1,35 +1,14 @@
 package com.worker8.redditapi
 
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
+import com.worker8.redditapi.RedditApi.Companion.gson
 import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
-import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentListingObjectDeserializer
-import com.worker8.redditapi.model.t1_comment.deserializer.RedditReplyListingDataDeserializer
-import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
 import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
 import org.junit.Test
-
 
 class DynamicDeserializationTest {
 
     @Test
     fun deserialize() {
-        val gson = GsonBuilder()
-            .registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer())
-            .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
-            .create()
-        val jsonParser = JsonParser()
-        val jsonObject = jsonParser.parse(listingRepliesString).asJsonObject
-        val jsonArray = jsonObject.get("children").asJsonArray
-        val result = jsonArray.map {
-            var redditReply: RedditReplyDynamicObject
-            if (it.asJsonObject.get("kind").asString == "t1") {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.T1_RedditObject::class.java)
-            } else {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.TM_RedditObject::class.java)
-            }
-            redditReply
-        }
         val redditReply1 = gson.fromJson(listingRepliesString, RedditReplyListingData::class.java)
         val redditReply2 = gson.fromJson(moreRepliesString, RedditReplyListingData::class.java)
         assert(redditReply1.valueList[0] is RedditReplyDynamicObject.T1_RedditObject)

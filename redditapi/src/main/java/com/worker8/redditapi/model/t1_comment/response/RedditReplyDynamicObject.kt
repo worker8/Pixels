@@ -29,7 +29,6 @@ sealed class RedditReplyDynamicObject {
             if (rootNode.valueList.isEmpty()) {
                 return
             }
-            val spaces = "  ".repeat(level)
             rootNode.valueList.forEach { _redditReply ->
                 _redditReply.ofType<T1_RedditObject> {
                     callback.invoke(level, it.value)

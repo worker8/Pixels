@@ -1,7 +1,12 @@
 package com.worker8.redditapi.model.t1_comment.deserializer
 
 import com.github.kittinunf.fuel.core.ResponseDeserializable
-import com.google.gson.*
+import com.google.gson.Gson
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
+import com.worker8.redditapi.RedditApi.Companion.gson
 import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
 import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
 import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
@@ -15,14 +20,8 @@ class RedditCommentDeserializer : ResponseDeserializable<Pair<RedditLinkListingD
     override fun deserialize(reader: Reader): Pair<RedditLinkListingData, RedditReplyListingData> {
         val jsonParser = JsonParser()
         val jsonArray = jsonParser.parse(reader).asJsonArray
-
-        val gson = GsonBuilder()
-            .registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer())
-            .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
-            .create()
         val titleListing = gson.fromJson(jsonArray[0], RedditLinkListingObject::class.java)
         val commentTreeListing = gson.fromJson(jsonArray[1], RedditReplyListingObject::class.java)
-
         return titleListing.value to commentTreeListing.value
     }
 }
