@@ -1,6 +1,10 @@
 package beepbeep.pixelsforredditx.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import beepbeep.pixelsforredditx.extension.addTo
 import beepbeep.pixelsforredditx.extension.nonNullValue
 import io.reactivex.Observable
@@ -80,7 +84,7 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
                 .observeOn(repo.getBackgroundThread())
                 .flatMap { repo.getMorePosts() }
                 .observeOn(repo.getMainThread())
-                .subscribe({ (listing, fuelError) ->
+                .subscribe({ (listing, _) ->
                     setLoadingUi(false)
                     listing?.let {
                         dispatch(currentScreenState.copy(redditLinks = currentScreenState.redditLinks + it.value.getRedditImageLinks()))

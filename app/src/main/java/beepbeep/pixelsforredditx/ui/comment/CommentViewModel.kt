@@ -51,7 +51,7 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                 }
             }
             .observeOn(repo.getBackgroundThread())
-            .map { (resultPair: Pair<RedditLinkListingData, RedditReplyListingData>?, fuelError) ->
+            .map { (resultPair: Pair<RedditLinkListingData, RedditReplyListingData>?, _) ->
                 val dataRows = mutableListOf<CommentAdapter.CommentViewType>()
                 resultPair?.let { linkAndComments ->
                     val (titleListing, commentListing) = linkAndComments

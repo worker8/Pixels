@@ -38,35 +38,34 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$Versions.Tools.kotlin"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-    implementation 'androidx.paging:paging-runtime:2.1.0-rc01'
+
+    //android
     implementation "android.arch.paging:rxjava2:$Versions.pagingRx"
-    implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
-    implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
-    implementation "com.jakewharton.rxbinding3:rxbinding:$Versions.rxBinding"
+    implementation "androidx.appcompat:appcompat:$Versions.androidX"
+    implementation "androidx.constraintlayout:constraintlayout:$Versions.constraintLayout"
+    implementation "androidx.lifecycle:lifecycle-extensions:$Versions.lifecycleEx"
+    implementation "androidx.paging:paging-runtime:$Versions.paging"
+    implementation "androidx.recyclerview:recyclerview:$Versions.androidX"
     implementation 'com.google.android.material:material:1.1.0-alpha03'
-//    implementation "com.squareup.retrofit2:retrofit:$Versions.retrofit"
-//    implementation "com.squareup.retrofit2:adapter-rxjava2:$Versions.retrofit"
-//    implementation "com.squareup.retrofit2:converter-gson:$Versions.retrofit"
+
+    //deps
     implementation "com.github.bumptech.glide:glide:$Versions.glide"
     kapt "com.github.bumptech.glide:compiler:$Versions.glide"
-    implementation "com.facebook.stetho:stetho:$Versions.stetho"
-
-    implementation "com.squareup.picasso:picasso:$Versions.picasso"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
-    implementation "com.github.worker8:HeaderFooterAdapter:$Versions.headerFooterAdapter"
-    implementation project(':redditapi')
-    implementation "com.github.kittinunf.fuel:fuel-android:$Versions.fuel"
     implementation "com.github.kittinunf.fuel:fuel-rxjava:$Versions.fuel"
+    implementation "com.github.kittinunf.result:result:$Versions.result"
+    implementation "com.github.worker8:HeaderFooterAdapter:$Versions.headerFooterAdapter"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$Versions.rxBinding"
+    implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
+    implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
 
-    //implementation "org.jetbrains.anko:anko-coroutines:$ankoVersion"
+    //module deps
+    implementation project(':redditapi')
+
+    //test
     testImplementation "junit:junit:$Versions.junit"
     testImplementation "io.mockk:mockk:$Versions.mockk"
-    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation "androidx.test.ext:junit:1.1.0"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
 }
