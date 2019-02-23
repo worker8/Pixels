@@ -96,7 +96,7 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
         )
 
         fun getRandomSubreddit(): String {
-            val randomPosition = (0..subreddits.count() - 1).shuffled().first()
+            val randomPosition = (0 until subreddits.count()).shuffled().first()
             return subreddits[randomPosition]
         }
     }
