@@ -5,8 +5,13 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.rx.rx_object
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
-import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentDeserializer
 import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentDeserializer
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditCommentListingObjectDeserializer
+import com.worker8.redditapi.model.t1_comment.deserializer.RedditReplyListingDataDeserializer
+import com.worker8.redditapi.model.t1_comment.deserializer.T1_RedditObjectDeserializer
+import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
+import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
 import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
 import com.worker8.redditapi.model.t3_link.response.RedditLinkListingObject
 import io.reactivex.Observable
@@ -31,7 +36,12 @@ class RedditApi(val subreddit: String = defaultSelectedSubreddit) {
             .toObservable()
 
     companion object {
-        val gson = GsonBuilder().create()
+        val gson = GsonBuilder()
+            .registerTypeAdapter(RedditCommentListingObject::class.java, RedditCommentListingObjectDeserializer())
+            .registerTypeAdapter(RedditReplyDynamicObject.T1_RedditObject::class.java, T1_RedditObjectDeserializer())
+            .registerTypeAdapter(RedditReplyListingData::class.java, RedditReplyListingDataDeserializer())
+            .create()
+
         const val defaultSelectedSubreddit = "PixelArt"
         val subreddits = listOf(
             "pics",
