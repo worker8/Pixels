@@ -34,7 +34,7 @@ class RedditCommentListingObjectDeserializer : JsonDeserializer<RedditCommentLis
     }
 }
 
-class T1_RedditObjectDeserializer : JsonDeserializer<RedditReplyDynamicObject> {
+class T1RedditObjectDeserializer : JsonDeserializer<RedditReplyDynamicObject> {
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): RedditReplyDynamicObject {
         val newJsonString = json.toString().replace("\"replies\":\"\"", "\"replies\":{}")
         return Gson().fromJson(newJsonString, RedditReplyDynamicObject::class.java)

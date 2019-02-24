@@ -23,14 +23,13 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
             var redditReply: RedditReplyDynamicObject
             if (it.asJsonObject.get("kind").asString == "t1") {
                 try {
-
                     val value = it.asJsonObject.get("data")
 
                     val author1 = value.asJsonObject.get("author").asString
-                    val created_utc1 = value.asJsonObject.get("created_utc").asInt
+                    val createdUtc1 = value.asJsonObject.get("created_utc").asInt
                     val created1 = value.asJsonObject.get("created").asInt
                     val body1 = value.asJsonObject.get("body").asString
-                    val body_html1 = value.asJsonObject.get("body_html").asString
+                    val bodyHtml1 = value.asJsonObject.get("body_html").asString
                     val score1 = value.asJsonObject.get("score").asInt
 
                     val replies1 = try {
@@ -41,24 +40,24 @@ class RedditReplyListingDataDeserializer : JsonDeserializer<RedditReplyListingDa
 
                     val redditCommentData = RedditCommentDynamicData.T1RedditCommentData(
                         author = author1,
-                        created_utc = created_utc1,
+                        created_utc = createdUtc1,
                         body = body1,
-                        body_html = body_html1,
+                        body_html = bodyHtml1,
                         created = created1,
                         replies = replies1,
                         score = score1
                     )
 
-                    redditReply = RedditReplyDynamicObject.T1_RedditObject(value = redditCommentData, kind = it.asJsonObject.get("kind").asString)
+                    redditReply = RedditReplyDynamicObject.T1RedditObject(value = redditCommentData, kind = it.asJsonObject.get("kind").asString)
                 } catch (e: JsonSyntaxException) {
-                    redditReply = RedditReplyDynamicObject.T1_RedditObject(value = RedditCommentDynamicData.T1RedditCommentData(), kind = "t1")
+                    redditReply = RedditReplyDynamicObject.T1RedditObject(value = RedditCommentDynamicData.T1RedditCommentData(), kind = "t1")
                     e.printStackTrace()
 
                     Log.d("ddw", "e.message: !! ${e.message}")
-                    Log.d("ddw", "ERROR: !! ${it}")
+                    Log.d("ddw", "ERROR: !! $it")
                 }
             } else {
-                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.TM_RedditObject::class.java)
+                redditReply = gson.fromJson(it.asJsonObject, RedditReplyDynamicObject.TMRedditObject::class.java)
             }
             redditReply
         }

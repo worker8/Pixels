@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.about.AboutActivity
 import beepbeep.pixelsforredditx.common.SnackbarOnlyOne
-import beepbeep.pixelsforredditx.extension.*
+import beepbeep.pixelsforredditx.extension.addTo
+import beepbeep.pixelsforredditx.extension.initBottomDetectListener
+import beepbeep.pixelsforredditx.extension.isConnectedToInternet
+import beepbeep.pixelsforredditx.extension.onBottomDetectedObservable
+import beepbeep.pixelsforredditx.extension.visibility
 import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
 import beepbeep.pixelsforredditx.preference.RedditPreference
 import beepbeep.pixelsforredditx.preference.ThemePreference
@@ -93,7 +97,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.navigational_parent)
 
         navDrawerView = NavigationDrawerView(homeDrawerLayout)
-        val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java) //getViewModel<HomeViewModel>().also { lifecycle.addObserver(it) }
+        val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         viewModel.apply {
             input = homeInput
             repo = HomeRepo(this@HomeActivity, RedditPreference.getSelectedSubreddit(this@HomeActivity))
@@ -125,7 +129,9 @@ class HomeActivity : AppCompatActivity() {
         selectedSubredditToolbar.text = RedditPreference.getSelectedSubreddit(this)
         adapter.apply {
             homeList.adapter = this
-            homeList.addItemDecoration(DividerItemDecoration(homeList.context, DividerItemDecoration.VERTICAL).apply { setDrawable(resources.getDrawable(R.drawable.recycler_view_divider)) })
+            homeList.addItemDecoration(DividerItemDecoration(homeList.context, DividerItemDecoration.VERTICAL).apply {
+                setDrawable(resources.getDrawable(R.drawable.recycler_view_divider, null))
+            })
             homeList.initBottomDetectListener()
         }
         nightModeSwitch.isChecked = ThemePreference.getThemePreference(this)

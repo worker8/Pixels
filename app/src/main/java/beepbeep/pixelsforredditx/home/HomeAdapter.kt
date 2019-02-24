@@ -12,7 +12,7 @@ class HomeAdapter : ListAdapter<RedditLinkObject, RecyclerView.ViewHolder>(POST_
     val postClickedObservable = postClickedSubject.hide()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return HomeViewHolder.create(parent, { commentId -> postClickedSubject.onNext(commentId) })
+        return HomeViewHolder.create(parent) { commentId -> postClickedSubject.onNext(commentId) }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

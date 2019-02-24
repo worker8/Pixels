@@ -11,9 +11,9 @@ class DynamicDeserializationTest {
     fun deserialize() {
         val redditReply1 = gson.fromJson(listingRepliesString, RedditReplyListingData::class.java)
         val redditReply2 = gson.fromJson(moreRepliesString, RedditReplyListingData::class.java)
-        assert(redditReply1.valueList[0] is RedditReplyDynamicObject.T1_RedditObject)
-        assert(redditReply1.valueList[1] is RedditReplyDynamicObject.TM_RedditObject)
-        assert(redditReply2.valueList[0] is RedditReplyDynamicObject.TM_RedditObject)
+        assert(redditReply1.valueList[0] is RedditReplyDynamicObject.T1RedditObject)
+        assert(redditReply1.valueList[1] is RedditReplyDynamicObject.TMRedditObject)
+        assert(redditReply2.valueList[0] is RedditReplyDynamicObject.TMRedditObject)
     }
 
     private val listingRepliesString = """

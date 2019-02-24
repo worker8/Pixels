@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
-class HomeViewModel() : ViewModel(), LifecycleObserver {
+class HomeViewModel : ViewModel(), LifecycleObserver {
     lateinit var input: HomeContract.Input
     lateinit var repo: HomeRepo
     lateinit var viewAction: HomeContract.ViewAction
@@ -65,7 +65,7 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
             val subSelectedShared = Observable.merge(subredditSelected, randomSubredditSelected)
                 .doOnNext {
                     repo.saveSubredditSharedPreference(it)
-                    dispatch(currentScreenState.copy(listOf()))
+                    dispatch(currentScreenState.copy(redditLinks = listOf()))
                     repo.selectSubreddit(it)
                     viewAction.updateToolbarSubredditText(it)
                 }
@@ -126,7 +126,7 @@ class HomeViewModel() : ViewModel(), LifecycleObserver {
 }
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+class HomeViewModelFactory : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel() as T
     }

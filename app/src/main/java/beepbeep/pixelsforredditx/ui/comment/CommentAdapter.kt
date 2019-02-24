@@ -10,12 +10,10 @@ import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentMoreViewHolder
 import beepbeep.pixelsforredditx.ui.comment.viewholder.CommentViewHolder
 import com.worker8.redditapi.model.t1_comment.data.RedditCommentDynamicData
 import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.ViewHolder>(POST_COMPARATOR) {
     private val postClickedSubject: PublishSubject<String> = PublishSubject.create()
-    val postClickedObservable: Observable<String> = postClickedSubject.hide()
 
     init {
         hasStableIds()
@@ -26,18 +24,18 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
+        return when (viewType) {
             0 -> {
-                return CommentHeaderViewHolder.create(parent)
+                CommentHeaderViewHolder.create(parent)
             }
             1 -> {
-                return CommentViewHolder.create(parent)
+                CommentViewHolder.create(parent)
             }
             2 -> {
-                return CommentMoreViewHolder.create(parent)
+                CommentMoreViewHolder.create(parent)
             }
             else -> {
-                return CommentEmptyViewHolder.create(parent)
+                CommentEmptyViewHolder.create(parent)
             }
         }
     }
@@ -59,7 +57,7 @@ class CommentAdapter : ListAdapter<CommentAdapter.CommentViewType, RecyclerView.
         class Header(val headerData: RedditLinkListingData) : CommentViewType(id = "header_type", typeNumber = 0)
         class Item(override val id: String, val level: String, val concatenatedInfoString: CharSequence, val commentHtmlString: CharSequence) : CommentViewType(id = id, typeNumber = 1)
         class ItemViewMore(override val id: String, val itemMoreData: Pair<Int, RedditCommentDynamicData.TMore>) : CommentViewType(id = id, typeNumber = 2)
-        class Empty() : CommentViewType(id = "empty_type", typeNumber = 3)
+        class Empty : CommentViewType(id = "empty_type", typeNumber = 3)
     }
 
     companion object {

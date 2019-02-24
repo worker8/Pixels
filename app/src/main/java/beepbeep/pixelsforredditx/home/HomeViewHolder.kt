@@ -27,7 +27,7 @@ class HomeViewHolder(itemView: View, val callback: (commentId: String) -> Unit) 
             redditLink.value.apply {
                 homeItemTitle.text = title
                 homeItemUsername.text = author
-                homeItemScore.text = "${score} points · "
+                homeItemScore.text = "$score points · "
                 homeItemDateTime.text = created.toRelativeTimeString()
                 itemView.setOnClickListener { callback(id) }
             }

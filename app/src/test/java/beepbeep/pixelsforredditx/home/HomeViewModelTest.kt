@@ -13,18 +13,18 @@ import org.junit.Before
 import org.junit.Test
 
 class HomeViewModelTest {
-    lateinit var input: HomeContract.Input
-    lateinit var retrySubject: PublishSubject<Unit>
-    lateinit var postClickedSubject: PublishSubject<String>
-    lateinit var loadMoreSubject: PublishSubject<Unit>
-    lateinit var subredditSelectedSubject: PublishSubject<String>
-    lateinit var randomSubredditSelectedSubject: PublishSubject<String>
-    lateinit var aboutClickedSubject: PublishSubject<Unit>
-    lateinit var nightModeCheckChangedSubject: PublishSubject<Boolean>
-    lateinit var getMorePostsSubject: PublishSubject<Result<RedditLinkListingObject, FuelError>>
-    lateinit var viewModel: HomeViewModel
-    lateinit var homeRepo: HomeRepo
-    lateinit var viewAction: HomeContract.ViewAction
+    private lateinit var input: HomeContract.Input
+    private lateinit var retrySubject: PublishSubject<Unit>
+    private lateinit var postClickedSubject: PublishSubject<String>
+    private lateinit var loadMoreSubject: PublishSubject<Unit>
+    private lateinit var subredditSelectedSubject: PublishSubject<String>
+    private lateinit var randomSubredditSelectedSubject: PublishSubject<String>
+    private lateinit var aboutClickedSubject: PublishSubject<Unit>
+    private lateinit var nightModeCheckChangedSubject: PublishSubject<Boolean>
+    private lateinit var getMorePostsSubject: PublishSubject<Result<RedditLinkListingObject, FuelError>>
+    private lateinit var viewModel: HomeViewModel
+    private lateinit var homeRepo: HomeRepo
+    private lateinit var viewAction: HomeContract.ViewAction
 
     @Before
     fun setup() {
@@ -153,7 +153,7 @@ class HomeViewModelTest {
         }
     }
 
-    fun makeFakeResult(redditLinks: List<RedditLinkObject>): Result<RedditLinkListingObject, FuelError> {
+    private fun makeFakeResult(redditLinks: List<RedditLinkObject>): Result<RedditLinkListingObject, FuelError> {
         val fakeResult = mockk<Result<RedditLinkListingObject, FuelError>>()
         val fakeListing = mockk<RedditLinkListingObject>()
         val fakeListingData = mockk<RedditLinkListingData>()

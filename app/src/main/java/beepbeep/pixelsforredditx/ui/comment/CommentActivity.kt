@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_comment.*
 
 class CommentActivity : AppCompatActivity() {
     private val noNetworkSnackbar = SnackbarOnlyOne()
-    val commentId by lazy { intent.getStringExtra(COMMENT_ID) }
+    private val commentId by lazy { intent.getStringExtra(COMMENT_ID) }
     private val disposableBag = CompositeDisposable()
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
     private val commentInput = object : CommentContract.Input {
@@ -77,6 +77,6 @@ class CommentActivity : AppCompatActivity() {
     }
 
     companion object {
-        val COMMENT_ID = "COMMENT_ID"
+        const val COMMENT_ID = "COMMENT_ID"
     }
 }

@@ -3,8 +3,8 @@ import java.io.FileInputStream
 import java.util.*
 
 object Secrets {
-    private val IMGUR_API_KEY = "IMGUR_API_KEY"
-    private val REDDIT_API_KEY = "REDDIT_API_KEY"
+    private const val IMGUR_API_KEY = "IMGUR_API_KEY"
+    private const val REDDIT_API_KEY = "REDDIT_API_KEY"
 
     val imgurApiKey = apiKeysProperties().getProperty(IMGUR_API_KEY)
     val redditApiKey = apiKeysProperties().getProperty(REDDIT_API_KEY)

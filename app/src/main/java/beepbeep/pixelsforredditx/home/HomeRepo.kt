@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class HomeRepo(val context: Context, subreddit: String = "pics") {
-    var redditApi: RedditApi
+    private var redditApi: RedditApi
 
     init {
         redditApi = RedditApi(subreddit)

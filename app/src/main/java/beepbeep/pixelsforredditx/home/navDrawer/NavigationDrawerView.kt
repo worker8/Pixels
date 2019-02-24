@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main._navigation_random.view.*
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.navigational_parent.view.*
 
-class NavigationDrawerView(val rootView: ViewGroup) {
+class NavigationDrawerView(private val rootView: ViewGroup) {
     private val subredditSubject: PublishSubject<String> = PublishSubject.create()
     val subredditChosen = subredditSubject.hide()
     val randomButtonClick by lazy {

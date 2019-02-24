@@ -19,7 +19,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
-class CommentViewModel() : ViewModel(), LifecycleObserver {
+class CommentViewModel : ViewModel(), LifecycleObserver {
     lateinit var commentId: String
     lateinit var input: CommentContract.Input
     lateinit var repo: CommentRepo
@@ -61,7 +61,7 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
                             return@map CommentAdapter.CommentViewType.ItemViewMore(id = it.id, itemMoreData = level to it)
                         }
                         val commentData = (redditCommentDataType as RedditCommentDynamicData.T1RedditCommentData)
-                        val highlightedAuthor = if (commentData.author.equals(originalPoster)) {
+                        val highlightedAuthor = if (commentData.author == originalPoster) {
                             "<strong><u><font color='#FF6F00'>${commentData.author}</font></u></strong>"
                         } else {
                             "<font color='#1E88E5'>${commentData.author}</font>"
@@ -86,7 +86,7 @@ class CommentViewModel() : ViewModel(), LifecycleObserver {
             .doOnNext { viewAction.showLoadingProgressBar(false) }
             .filter { it.isNotEmpty() }
             .subscribe({
-                dispatch(currentScreenState.copy(it))
+                dispatch(currentScreenState.copy(dataRows = it))
             }, {
                 viewAction.showLoadingProgressBar(false)
                 it.printStackTrace()

@@ -15,7 +15,7 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.apply {
             val color = rainbowColorArray[position % rainbowColorArray.size]
             commentIndentationBar.setBackgroundColor(color)
-            commentIndentationBar.visibility = if (commentRow.level.length == 0) View.GONE else View.VISIBLE
+            commentIndentationBar.visibility = if (commentRow.level.isEmpty()) View.GONE else View.VISIBLE
             commentIndentation.text = commentRow.level
             commentItemText.text = commentRow.commentHtmlString
             commentItemText.movementMethod = LinkMovementMethod.getInstance()
