@@ -6,7 +6,11 @@ import com.worker8.redditapi.model.t3_link.data.RedditLinkData
 import com.worker8.redditapi.model.t3_link.data.RedditLinkListingData
 import com.worker8.redditapi.model.t3_link.response.RedditLinkListingObject
 import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
-import io.mockk.*
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
+import io.mockk.verify
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import org.junit.Before
@@ -51,10 +55,10 @@ class HomeViewModelTest {
 
         every { homeRepo.getBackgroundThread() } returns Schedulers.trampoline()
         every { homeRepo.saveSubredditSharedPreference(any()) } just runs
-        every { homeRepo.selectSubreddit(any()) } just runs
+        every { homeRepo.selectedSubreddit = any() } just runs
         every { homeRepo.getSubredditSharedPreference() } returns ""
         every { homeRepo.getMainThread() } returns Schedulers.trampoline()
-        every { homeRepo.getMorePosts() } returns getMorePostsSubject
+        every { homeRepo.getMorePosts() } returns getMorePostsSubject.take(1).singleOrError()
 
         viewModel = HomeViewModel()
         viewModel.input = input
@@ -143,7 +147,7 @@ class HomeViewModelTest {
         subredditSelectedSubject.onNext("aww")
 
         verify(exactly = 1) { homeRepo.saveSubredditSharedPreference("aww") }
-        verify(exactly = 1) { homeRepo.selectSubreddit("aww") }
+        verify(exactly = 1) { homeRepo.selectedSubreddit = "aww" }
         verify(exactly = 1) { viewAction.updateToolbarSubredditText("aww") }
 
         screenStateTestObserver.assertNoErrors()

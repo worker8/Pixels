@@ -43,7 +43,7 @@ class CommentViewModel : ViewModel(), LifecycleObserver {
             .observeOn(repo.getMainThread())
             .doOnNext { viewAction.showLoadingProgressBar(true) }
             .observeOn(repo.getBackgroundThread())
-            .flatMap { repo.getComments(commentId) }
+            .flatMap { repo.getComments(commentId).toObservable() }
             .observeOn(repo.getMainThread())
             .doOnNext {
                 it.failure {

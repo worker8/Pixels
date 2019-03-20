@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import beepbeep.pixelsforredditx.R
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.checkedChanges
-import com.worker8.redditapi.RedditApi
+import com.worker8.redditapi.Constants
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main._navigation_about.view.*
 import kotlinx.android.synthetic.main._navigation_drawer.view.*
@@ -22,7 +22,7 @@ class NavigationDrawerView(private val rootView: ViewGroup) {
     val randomButtonClick by lazy {
         rootView.randomizeButton.clicks()
             .doOnNext { close() }
-            .map { RedditApi.getRandomSubreddit() }
+            .map { Constants.getRandomSubreddit() }
     }
     val aboutButtonClick by lazy {
         rootView.aboutButton.clicks()
@@ -35,7 +35,7 @@ class NavigationDrawerView(private val rootView: ViewGroup) {
 
     init {
         rootView.apply {
-            RedditApi.subreddits.forEach { subreddit ->
+            Constants.subreddits.forEach { subreddit ->
                 val menuItemView = LayoutInflater.from(context).inflate(R.layout._navigation_item, this, false)
                 menuItemView.menuItemTextView.text = subreddit
                 menuItemView.setOnClickListener {

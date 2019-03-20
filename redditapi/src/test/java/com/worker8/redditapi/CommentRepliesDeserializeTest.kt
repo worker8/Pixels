@@ -1,9 +1,8 @@
 package com.worker8.redditapi
 
-import com.worker8.redditapi.RedditApi.Companion.gson
+import com.worker8.redditapi.api.Serializer.gson
 import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
 import org.junit.Test
-
 
 class CommentRepliesDeserializeTest {
 

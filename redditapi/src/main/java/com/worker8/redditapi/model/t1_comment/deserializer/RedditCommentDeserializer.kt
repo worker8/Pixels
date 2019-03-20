@@ -6,7 +6,7 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
-import com.worker8.redditapi.RedditApi.Companion.gson
+import com.worker8.redditapi.api.Serializer.gson
 import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
 import com.worker8.redditapi.model.t1_comment.response.RedditCommentListingObject
 import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject

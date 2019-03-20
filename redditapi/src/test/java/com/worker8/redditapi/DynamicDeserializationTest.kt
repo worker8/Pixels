@@ -1,6 +1,6 @@
 package com.worker8.redditapi
 
-import com.worker8.redditapi.RedditApi.Companion.gson
+import com.worker8.redditapi.api.Serializer.gson
 import com.worker8.redditapi.model.t1_comment.data.RedditReplyListingData
 import com.worker8.redditapi.model.t1_comment.response.RedditReplyDynamicObject
 import org.junit.Test

@@ -100,7 +100,9 @@ class HomeActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         viewModel.apply {
             input = homeInput
-            repo = HomeRepo(this@HomeActivity, RedditPreference.getSelectedSubreddit(this@HomeActivity))
+            repo = HomeRepo(this@HomeActivity).apply {
+                selectedSubreddit = RedditPreference.getSelectedSubreddit(this@HomeActivity)
+            }
             viewAction = homeViewAction
         }
         lifecycle.addObserver(viewModel)

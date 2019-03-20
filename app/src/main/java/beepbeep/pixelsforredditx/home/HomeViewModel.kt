@@ -13,6 +13,7 @@ import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 
 class HomeViewModel : ViewModel(), LifecycleObserver {
+
     lateinit var input: HomeContract.Input
     lateinit var repo: HomeRepo
     lateinit var viewAction: HomeContract.ViewAction
@@ -66,7 +67,7 @@ class HomeViewModel : ViewModel(), LifecycleObserver {
                 .doOnNext {
                     repo.saveSubredditSharedPreference(it)
                     dispatch(currentScreenState.copy(redditLinks = listOf()))
-                    repo.selectSubreddit(it)
+                    repo.selectedSubreddit = it
                     viewAction.updateToolbarSubredditText(it)
                 }
                 .share()
@@ -82,7 +83,7 @@ class HomeViewModel : ViewModel(), LifecycleObserver {
                 .observeOn(repo.getMainThread())
                 .doOnNext { setLoadingUi(true) }
                 .observeOn(repo.getBackgroundThread())
-                .flatMap { repo.getMorePosts() }
+                .flatMap { repo.getMorePosts().toObservable() }
                 .observeOn(repo.getMainThread())
                 .subscribe({ (listing, _) ->
                     setLoadingUi(false)

@@ -1,13 +1,13 @@
 package beepbeep.pixelsforredditx.ui.comment
 
-import com.worker8.redditapi.RedditApi
+import com.worker8.redditapi.api.RedditApiGetComments
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class CommentRepo {
-    private val redditApi = RedditApi()
-    fun getComments(commentId: String) = redditApi.getComment(commentId)
+
+    fun getComments(commentId: String) = RedditApiGetComments(commentId).call()
     fun getMainThread(): Scheduler = AndroidSchedulers.mainThread()
     fun getBackgroundThread(): Scheduler = Schedulers.io()
 }
