@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.StringRes
+import beepbeep.pixelsforredditx.R
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -39,7 +40,7 @@ class SnackbarOnlyOne {
 
     fun getThemeBackgroundColor(context: Context): Int {
         val value = TypedValue()
-        context.getTheme().resolveAttribute(beepbeep.pixelsforredditx.R.attr.background, value, true)
+        context.getTheme().resolveAttribute(R.attr.background, value, true)
         return value.data
     }
 }
