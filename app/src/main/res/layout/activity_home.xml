@@ -6,7 +6,7 @@
     android:id="@+id/homeRootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeActivity">
+    tools:context="beepbeep.pixelsforredditx.ui.home.HomeActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/homeCoordinatorLayout"

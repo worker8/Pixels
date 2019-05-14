@@ -1,11 +1,12 @@
 package beepbeep.pixelsforredditx
 
-import android.app.Application
 import android.content.Context
+import beepbeep.pixelsforredditx.di.DaggerAppComponent
 import com.facebook.stetho.Stetho
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class PixelApplication : Application() {
-
+class PixelApplication : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
         appContext = this
@@ -14,5 +15,11 @@ class PixelApplication : Application() {
 
     companion object {
         private var appContext: Context? = null
+    }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        val appComponent = DaggerAppComponent.builder().application(this).build()
+        appComponent.inject(this)
+        return appComponent
     }
 }

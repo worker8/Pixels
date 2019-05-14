@@ -1,4 +1,4 @@
-package beepbeep.pixelsforredditx.home
+package beepbeep.pixelsforredditx.ui.home.viewholder
 
 import android.view.LayoutInflater
 import android.view.View

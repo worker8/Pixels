@@ -1,4 +1,4 @@
-package beepbeep.pixelsforredditx.home
+package beepbeep.pixelsforredditx.ui.home
 
 import android.content.Context
 import beepbeep.pixelsforredditx.preference.RedditPreference
@@ -6,12 +6,12 @@ import com.worker8.redditapi.api.RedditApiGetPosts
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class HomeRepo(val context: Context) {
+class HomeRepo @Inject constructor(val context: Context) {
 
     var pageToken = ""
-
     var selectedSubreddit by Delegates.observable("pics") { _, _, _ ->
         //reset pageToken
         pageToken = ""

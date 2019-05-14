@@ -1,33 +1,33 @@
-package beepbeep.pixelsforredditx.home
+package beepbeep.pixelsforredditx.ui.home
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import beepbeep.pixelsforredditx.R
 import beepbeep.pixelsforredditx.about.AboutActivity
 import beepbeep.pixelsforredditx.common.SnackbarOnlyOne
-import beepbeep.pixelsforredditx.extension.addTo
-import beepbeep.pixelsforredditx.extension.initBottomDetectListener
-import beepbeep.pixelsforredditx.extension.isConnectedToInternet
-import beepbeep.pixelsforredditx.extension.onBottomDetectedObservable
-import beepbeep.pixelsforredditx.extension.visibility
-import beepbeep.pixelsforredditx.home.navDrawer.NavigationDrawerView
+import beepbeep.pixelsforredditx.extension.*
 import beepbeep.pixelsforredditx.preference.RedditPreference
 import beepbeep.pixelsforredditx.preference.ThemePreference
 import beepbeep.pixelsforredditx.ui.comment.CommentActivity
+import beepbeep.pixelsforredditx.ui.home.navDrawer.NavigationDrawerView
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main._navigation_night_mode.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.navigational_parent.*
+import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity() {
+
+class HomeActivity : DaggerAppCompatActivity() {
     private val adapter = HomeAdapter()
+    @Inject
+    lateinit var homeRepo: HomeRepo
     private val noNetworkSnackbar = SnackbarOnlyOne()
     private val disposableBag = CompositeDisposable()
     private val retrySubject: PublishSubject<Unit> = PublishSubject.create()
@@ -81,9 +81,9 @@ class HomeActivity : AppCompatActivity() {
         override fun showNoNetworkErrorSnackbar() {
             noNetworkSnackbar.show(
                 view = homeRootView,
-                resId = R.string.no_network,
+                resId = beepbeep.pixelsforredditx.R.string.no_network,
                 duration = Snackbar.LENGTH_INDEFINITE,
-                actionResId = R.string.retry,
+                actionResId = beepbeep.pixelsforredditx.R.string.retry,
                 actionCallback = {
                     retrySubject.onNext(Unit)
                 }
@@ -100,9 +100,7 @@ class HomeActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         viewModel.apply {
             input = homeInput
-            repo = HomeRepo(this@HomeActivity).apply {
-                selectedSubreddit = RedditPreference.getSelectedSubreddit(this@HomeActivity)
-            }
+            repo = homeRepo
             viewAction = homeViewAction
         }
         lifecycle.addObserver(viewModel)
@@ -121,9 +119,9 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupTheme() {
         if (ThemePreference.getThemePreference(this)) {
-            setTheme(R.style.AppThemeDark)
+            setTheme(beepbeep.pixelsforredditx.R.style.AppThemeDark)
         } else {
-            setTheme(R.style.AppTheme)
+            setTheme(beepbeep.pixelsforredditx.R.style.AppTheme)
         }
     }
 

@@ -1,9 +1,10 @@
-package beepbeep.pixelsforredditx.home
+package beepbeep.pixelsforredditx.ui.home
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import beepbeep.pixelsforredditx.ui.home.viewholder.HomeViewHolder
 import com.worker8.redditapi.model.t3_link.response.RedditLinkObject
 import io.reactivex.subjects.PublishSubject
 

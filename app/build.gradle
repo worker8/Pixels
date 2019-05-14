@@ -61,11 +61,15 @@ dependencies {
     implementation "com.jakewharton.rxbinding3:rxbinding:$Versions.rxBinding"
     implementation "io.reactivex.rxjava2:rxandroid:$Versions.rxAndroid"
     implementation "io.reactivex.rxjava2:rxjava:$Versions.rxJava"
+    implementation "com.google.dagger:dagger:$Versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$Versions.dagger"
+    implementation "com.google.dagger:dagger-android:$Versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$Versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$Versions.dagger"
 
     //module deps
     implementation project(':redditapi')
 
-    //test
     testImplementation "junit:junit:$Versions.junit"
     testImplementation "io.mockk:mockk:$Versions.mockk"
     androidTestImplementation "androidx.test.ext:junit:1.1.0"

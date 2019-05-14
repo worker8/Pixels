@@ -1,4 +1,4 @@
-package beepbeep.pixelsforredditx.home
+package beepbeep.pixelsforredditx.ui.home
 
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.result.Result
